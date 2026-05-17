@@ -778,17 +778,17 @@ footer strong { color: var(--green); }
       <p class="hero-sub">Temukan jurnal ilmiah, e-book, makalah, dan skripsi yang terorganisir berdasarkan 35 matakuliah di jurusan antropologi.</p>
       <div class="search-bar">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="text" placeholder="Cari judul, penulis, matakuliah..." />
-        <button>Cari</button>
+        <input type="text" placeholder="Cari judul, penulis, matakuliah..." onkeydown="if(event.key==='Enter')cariDokumen()" />
+        <button onclick="cariDokumen()">Cari</button>
       </div>
     </div>
   </div>
 
   <div class="stats-row">
-    <div class="stat-item"><div class="stat-num">2.4K</div><div class="stat-label">Jurnal Ilmiah</div></div>
-    <div class="stat-item"><div class="stat-num">890</div><div class="stat-label">E-Book</div></div>
-    <div class="stat-item"><div class="stat-num">1.2K</div><div class="stat-label">Referensi Skripsi</div></div>
-    <div class="stat-item"><div class="stat-num">640</div><div class="stat-label">Makalah</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-jurnal">-</div><div class="stat-label">Jurnal Ilmiah</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-ebook">-</div><div class="stat-label">E-Book</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-skripsi">-</div><div class="stat-label">Referensi Skripsi</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-makalah">-</div><div class="stat-label">Makalah</div></div>
     <div class="stat-item"><div class="stat-num">35</div><div class="stat-label">Matakuliah</div></div>
   </div>
 
@@ -2027,6 +2027,55 @@ async function cekSesi() {
 cekSesi();
 muatDokumen();
 muatKoleksi();
+muatStatistik();
+
+async function muatStatistik() {
+  const jenis = ['Jurnal', 'E-Book', 'Skripsi', 'Makalah'];
+  const ids = ['stat-jurnal', 'stat-ebook', 'stat-skripsi', 'stat-makalah'];
+  for (var i = 0; i < jenis.length; i++) {
+    const { count } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', true).eq('jenis', jenis[i]);
+    var el = document.getElementById(ids[i]);
+    if (el) el.textContent = count || 0;
+  }
+}
+
+async function cariDokumen() {
+  var keyword = document.querySelector('.search-bar input').value.trim();
+  if (!keyword) return;
+  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
+  var koleksiList = document.getElementById('koleksi-doc-list');
+  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Mencari "' + keyword + '"...</div>';
+  document.getElementById('koleksi-heading').textContent = 'Hasil pencarian: "' + keyword + '"';
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true)
+    .or('judul.ilike.%'+keyword+'%,penulis.ilike.%'+keyword+'%,abstrak.ilike.%'+keyword+'%');
+  if (error || !data || data.length === 0) {
+    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Tidak ada hasil untuk "' + keyword + '"</div>';
+    document.getElementById('koleksi-sub').textContent = '0 dokumen ditemukan';
+    return;
+  }
+  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen ditemukan';
+  koleksiList.innerHTML = data.map(function(d) {
+    var icon = d.jenis === 'E-Book' ? '📗' : d.jenis === 'Skripsi' ? '🎓' : d.jenis === 'Makalah' ? '📝' : '📄';
+    var bg = d.jenis === 'E-Book' ? '#E8F5F0' : d.jenis === 'Skripsi' ? '#FBF2E8' : d.jenis === 'Makalah' ? '#F0EDFB' : '#EAF0FB';
+    var bc = d.jenis === 'E-Book' ? 'badge-green' : d.jenis === 'Skripsi' ? 'badge-amber' : d.jenis === 'Makalah' ? 'badge-purple' : 'badge-blue';
+    var mk = d.matakuliah ? d.matakuliah.nama : '-';
+    return '<div class="doc-row" onclick="showDetailDB(\'' + d.id + '\')">' +
+      '<div class="doc-type-icon" style="background:' + bg + ';">' + icon + '</div>' +
+      '<div class="doc-body">' +
+        '<span class="badge ' + bc + '">' + d.jenis + '</span>' +
+        '<div class="doc-title-text">' + d.judul + '</div>' +
+        '<div class="doc-meta-row">' +
+          '<span>👤 ' + d.penulis + ' (' + (d.tahun||'-') + ')</span>' +
+          '<span>📚 ' + mk + '</span>' +
+          (d.institusi ? '<span>🏛 ' + d.institusi + '</span>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="doc-right">' +
+        '<button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB(\'' + d.id + '\')">Lihat detail</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
 
 async function muatKoleksi() {
   const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).limit(20);

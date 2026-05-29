@@ -650,8 +650,44 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focu
 }
 
 /* ═══════════════════════════════════
-   ADMIN PAGE
+   TOPIK PENELITIAN
 ═══════════════════════════════════ */
+.topik-page { padding: 32px 0 60px; }
+.topik-hero { background: var(--green-dark); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.topik-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.topik-hero p { font-size: 14px; color: #B8D8D0; max-width: 500px; line-height: 1.6; }
+.topik-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+.topik-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.topik-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; cursor: pointer; transition: all 0.15s; }
+.topik-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.topik-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.topik-title { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; flex: 1; }
+.topik-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 10px; }
+.topik-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); margin-bottom: 10px; line-height: 1.5; }
+.topik-contoh strong { color: var(--ink-soft); }
+.topik-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.topik-kata { font-size: 11px; color: var(--ink-muted); }
+.difficulty-easy { background: #E1F5EE; color: #085041; }
+.difficulty-med { background: #FAEEDA; color: #7A4E1A; }
+.difficulty-hard { background: #FDECEA; color: #922B21; }
+.submit-topik-card { background: var(--green-light); border: 1.5px dashed var(--green); border-radius: var(--radius-lg); padding: 24px 20px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.submit-topik-card:hover { background: #C8EBE2; }
+.submit-topik-card h3 { font-size: 14px; font-weight: 500; color: var(--green-dark); margin-bottom: 6px; }
+.submit-topik-card p { font-size: 13px; color: var(--green); }
+
+/* Modal submit topik */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--white); border-radius: var(--radius-xl); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; margin: 20px; }
+.modal-title { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.modal-sub { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; }
+.modal-close { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--ink-muted); margin-top: -4px; }
+
+@media (max-width: 768px) {
+  .topik-grid { grid-template-columns: 1fr; }
+}
+
+/* ── ADMIN PAGE ── */
 .admin-page { padding: 32px 0 60px; }
 .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
 .admin-title { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; color: var(--ink); }
@@ -734,6 +770,7 @@ footer strong { color: var(--green); }
       <div class="nav-links">
         <button class="nav-link active" onclick="showPage('beranda',this)">Beranda</button>
         <button class="nav-link" onclick="showPage('koleksi',this)">Koleksi</button>
+        <button class="nav-link" onclick="showPage('topik',this)">Topik Penelitian</button>
         <button class="nav-link" onclick="showPage('upload',this)">Upload</button>
         <button class="nav-link" onclick="showPage('tentang',this)">Tentang</button>
         <button class="nav-link" onclick="showPage('akun',this)" id="nav-akun" style="display:none;">Akun Saya</button>
@@ -1689,6 +1726,123 @@ footer strong { color: var(--green); }
 
 
 <!-- ═══════════════════════════════════
+     PAGE — TOPIK PENELITIAN
+═══════════════════════════════════ -->
+<div id="page-topik" class="page">
+  <div class="topik-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:rgba(255,255,255,0.15);color:#B8D8D0;margin-bottom:14px;">
+        💡 Ide Penelitian
+      </div>
+      <h1>Topik Skripsi & Miniriset</h1>
+      <p>Kumpulan ide topik penelitian khusus mahasiswa antropologi — dilengkapi deskripsi, contoh judul, dan tingkat kesulitan.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="topik-filter">
+      <div class="filter-pill active" onclick="filterTopik(this,'semua')">Semua</div>
+      <div class="filter-pill" onclick="filterTopik(this,'Skripsi')">🎓 Skripsi</div>
+      <div class="filter-pill" onclick="filterTopik(this,'Miniriset')">📝 Miniriset</div>
+      <div style="margin-left:auto;display:flex;gap:6px;">
+        <div class="filter-pill" onclick="filterSulitTopik(this,'Mudah')">🟢 Mudah</div>
+        <div class="filter-pill" onclick="filterSulitTopik(this,'Menengah')">🟡 Menengah</div>
+        <div class="filter-pill" onclick="filterSulitTopik(this,'Sulit')">🔴 Sulit</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="topik-count">Memuat topik...</div>
+    <div class="topik-grid" id="topik-grid">
+      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat topik penelitian...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Submit Topik -->
+<div class="modal-overlay" id="modal-topik">
+  <div class="modal-box">
+    <button class="modal-close" onclick="tutupModal()">×</button>
+    <div class="modal-title">Submit Topik Penelitian</div>
+    <div class="modal-sub">Bagikan ide topik penelitian Anda untuk membantu mahasiswa lain</div>
+    <div class="field">
+      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Judul topik <span style="color:#C0392B;font-size:11px;">wajib</span></label>
+      <input type="text" id="topik-judul" placeholder="Contoh: Identitas Budaya di Era Digital" />
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Deskripsi singkat <span style="color:#C0392B;font-size:11px;">wajib</span></label>
+      <textarea id="topik-deskripsi" rows="3" placeholder="Jelaskan gambaran umum topik ini..." style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;resize:vertical;"></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+      <div class="field">
+        <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Jenis</label>
+        <select id="topik-jenis" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;outline:none;">
+          <option>Skripsi</option>
+          <option>Miniriset</option>
+        </select>
+      </div>
+      <div class="field">
+        <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Tingkat kesulitan</label>
+        <select id="topik-sulit" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;outline:none;">
+          <option>Mudah</option>
+          <option selected>Menengah</option>
+          <option>Sulit</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Contoh judul penelitian</label>
+      <input type="text" id="topik-contoh" placeholder="Contoh judul spesifik yang bisa dipakai..." />
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Kata kunci</label>
+      <input type="text" id="topik-kata" placeholder="Pisahkan dengan koma: budaya, identitas, media sosial" />
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Matakuliah yang relevan</label>
+      <select id="topik-mk" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;outline:none;">
+        <option value="">-- Pilih matakuliah --</option>
+        <option value="1">Pengantar Antropologi</option>
+        <option value="3">Pengantar Sosiologi</option>
+        <option value="5">Etnografi</option>
+        <option value="6">Sistem Sosial Budaya Indonesia</option>
+        <option value="7">Antropologi Sosial Budaya</option>
+        <option value="8">Masalah Sosial dan Kemiskinan</option>
+        <option value="9">Kearifan Lokal Budaya Sumatera</option>
+        <option value="10">Antropologi Lingkungan</option>
+        <option value="11">Antropologi Agama</option>
+        <option value="12">Antropologi Pedesaan</option>
+        <option value="13">Antropologi Politik</option>
+        <option value="14">Etnobotani</option>
+        <option value="15">Antropologi Agraria</option>
+        <option value="16">Metode Penelitian Antropologi</option>
+        <option value="17">Antropologi Perkotaan</option>
+        <option value="18">Teori Antropologi Klasik</option>
+        <option value="19">Antropologi Ekonomi</option>
+        <option value="20">Antropologi Kesehatan</option>
+        <option value="21">Antropologi Hukum</option>
+        <option value="22">Antropologi Psikologi</option>
+        <option value="23">Antropologi Gender dan Seksualitas</option>
+        <option value="24">Folklor</option>
+        <option value="25">Teori Sosial</option>
+        <option value="26">Antropologi Pariwisata</option>
+        <option value="27">Teori Antropologi Modern dan Postmodern</option>
+        <option value="28">Antropologi Pembangunan</option>
+        <option value="29">Antropologi Media</option>
+        <option value="30">Antropologi Kependudukan</option>
+        <option value="31">Antropologi Pendidikan</option>
+        <option value="32">Studi Masyarakat Indonesia</option>
+        <option value="33">Perubahan Sosial Budaya</option>
+        <option value="34">Pendidikan Multikultural</option>
+        <option value="35">Antropologi Visual</option>
+        <option value="36">Evaluasi Pembelajaran Antropologi</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px;" onclick="submitTopik()">
+      Kirim untuk ditinjau admin
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
      PAGE — ADMIN
 ═══════════════════════════════════ -->
 <div id="page-admin" class="page">
@@ -2276,6 +2430,123 @@ function bagikanDokumen() {
 }
 
 
+/* ── TOPIK PENELITIAN ── */
+var allTopik = [];
+var filterJenisTopik = 'semua';
+var filterSulit = 'semua';
+
+async function muatTopik() {
+  const { data, error } = await _sb.from('topik_penelitian')
+    .select('*, matakuliah(nama)')
+    .eq('disetujui', true)
+    .order('created_at', { ascending: false });
+  if (error) return;
+  allTopik = data || [];
+  renderTopik();
+}
+muatTopik();
+
+function renderTopik() {
+  var grid = document.getElementById('topik-grid');
+  var count = document.getElementById('topik-count');
+  if (!grid) return;
+  var filtered = allTopik.filter(function(t) {
+    var matchJenis = filterJenisTopik === 'semua' || t.jenis === filterJenisTopik;
+    var matchSulit = filterSulit === 'semua' || t.tingkat_kesulitan === filterSulit;
+    return matchJenis && matchSulit;
+  });
+  if (count) count.textContent = filtered.length + ' topik tersedia';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Tidak ada topik ditemukan.</div>';
+    return;
+  }
+  var diffClass = { 'Mudah': 'difficulty-easy', 'Menengah': 'difficulty-med', 'Sulit': 'difficulty-hard' };
+  var diffIcon = { 'Mudah': '🟢', 'Menengah': '🟡', 'Sulit': '🔴' };
+  grid.innerHTML = filtered.map(function(t) {
+    return '<div class="topik-card">' +
+      '<div class="topik-card-top">' +
+        '<div class="topik-title">' + t.judul + '</div>' +
+        '<span class="badge ' + (diffClass[t.tingkat_kesulitan]||'badge-gray') + '">' + (diffIcon[t.tingkat_kesulitan]||'') + ' ' + t.tingkat_kesulitan + '</span>' +
+      '</div>' +
+      '<div class="topik-desc">' + (t.deskripsi||'-') + '</div>' +
+      (t.contoh_judul ? '<div class="topik-contoh"><strong>Contoh judul:</strong> ' + t.contoh_judul + '</div>' : '') +
+      '<div class="topik-footer">' +
+        '<span class="badge ' + (t.jenis === 'Skripsi' ? 'badge-amber' : 'badge-purple') + '">' + (t.jenis === 'Skripsi' ? '🎓' : '📝') + ' ' + t.jenis + '</span>' +
+        (t.matakuliah ? '<span class="badge badge-gray">📚 ' + t.matakuliah.nama + '</span>' : '') +
+        (t.kata_kunci ? '<div class="topik-kata" style="width:100%;margin-top:4px;">🏷 ' + t.kata_kunci + '</div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('') +
+  '<div class="submit-topik-card" onclick="bukaModalTopik()">' +
+    '<h3>💡 Punya ide topik penelitian?</h3>' +
+    '<p>Submit topik Anda dan bantu mahasiswa lain menemukan inspirasi</p>' +
+  '</div>';
+}
+
+function filterTopik(el, jenis) {
+  document.querySelectorAll('.topik-filter .filter-pill').forEach(function(p) {
+    if (['Semua','🎓 Skripsi','📝 Miniriset'].some(function(t){ return p.textContent.includes(t.replace(/[🎓📝] /,'').trim()); })) {
+      p.classList.remove('active');
+    }
+  });
+  el.classList.add('active');
+  filterJenisTopik = jenis;
+  renderTopik();
+}
+
+function filterSulitTopik(el, sulit) {
+  document.querySelectorAll('.topik-filter .filter-pill').forEach(function(p) {
+    if (['Mudah','Menengah','Sulit'].some(function(t){ return p.textContent.includes(t); })) {
+      p.classList.remove('active');
+    }
+  });
+  if (filterSulit === sulit) {
+    filterSulit = 'semua';
+  } else {
+    el.classList.add('active');
+    filterSulit = sulit;
+  }
+  renderTopik();
+}
+
+function bukaModalTopik() {
+  const result = _sb.auth.getSession();
+  result.then(function(r) {
+    if (!r.data.session) { alert('Login dulu untuk submit topik!'); showPage('login'); return; }
+    document.getElementById('modal-topik').classList.add('open');
+  });
+}
+
+function tutupModal() {
+  document.getElementById('modal-topik').classList.remove('open');
+}
+
+async function submitTopik() {
+  const result = await _sb.auth.getSession();
+  const session = result.data.session;
+  if (!session) { alert('Login dulu!'); return; }
+  const judul = document.getElementById('topik-judul').value.trim();
+  const deskripsi = document.getElementById('topik-deskripsi').value.trim();
+  const jenis = document.getElementById('topik-jenis').value;
+  const sulit = document.getElementById('topik-sulit').value;
+  const contoh = document.getElementById('topik-contoh').value.trim();
+  const kata = document.getElementById('topik-kata').value.trim();
+  const mkId = document.getElementById('topik-mk').value;
+  if (!judul || !deskripsi) { alert('Judul dan deskripsi wajib diisi!'); return; }
+  const { error } = await _sb.from('topik_penelitian').insert({
+    judul, deskripsi, jenis,
+    tingkat_kesulitan: sulit,
+    contoh_judul: contoh || null,
+    kata_kunci: kata || null,
+    matakuliah_id: mkId ? parseInt(mkId) : null,
+    submitted_by: session.user.id,
+    disetujui: false
+  });
+  if (error) { alert('Gagal submit: ' + error.message); return; }
+  alert('Topik berhasil dikirim! Menunggu persetujuan admin.');
+  tutupModal();
+}
+
 /* ── ADMIN ── */
 async function cekAdmin(user) {
   const { data } = await _sb.from('profiles').select('is_admin').eq('id', user.id).single();
@@ -2288,9 +2559,10 @@ async function cekAdmin(user) {
 async function muatDataAdmin() {
   const { count: totalDok } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', true);
   const { count: pending } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', false);
+  const { count: pendingTopik } = await _sb.from('topik_penelitian').select('*', {count:'exact',head:true}).eq('disetujui', false);
   const { count: totalUser } = await _sb.from('profiles').select('*', {count:'exact',head:true});
   document.getElementById('admin-total-dok').textContent = totalDok || 0;
-  document.getElementById('admin-pending').textContent = pending || 0;
+  document.getElementById('admin-pending').textContent = (pending || 0) + (pendingTopik || 0);
   document.getElementById('admin-total-user').textContent = totalUser || 0;
 
   const { data: pendingDocs } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', false).order('created_at', {ascending: false});

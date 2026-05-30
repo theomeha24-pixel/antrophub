@@ -650,6 +650,36 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focu
 }
 
 /* ═══════════════════════════════════
+   TEORI ANTROPOLOGI
+═══════════════════════════════════ */
+.teori-page { padding: 32px 0 60px; }
+.teori-hero { background: var(--ink); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.teori-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.teori-hero p { font-size: 14px; color: #9A9690; max-width: 500px; line-height: 1.6; }
+.teori-search { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
+.teori-search input { flex: 1; border: none; background: transparent; font-size: 14px; color: #fff; outline: none; }
+.teori-search input::placeholder { color: rgba(255,255,255,0.5); }
+.aliran-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.aliran-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
+.aliran-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.teori-list { display: flex; flex-direction: column; gap: 12px; }
+.teori-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.15s; }
+.teori-card:hover { box-shadow: var(--shadow-md); border-color: #C8C4BB; }
+.teori-card-header { padding: 16px 20px; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.teori-card-left { flex: 1; }
+.teori-nama { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.teori-tokoh { font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.teori-card-body { display: none; padding: 0 20px 18px; border-top: 1px solid var(--border); }
+.teori-card-body.open { display: block; }
+.teori-section { margin-top: 14px; }
+.teori-section-label { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.teori-section-text { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+.teori-konsep { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.konsep-tag { font-size: 11px; padding: 3px 9px; background: var(--paper-warm); border: 1px solid var(--border); border-radius: 20px; color: var(--ink-soft); }
+.toggle-icon { font-size: 18px; color: var(--ink-muted); flex-shrink: 0; transition: transform 0.2s; }
+.toggle-icon.open { transform: rotate(180deg); }
+
+/* ═══════════════════════════════════
    TOPIK PENELITIAN
 ═══════════════════════════════════ */
 .topik-page { padding: 32px 0 60px; }
@@ -771,6 +801,7 @@ footer strong { color: var(--green); }
         <button class="nav-link active" onclick="showPage('beranda',this)">Beranda</button>
         <button class="nav-link" onclick="showPage('koleksi',this)">Koleksi</button>
         <button class="nav-link" onclick="showPage('topik',this)">Topik Penelitian</button>
+        <button class="nav-link" onclick="showPage('teori',this)">Teori</button>
         <button class="nav-link" onclick="showPage('upload',this)">Upload</button>
         <button class="nav-link" onclick="showPage('tentang',this)">Tentang</button>
         <button class="nav-link" onclick="showPage('akun',this)" id="nav-akun" style="display:none;">Akun Saya</button>
@@ -1726,6 +1757,78 @@ footer strong { color: var(--green); }
 
 
 <!-- ═══════════════════════════════════
+     PAGE — TEORI ANTROPOLOGI
+═══════════════════════════════════ -->
+<div id="page-teori" class="page">
+  <div class="topik-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:rgba(255,255,255,0.15);color:#B8D8D0;margin-bottom:14px;">
+        📖 Referensi Teori
+      </div>
+      <h1 style="font-family:'Lora',serif;font-size:28px;font-weight:600;color:#fff;margin-bottom:8px;">Kumpulan Teori Antropologi</h1>
+      <p style="font-size:14px;color:#B8D8D0;max-width:500px;line-height:1.6;">Panduan teori-teori utama antropologi — tokoh, aliran, penjelasan, dan contoh penerapan untuk penelitian Anda.</p>
+    </div>
+  </div>
+  <div class="container teori-page">
+    <div class="teori-search">
+      <input type="text" id="teori-cari" placeholder="Cari teori atau tokoh... (contoh: Malinowski, Strukturalisme)" oninput="cariTeori()" />
+      <button class="btn btn-primary btn-sm" onclick="cariTeori()">Cari</button>
+    </div>
+    <div class="aliran-filter" id="aliran-filter">
+      <div class="filter-pill active" onclick="filterAliran(this,'semua')">Semua aliran</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Fungsionalisme')">Fungsionalisme</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Strukturalisme')">Strukturalisme</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Evolusionisme')">Evolusionisme</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Partikularisme Historis')">Partikularisme Historis</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Interpretivisme')">Interpretivisme</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Post-Strukturalisme')">Post-Strukturalisme</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Postmodernisme')">Postmodernisme</div>
+      <div class="filter-pill" onclick="filterAliran(this,'Feminisme Antropologis')">Feminisme</div>
+    </div>
+    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="teori-count">Memuat teori...</div>
+    <div class="teori-grid" id="teori-grid">
+      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat teori antropologi...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE — TEORI ANTROPOLOGI
+═══════════════════════════════════ -->
+<div id="page-teori" class="page">
+  <div class="teori-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:rgba(255,255,255,0.1);color:#9A9690;margin-bottom:14px;">📖 Referensi Teori</div>
+      <h1>Kumpulan Teori Antropologi</h1>
+      <p>Pahami teori-teori utama antropologi dari berbagai aliran — lengkap dengan tokoh, penjelasan, dan contoh penerapan.</p>
+      <div class="teori-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="teori-search-input" placeholder="Cari teori atau tokoh..." oninput="cariTeori()" />
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="aliran-tabs" id="aliran-tabs">
+      <div class="aliran-tab active" onclick="filterAliran(this,'semua')">Semua Aliran</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Fungsionalisme')">Fungsionalisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Strukturalisme')">Strukturalisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Evolusionisme')">Evolusionisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Partikularisme Historis')">Partikularisme Historis</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Interpretivisme')">Interpretivisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Post-Strukturalisme')">Post-Strukturalisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Postmodernisme')">Postmodernisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Feminisme Antropologis')">Feminisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Neo-Evolusionisme')">Neo-Evolusionisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Post-Humanisme')">Post-Humanisme</div>
+    </div>
+    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="teori-count">Memuat teori...</div>
+    <div class="teori-list" id="teori-list">
+      <div style="text-align:center;padding:48px;color:var(--ink-muted);">Memuat teori antropologi...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
      PAGE — TOPIK PENELITIAN
 ═══════════════════════════════════ -->
 <div id="page-topik" class="page">
@@ -2429,6 +2532,189 @@ function bagikanDokumen() {
   }
 }
 
+
+/* ═══════════════════════════════════
+   TEORI ANTROPOLOGI
+═══════════════════════════════════ */
+.teori-page { padding: 32px 0 60px; }
+.teori-search { display: flex; gap: 8px; margin-bottom: 20px; }
+.teori-search input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; }
+.teori-search input:focus { border-color: var(--green); }
+.aliran-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.teori-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+.teori-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: all 0.15s; cursor: pointer; }
+.teori-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+.teori-card.expanded { border-color: var(--green); grid-column: span 2; }
+.teori-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.teori-nama { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
+.teori-tokoh { font-size: 13px; color: var(--green-dark); font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+.teori-aliran { font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+.teori-tahun { font-size: 11px; color: var(--ink-muted); }
+.teori-penjelasan { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 10px; }
+.teori-detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.teori-card.expanded .teori-detail { display: block; }
+.teori-detail-item { margin-bottom: 10px; }
+.teori-detail-label { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.teori-detail-val { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.teori-expand-btn { font-size: 12px; color: var(--green); cursor: pointer; display: flex; align-items: center; gap: 4px; background: none; border: none; padding: 0; font-family: inherit; }
+
+@media (max-width: 768px) {
+  .teori-grid { grid-template-columns: 1fr; }
+  .teori-card.expanded { grid-column: span 1; }
+}
+
+/* ── TEORI ANTROPOLOGI ── */
+var allTeori = [];
+var filterAliranTeori = 'semua';
+
+async function muatTeori() {
+  const { data, error } = await _sb.from('teori_antropologi').select('*').order('aliran');
+  if (error) return;
+  allTeori = data || [];
+  renderTeori();
+}
+muatTeori();
+
+function renderTeori() {
+  var grid = document.getElementById('teori-grid');
+  var count = document.getElementById('teori-count');
+  if (!grid) return;
+  var keyword = document.getElementById('teori-cari') ? document.getElementById('teori-cari').value.toLowerCase() : '';
+  var filtered = allTeori.filter(function(t) {
+    var matchAliran = filterAliranTeori === 'semua' || t.aliran === filterAliranTeori;
+    var matchKeyword = !keyword || t.nama_teori.toLowerCase().includes(keyword) || t.tokoh.toLowerCase().includes(keyword) || t.aliran.toLowerCase().includes(keyword);
+    return matchAliran && matchKeyword;
+  });
+  if (count) count.textContent = filtered.length + ' teori ditemukan';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Tidak ada teori ditemukan.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(function(t) {
+    return '<div class="teori-card" id="teori-'+t.id+'">' +
+      '<div class="teori-card-head">' +
+        '<div>' +
+          '<div class="teori-nama">' + t.nama_teori + '</div>' +
+          '<div class="teori-tokoh">👤 ' + t.tokoh + ' <span class="teori-tahun">(' + (t.tahun||'-') + ')</span></div>' +
+        '</div>' +
+        '<span class="teori-aliran">' + t.aliran + '</span>' +
+      '</div>' +
+      '<div class="teori-penjelasan">' + t.penjelasan.substring(0,180) + '...</div>' +
+      '<div class="teori-detail">' +
+        (t.konsep_kunci ? '<div class="teori-detail-item"><div class="teori-detail-label">Konsep kunci</div><div class="teori-detail-val">🔑 ' + t.konsep_kunci + '</div></div>' : '') +
+        (t.contoh_penerapan ? '<div class="teori-detail-item"><div class="teori-detail-label">Contoh penerapan</div><div class="teori-detail-val">💡 ' + t.contoh_penerapan + '</div></div>' : '') +
+        '<div class="teori-detail-item"><div class="teori-detail-label">Penjelasan lengkap</div><div class="teori-detail-val">' + t.penjelasan + '</div></div>' +
+      '</div>' +
+      '<button class="teori-expand-btn" onclick="toggleTeori('+t.id+')" id="btn-teori-'+t.id+'">▼ Lihat selengkapnya</button>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleTeori(id) {
+  var card = document.getElementById('teori-'+id);
+  var btn = document.getElementById('btn-teori-'+id);
+  var expanded = card.classList.toggle('expanded');
+  btn.textContent = expanded ? '▲ Tutup' : '▼ Lihat selengkapnya';
+}
+
+function filterAliran(el, aliran) {
+  document.querySelectorAll('.aliran-filter .filter-pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  filterAliranTeori = aliran;
+  renderTeori();
+}
+
+function cariTeori() { renderTeori(); }
+
+/* ── TEORI ANTROPOLOGI ── */
+var allTeori = [];
+var filterAliranAktif = 'semua';
+
+async function muatTeori() {
+  const { data, error } = await _sb.from('teori_antropologi').select('*').order('aliran').order('tahun');
+  if (error) return;
+  allTeori = data || [];
+  renderTeori();
+}
+muatTeori();
+
+function renderTeori() {
+  var list = document.getElementById('teori-list');
+  var count = document.getElementById('teori-count');
+  if (!list) return;
+  var keyword = (document.getElementById('teori-search-input') || {}).value || '';
+  keyword = keyword.toLowerCase().trim();
+  var filtered = allTeori.filter(function(t) {
+    var matchAliran = filterAliranAktif === 'semua' || t.aliran === filterAliranAktif;
+    var matchKeyword = !keyword ||
+      t.nama_teori.toLowerCase().includes(keyword) ||
+      t.tokoh.toLowerCase().includes(keyword) ||
+      (t.penjelasan && t.penjelasan.toLowerCase().includes(keyword)) ||
+      (t.konsep_kunci && t.konsep_kunci.toLowerCase().includes(keyword));
+    return matchAliran && matchKeyword;
+  });
+  if (count) count.textContent = filtered.length + ' teori ditemukan';
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);">Tidak ada teori yang ditemukan.</div>';
+    return;
+  }
+  var aliranColors = {
+    'Fungsionalisme': '#E8F5F0',
+    'Strukturalisme': '#EAF0FB',
+    'Evolusionisme': '#FAEEDA',
+    'Partikularisme Historis': '#F0EDFB',
+    'Interpretivisme': '#E1F5EE',
+    'Post-Strukturalisme': '#FDF0EE',
+    'Postmodernisme': '#F5F0FB',
+    'Feminisme Antropologis': '#FDECEA',
+    'Neo-Evolusionisme': '#FBF2E8',
+    'Post-Humanisme': '#EEF8FB'
+  };
+  list.innerHTML = filtered.map(function(t, idx) {
+    var bg = aliranColors[t.aliran] || '#F5F5F0';
+    var konsepList = t.konsep_kunci ? t.konsep_kunci.split(',').map(function(k) {
+      return '<span class="konsep-tag">' + k.trim() + '</span>';
+    }).join('') : '';
+    return '<div class="teori-card">' +
+      '<div class="teori-card-header" onclick="toggleTeori(' + idx + ')">' +
+        '<div class="teori-card-left">' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
+            '<span style="font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;background:' + bg + ';color:var(--ink-soft);">' + t.aliran + '</span>' +
+            (t.tahun ? '<span style="font-size:11px;color:var(--ink-muted);">📅 ' + t.tahun + '</span>' : '') +
+          '</div>' +
+          '<div class="teori-nama">' + t.nama_teori + '</div>' +
+          '<div class="teori-tokoh">👤 ' + t.tokoh + '</div>' +
+        '</div>' +
+        '<span class="toggle-icon" id="toggle-icon-' + idx + '">▼</span>' +
+      '</div>' +
+      '<div class="teori-card-body" id="teori-body-' + idx + '">' +
+        '<div class="teori-section">' +
+          '<div class="teori-section-label">Penjelasan</div>' +
+          '<div class="teori-section-text">' + t.penjelasan + '</div>' +
+        '</div>' +
+        (konsepList ? '<div class="teori-section"><div class="teori-section-label">Konsep kunci</div><div class="teori-konsep">' + konsepList + '</div></div>' : '') +
+        (t.contoh_penerapan ? '<div class="teori-section"><div class="teori-section-label">Contoh penerapan di Sumatera Utara</div><div class="teori-section-text" style="background:var(--paper-warm);padding:10px 12px;border-radius:var(--radius-md);">💡 ' + t.contoh_penerapan + '</div></div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleTeori(idx) {
+  var body = document.getElementById('teori-body-' + idx);
+  var icon = document.getElementById('toggle-icon-' + idx);
+  if (!body) return;
+  var isOpen = body.classList.toggle('open');
+  if (icon) icon.classList.toggle('open', isOpen);
+}
+
+function filterAliran(el, aliran) {
+  document.querySelectorAll('.aliran-tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  filterAliranAktif = aliran;
+  renderTeori();
+}
+
+function cariTeori() { renderTeori(); }
 
 /* ── TOPIK PENELITIAN ── */
 var allTopik = [];

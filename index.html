@@ -649,98 +649,6 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focu
   .auth-box { padding: 28px 20px; }
 }
 
-/* ═══════════════════════════════════
-   TEORI ANTROPOLOGI
-═══════════════════════════════════ */
-.teori-page { padding: 32px 0 60px; }
-.teori-hero { background: var(--ink); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
-.teori-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
-.teori-hero p { font-size: 14px; color: #9A9690; max-width: 500px; line-height: 1.6; }
-.teori-search { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
-.teori-search input { flex: 1; border: none; background: transparent; font-size: 14px; color: #fff; outline: none; }
-.teori-search input::placeholder { color: rgba(255,255,255,0.5); }
-.aliran-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
-.aliran-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
-.aliran-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
-.teori-list { display: flex; flex-direction: column; gap: 12px; }
-.teori-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.15s; }
-.teori-card:hover { box-shadow: var(--shadow-md); border-color: #C8C4BB; }
-.teori-card-header { padding: 16px 20px; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
-.teori-card-left { flex: 1; }
-.teori-nama { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-.teori-tokoh { font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.teori-card-body { display: none; padding: 0 20px 18px; border-top: 1px solid var(--border); }
-.teori-card-body.open { display: block; }
-.teori-section { margin-top: 14px; }
-.teori-section-label { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-.teori-section-text { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
-.teori-konsep { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-.konsep-tag { font-size: 11px; padding: 3px 9px; background: var(--paper-warm); border: 1px solid var(--border); border-radius: 20px; color: var(--ink-soft); }
-.toggle-icon { font-size: 18px; color: var(--ink-muted); flex-shrink: 0; transition: transform 0.2s; }
-.toggle-icon.open { transform: rotate(180deg); }
-
-/* ═══════════════════════════════════
-   TOPIK PENELITIAN
-═══════════════════════════════════ */
-.topik-page { padding: 32px 0 60px; }
-.topik-hero { background: var(--green-dark); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
-.topik-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
-.topik-hero p { font-size: 14px; color: #B8D8D0; max-width: 500px; line-height: 1.6; }
-.topik-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
-.topik-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-.topik-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; cursor: pointer; transition: all 0.15s; }
-.topik-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateY(-1px); }
-.topik-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
-.topik-title { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; flex: 1; }
-.topik-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 10px; }
-.topik-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); margin-bottom: 10px; line-height: 1.5; }
-.topik-contoh strong { color: var(--ink-soft); }
-.topik-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.topik-kata { font-size: 11px; color: var(--ink-muted); }
-.difficulty-easy { background: #E1F5EE; color: #085041; }
-.difficulty-med { background: #FAEEDA; color: #7A4E1A; }
-.difficulty-hard { background: #FDECEA; color: #922B21; }
-.submit-topik-card { background: var(--green-light); border: 1.5px dashed var(--green); border-radius: var(--radius-lg); padding: 24px 20px; text-align: center; cursor: pointer; transition: all 0.15s; }
-.submit-topik-card:hover { background: #C8EBE2; }
-.submit-topik-card h3 { font-size: 14px; font-weight: 500; color: var(--green-dark); margin-bottom: 6px; }
-.submit-topik-card p { font-size: 13px; color: var(--green); }
-
-/* Modal submit topik */
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
-.modal-overlay.open { display: flex; }
-.modal-box { background: var(--white); border-radius: var(--radius-xl); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; margin: 20px; }
-.modal-title { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-.modal-sub { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; }
-.modal-close { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--ink-muted); margin-top: -4px; }
-
-@media (max-width: 768px) {
-  .topik-grid { grid-template-columns: 1fr; }
-}
-
-/* ── ADMIN PAGE ── */
-.admin-page { padding: 32px 0 60px; }
-.admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-.admin-title { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; color: var(--ink); }
-.admin-sub { font-size: 13px; color: var(--ink-muted); margin-top: 3px; }
-.admin-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 24px; }
-.admin-stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; }
-.admin-stat-num { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; color: var(--green); }
-.admin-stat-label { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
-.admin-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; margin-bottom: 16px; }
-.admin-section-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.pending-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
-.pending-item:last-child { border-bottom: none; }
-.pending-body { flex: 1; }
-.pending-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
-.pending-meta { font-size: 12px; color: var(--ink-muted); display: flex; gap: 10px; flex-wrap: wrap; }
-.pending-actions { display: flex; gap: 6px; margin-top: 10px; }
-.btn-approve { padding: 6px 14px; background: var(--green); color: #fff; border: none; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; }
-.btn-approve:hover { background: var(--green-dark); }
-.btn-reject { padding: 6px 14px; background: transparent; color: #B03A2E; border: 1px solid #EADAD5; border-radius: var(--radius-md); font-size: 13px; cursor: pointer; }
-.btn-reject:hover { background: #FDF0EE; }
-.empty-state { text-align: center; padding: 32px; color: var(--ink-muted); font-size: 13px; }
-.empty-icon { font-size: 32px; margin-bottom: 8px; }
-
 /* ── FOOTER ── */
 footer {
   background: var(--white); border-top: 1px solid var(--border);
@@ -785,6 +693,86 @@ footer strong { color: var(--green); }
   .cat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .hero-section { padding: 40px 0 32px; }
 }
+
+/* ═══════════════════════════════════
+   TEORI ANTROPOLOGI
+═══════════════════════════════════ */
+.teori-hero { background: var(--ink); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.teori-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.teori-hero p { font-size: 14px; color: #9A9690; max-width: 500px; line-height: 1.6; }
+.teori-search-wrap { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
+.teori-search-wrap input { flex: 1; border: none; background: transparent; font-size: 14px; color: #fff; outline: none; }
+.teori-search-wrap input::placeholder { color: rgba(255,255,255,0.5); }
+.aliran-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.aliran-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
+.aliran-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.teori-list { display: flex; flex-direction: column; gap: 12px; }
+.teori-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.15s; }
+.teori-card:hover { box-shadow: var(--shadow-md); border-color: #C8C4BB; }
+.teori-card-header { padding: 16px 20px; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.teori-card-left { flex: 1; }
+.teori-nama { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.teori-tokoh { font-size: 13px; color: var(--ink-soft); }
+.teori-card-body { display: none; padding: 0 20px 18px; border-top: 1px solid var(--border); }
+.teori-card-body.open { display: block; }
+.teori-section { margin-top: 14px; }
+.teori-section-label { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.teori-section-text { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+.teori-konsep { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.konsep-tag { font-size: 11px; padding: 3px 9px; background: var(--paper-warm); border: 1px solid var(--border); border-radius: 20px; color: var(--ink-soft); }
+.toggle-icon { font-size: 18px; color: var(--ink-muted); flex-shrink: 0; }
+
+/* ═══════════════════════════════════
+   TOPIK PENELITIAN  
+═══════════════════════════════════ */
+.topik-hero { background: var(--green-dark); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.topik-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.topik-hero p { font-size: 14px; color: #B8D8D0; max-width: 500px; line-height: 1.6; }
+.topik-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+.topik-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.topik-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; transition: all 0.15s; }
+.topik-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.topik-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.topik-title { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; flex: 1; }
+.topik-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 10px; }
+.topik-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); margin-bottom: 10px; line-height: 1.5; }
+.topik-contoh strong { color: var(--ink-soft); }
+.topik-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.difficulty-easy { background: #E1F5EE; color: #085041; }
+.difficulty-med { background: #FAEEDA; color: #7A4E1A; }
+.difficulty-hard { background: #FDECEA; color: #922B21; }
+.submit-topik-card { background: var(--green-light); border: 1.5px dashed var(--green); border-radius: var(--radius-lg); padding: 24px 20px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.submit-topik-card:hover { background: #C8EBE2; }
+.submit-topik-card h3 { font-size: 14px; font-weight: 500; color: var(--green-dark); margin-bottom: 6px; }
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--white); border-radius: var(--radius-xl); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; margin: 20px; }
+.modal-title { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.modal-sub { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; }
+.modal-close { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--ink-muted); }
+
+/* ADMIN */
+.admin-page { padding: 32px 0 60px; }
+.admin-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 24px; }
+.admin-stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; }
+.admin-stat-num { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; color: var(--green); }
+.admin-stat-label { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+.admin-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; margin-bottom: 16px; }
+.admin-section-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 16px; }
+.pending-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.pending-item:last-child { border-bottom: none; }
+.pending-body { flex: 1; }
+.pending-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.pending-meta { font-size: 12px; color: var(--ink-muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.pending-actions { display: flex; gap: 6px; margin-top: 10px; }
+.btn-approve { padding: 6px 14px; background: var(--green); color: #fff; border: none; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; }
+.btn-reject { padding: 6px 14px; background: transparent; color: #B03A2E; border: 1px solid #EADAD5; border-radius: var(--radius-md); font-size: 13px; cursor: pointer; }
+.empty-state { text-align: center; padding: 32px; color: var(--ink-muted); font-size: 13px; }
+@media (max-width: 768px) {
+  .topik-grid { grid-template-columns: 1fr; }
+  .admin-stats { grid-template-columns: 1fr 1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -872,11 +860,11 @@ footer strong { color: var(--green); }
           <div class="semester-label">Matakuliah aktif saya — Semester 5 · Klik untuk filter langsung</div>
           <div class="semester-chips">
             <div class="mk-chip" onclick="goKoleksi('Etnografi')">Etnografi</div>
-            <div class="mk-chip" onclick="goKoleksi('Antropologi Agama')">Antropologi Agama</div>
-            <div class="mk-chip" onclick="goKoleksi('Antropologi Lingkungan')">Antropologi Lingkungan</div>
+            <div class="mk-chip" onclick="goKoleksi('Antro Agama')">Antro Agama</div>
+            <div class="mk-chip" onclick="goKoleksi('Antro Lingkungan')">Antro Lingkungan</div>
             <div class="mk-chip" onclick="goKoleksi('Kearifan Lokal Sumatera')">Kearifan Lokal Sumatera</div>
-            <div class="mk-chip" onclick="goKoleksi('Metode Penelitian Antropologi')">Metode Penelitian Antropologi</div>
-            <div class="mk-chip" onclick="goKoleksi('Antropologi Politik')">Antropologi Politik</div>
+            <div class="mk-chip" onclick="goKoleksi('Metode Penelitian Antro')">Metode Penelitian Antro</div>
+            <div class="mk-chip" onclick="goKoleksi('Antro Politik')">Antro Politik</div>
             <div class="mk-chip-add">+ Atur matakuliah</div>
           </div>
         </div>
@@ -915,9 +903,66 @@ footer strong { color: var(--green); }
         <div class="section-title">Rekomendasi untuk semester Anda</div>
         <span class="section-link" onclick="showPage('koleksi', document.querySelectorAll('.nav-link')[1])">Lihat semua →</span>
       </div>
-      <div class="doc-list" id="beranda-doc-list">
-        <div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">
-          Memuat dokumen...
+      <div class="doc-list">
+        <div class="doc-row" onclick="showDetail('doc1')">
+          <div class="doc-type-icon" style="background:#EAF0FB;">📄</div>
+          <div class="doc-body">
+            <span class="badge badge-blue">Jurnal</span>
+            <div class="doc-title-text">Dinamika Ritual Adat Batak Toba di Era Modernisasi: Perspektif Etnografi</div>
+            <div class="doc-meta-row">
+              <span>👤 Hasibuan, R. (2024)</span>
+              <span>📚 Etnografi</span>
+              <span>🏛 Unimed</span>
+            </div>
+          </div>
+          <div class="doc-right">
+            <span class="badge badge-amber">Sering dipakai</span>
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc1')">Lihat detail</button>
+          </div>
+        </div>
+        <div class="doc-row" onclick="showDetail('doc2')">
+          <div class="doc-type-icon" style="background:#E8F5F0;">📗</div>
+          <div class="doc-body">
+            <span class="badge badge-green">E-Book</span>
+            <div class="doc-title-text">Metode Penelitian Antropologi: Pendekatan Kualitatif dan Etnografis</div>
+            <div class="doc-meta-row">
+              <span>👤 Spradley, J.P. (2022)</span>
+              <span>📚 Metode Penelitian Antro</span>
+            </div>
+          </div>
+          <div class="doc-right">
+            <span class="badge badge-purple">Rekomendasi dosen</span>
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc2')">Lihat detail</button>
+          </div>
+        </div>
+        <div class="doc-row" onclick="showDetail('doc3')">
+          <div class="doc-type-icon" style="background:#FBF2E8;">🎓</div>
+          <div class="doc-body">
+            <span class="badge badge-amber">Skripsi</span>
+            <div class="doc-title-text">Kearifan Lokal Masyarakat Karo dalam Pengelolaan Lingkungan Pertanian</div>
+            <div class="doc-meta-row">
+              <span>👤 Tarigan, M. (2023)</span>
+              <span>📚 Kearifan Lokal Sumatera</span>
+              <span>🏛 Unimed</span>
+            </div>
+          </div>
+          <div class="doc-right">
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc3')">Lihat detail</button>
+          </div>
+        </div>
+        <div class="doc-row" onclick="showDetail('doc4')">
+          <div class="doc-type-icon" style="background:#F0EDFB;">📝</div>
+          <div class="doc-body">
+            <span class="badge badge-purple">Makalah</span>
+            <div class="doc-title-text">Transformasi Kepercayaan Animisme Masyarakat Pesisir Sumatera Utara</div>
+            <div class="doc-meta-row">
+              <span>👤 Lubis, S. (2024)</span>
+              <span>📚 Antro Agama</span>
+            </div>
+          </div>
+          <div class="doc-right">
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc4')">Lihat detail</button>
+          </div>
         </div>
       </div>
 
@@ -943,39 +988,39 @@ footer strong { color: var(--green); }
         <div class="mk-nav-item" onclick="selectMK(this,'Pengantar Antropologi',142)"><span>Pengantar Antropologi</span><span class="mk-nav-count">142</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Pengantar Sosiologi',98)"><span>Pengantar Sosiologi</span><span class="mk-nav-count">98</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Etnografi',210)"><span>Etnografi</span><span class="mk-nav-count">210</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Sistem Sosial Budaya Indonesia',176)"><span>Sistem Sosial Budaya Indonesia</span><span class="mk-nav-count">176</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Sis. Sosial Budaya Indonesia',176)"><span>Sis. Sosial Budaya Indonesia</span><span class="mk-nav-count">176</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Pengantar Ilmu Sosial',87)"><span>Pengantar Ilmu Sosial</span><span class="mk-nav-count">87</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Penulisan Karya Ilmiah',64)"><span>Penulisan Karya Ilmiah</span><span class="mk-nav-count">64</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Sosial Budaya',188)"><span>Antropologi Sosial Budaya</span><span class="mk-nav-count">188</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Sosial Budaya',188)"><span>Antro Sosial Budaya</span><span class="mk-nav-count">188</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Masalah Sosial & Kemiskinan',93)"><span>Masalah Sosial & Kemiskinan</span><span class="mk-nav-count">93</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Agama',195)"><span>Antropologi Agama</span><span class="mk-nav-count">195</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Kearifan Lokal Budaya Sumatera',88)"><span>Kearifan Lokal Sumatera</span><span class="mk-nav-count">88</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Lingkungan',113)"><span>Antropologi Lingkungan</span><span class="mk-nav-count">113</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Pedesaan',76)"><span>Antropologi Pedesaan</span><span class="mk-nav-count">76</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Politik',92)"><span>Antropologi Politik</span><span class="mk-nav-count">92</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Agama',195)"><span>Antro Agama</span><span class="mk-nav-count">195</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Kearifan Lokal Sumatera',88)"><span>Kearifan Lokal Sumatera</span><span class="mk-nav-count">88</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Lingkungan',113)"><span>Antro Lingkungan</span><span class="mk-nav-count">113</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pedesaan',76)"><span>Antro Pedesaan</span><span class="mk-nav-count">76</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Politik',92)"><span>Antro Politik</span><span class="mk-nav-count">92</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Etnobotani',54)"><span>Etnobotani</span><span class="mk-nav-count">54</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Agraria',61)"><span>Antropologi Agraria</span><span class="mk-nav-count">61</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Metode Penelitian Antropologi',167)"><span>Metode Penelitian Antropologi</span><span class="mk-nav-count">167</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Perkotaan',104)"><span>Antropologi Perkotaan</span><span class="mk-nav-count">104</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Teori Antropologi Klasik',134)"><span>Teori Antropologi Klasik</span><span class="mk-nav-count">134</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Ekonomi',118)"><span>Antropologi Ekonomi</span><span class="mk-nav-count">118</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Kesehatan',148)"><span>Antropologi Kesehatan</span><span class="mk-nav-count">148</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Hukum',89)"><span>Antropologi Hukum</span><span class="mk-nav-count">89</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Psikologi',72)"><span>Antropologi Psikologi</span><span class="mk-nav-count">72</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Gender dan Seksualitas',67)"><span>Antropologi Gender dan Seksualitas</span><span class="mk-nav-count">67</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Agraria',61)"><span>Antro Agraria</span><span class="mk-nav-count">61</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Metode Penelitian Antro',167)"><span>Metode Penelitian Antro</span><span class="mk-nav-count">167</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Perkotaan',104)"><span>Antro Perkotaan</span><span class="mk-nav-count">104</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Teori Antro Klasik',134)"><span>Teori Antro Klasik</span><span class="mk-nav-count">134</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Ekonomi',118)"><span>Antro Ekonomi</span><span class="mk-nav-count">118</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Kesehatan',148)"><span>Antro Kesehatan</span><span class="mk-nav-count">148</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Hukum',89)"><span>Antro Hukum</span><span class="mk-nav-count">89</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Psikologi',72)"><span>Antro Psikologi</span><span class="mk-nav-count">72</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Gender & Seksualitas',67)"><span>Antro Gender & Seksualitas</span><span class="mk-nav-count">67</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Folklor',72)"><span>Folklor</span><span class="mk-nav-count">72</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Teori Sosial',95)"><span>Teori Sosial</span><span class="mk-nav-count">95</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Pariwisata',65)"><span>Antropologi Pariwisata</span><span class="mk-nav-count">65</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Teori Antropologi Modern dan Postmodern',82)"><span>Teori Antropologi Modern dan Postmodern</span><span class="mk-nav-count">82</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Pembangunan',77)"><span>Antropologi Pembangunan</span><span class="mk-nav-count">77</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Media',58)"><span>Antropologi Media</span><span class="mk-nav-count">58</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Kependudukan',61)"><span>Antropologi Kependudukan</span><span class="mk-nav-count">61</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Pendidikan',55)"><span>Antropologi Pendidikan</span><span class="mk-nav-count">55</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pariwisata',65)"><span>Antro Pariwisata</span><span class="mk-nav-count">65</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Teori Antro Modern & Postmodern',82)"><span>Teori Antro Modern & Postmodern</span><span class="mk-nav-count">82</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pembangunan',77)"><span>Antro Pembangunan</span><span class="mk-nav-count">77</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Media',58)"><span>Antro Media</span><span class="mk-nav-count">58</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Kependudukan',61)"><span>Antro Kependudukan</span><span class="mk-nav-count">61</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pendidikan',55)"><span>Antro Pendidikan</span><span class="mk-nav-count">55</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Studi Masyarakat Indonesia',109)"><span>Studi Masyarakat Indonesia</span><span class="mk-nav-count">109</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Perubahan Sosial Budaya',121)"><span>Perubahan Sosial Budaya</span><span class="mk-nav-count">121</span></div>
         <div class="mk-nav-item" onclick="selectMK(this,'Pendidikan Multikultural',48)"><span>Pendidikan Multikultural</span><span class="mk-nav-count">48</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Antropologi Visual',44)"><span>Antropologi Visual</span><span class="mk-nav-count">44</span></div>
-        <div class="mk-nav-item" onclick="selectMK(this,'Evaluasi Pembelajaran Antropologi',39)"><span>Evaluasi Pembelajaran Antropologi</span><span class="mk-nav-count">39</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Visual',44)"><span>Antro Visual</span><span class="mk-nav-count">44</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Evaluasi Pembelajaran Antro',39)"><span>Evaluasi Pembelajaran Antro</span><span class="mk-nav-count">39</span></div>
       </div>
     </div>
 
@@ -991,11 +1036,8 @@ footer strong { color: var(--green); }
         <div class="filter-pill" onclick="setType(this,'skripsi')">🎓 Skripsi</div>
         <div class="filter-pill" onclick="setType(this,'makalah')">📝 Makalah</div>
       </div>
-      <div class="doc-list" id="koleksi-doc-list">
-        <div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Memuat dokumen...</div>
-      </div>
-      <!-- static removed -->
-      <div style="display:none"><div class="doc-row" onclick="showDetailDB_static(\'1\')">
+      <div class="doc-list">
+        <div class="doc-row" onclick="showDetail('doc1')">
           <div class="doc-type-icon" style="background:#EAF0FB;">📄</div>
           <div class="doc-body">
             <span class="badge badge-blue">Jurnal</span>
@@ -1004,22 +1046,22 @@ footer strong { color: var(--green); }
           </div>
           <div class="doc-right">
             <span class="badge badge-amber">72 unduhan</span>
-            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB_static(\'1\')">Lihat detail</button>
+            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetail('doc1')">Lihat detail</button>
           </div>
         </div>
-        <div class="doc-row" onclick="showDetailDB_static(\'2\')">
+        <div class="doc-row" onclick="showDetail('doc2')">
           <div class="doc-type-icon" style="background:#E8F5F0;">📗</div>
           <div class="doc-body">
             <span class="badge badge-green">E-Book</span>
             <div class="doc-title-text">Metode Penelitian Antropologi: Pendekatan Kualitatif dan Etnografis</div>
-            <div class="doc-meta-row"><span>👤 Spradley, J.P. (2022)</span><span>📚 Metode Penelitian Antropologi</span></div>
+            <div class="doc-meta-row"><span>👤 Spradley, J.P. (2022)</span><span>📚 Metode Penelitian Antro</span></div>
           </div>
           <div class="doc-right">
             <span class="badge badge-purple">Rekomendasi dosen</span>
-            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB_static(\'2\')">Lihat detail</button>
+            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetail('doc2')">Lihat detail</button>
           </div>
         </div>
-        <div class="doc-row" onclick="showDetailDB_static(\'3\')">
+        <div class="doc-row" onclick="showDetail('doc3')">
           <div class="doc-type-icon" style="background:#FBF2E8;">🎓</div>
           <div class="doc-body">
             <span class="badge badge-amber">Skripsi</span>
@@ -1027,21 +1069,21 @@ footer strong { color: var(--green); }
             <div class="doc-meta-row"><span>👤 Tarigan, M. (2023)</span><span>📚 Kearifan Lokal Sumatera</span><span>🏛 Unimed</span></div>
           </div>
           <div class="doc-right">
-            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB_static(\'3\')">Lihat detail</button>
+            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetail('doc3')">Lihat detail</button>
           </div>
         </div>
-        <div class="doc-row" onclick="showDetailDB_static(\'4\')">
+        <div class="doc-row" onclick="showDetail('doc4')">
           <div class="doc-type-icon" style="background:#F0EDFB;">📝</div>
           <div class="doc-body">
             <span class="badge badge-purple">Makalah</span>
             <div class="doc-title-text">Transformasi Kepercayaan Animisme Masyarakat Pesisir Sumatera Utara</div>
-            <div class="doc-meta-row"><span>👤 Lubis, S. (2024)</span><span>📚 Antropologi Agama</span></div>
+            <div class="doc-meta-row"><span>👤 Lubis, S. (2024)</span><span>📚 Antro Agama</span></div>
           </div>
           <div class="doc-right">
-            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB_static(\'4\')">Lihat detail</button>
+            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetail('doc4')">Lihat detail</button>
           </div>
         </div>
-        <div class="doc-row" onclick="showDetailDB_static(\'5\')">
+        <div class="doc-row" onclick="showDetail('doc5')">
           <div class="doc-type-icon" style="background:#EAF0FB;">📄</div>
           <div class="doc-body">
             <span class="badge badge-blue">Jurnal</span>
@@ -1049,10 +1091,10 @@ footer strong { color: var(--green); }
             <div class="doc-meta-row"><span>👤 Nasution, A. (2023)</span><span>📚 Antro Perkotaan</span></div>
           </div>
           <div class="doc-right">
-            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB_static(\'5\')">Lihat detail</button>
+            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetail('doc5')">Lihat detail</button>
           </div>
         </div>
-        <div class="doc-row" onclick="showDetailDB_static(\'6\')">
+        <div class="doc-row" onclick="showDetail('doc6')">
           <div class="doc-type-icon" style="background:#E8F5F0;">📗</div>
           <div class="doc-body">
             <span class="badge badge-green">E-Book</span>
@@ -1060,7 +1102,7 @@ footer strong { color: var(--green); }
             <div class="doc-meta-row"><span>👤 Purwanto, Y. (2021)</span><span>📚 Etnobotani</span></div>
           </div>
           <div class="doc-right">
-            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB_static(\'6\')">Lihat detail</button>
+            <button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetail('doc6')">Lihat detail</button>
           </div>
         </div>
       </div>
@@ -1140,15 +1182,15 @@ footer strong { color: var(--green); }
           </div>
           <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px;">Dokumen terkait</div>
           <div class="related-list">
-            <div class="related-item" onclick="showDetailDB_static(\'2\')">
+            <div class="related-item" onclick="showDetail('doc2')">
               <div class="related-title">Metode Penelitian Antropologi: Pendekatan Kualitatif</div>
               <div class="related-meta">E-Book · Metode Penelitian</div>
             </div>
-            <div class="related-item" onclick="showDetailDB_static(\'4\')">
+            <div class="related-item" onclick="showDetail('doc4')">
               <div class="related-title">Transformasi Kepercayaan Animisme Masyarakat Pesisir</div>
-              <div class="related-meta">Makalah · Antropologi Agama</div>
+              <div class="related-meta">Makalah · Antro Agama</div>
             </div>
-            <div class="related-item" onclick="showDetailDB_static(\'3\')">
+            <div class="related-item" onclick="showDetail('doc3')">
               <div class="related-title">Kearifan Lokal Masyarakat Karo dalam Pertanian</div>
               <div class="related-meta">Skripsi · Kearifan Lokal Sumatera</div>
             </div>
@@ -1220,18 +1262,18 @@ footer strong { color: var(--green); }
             <option>Penulisan Karya Ilmiah</option><option>Antropologi Sosial Budaya</option>
             <option>Masalah Sosial dan Kemiskinan</option><option>Antropologi Agama</option>
             <option>Kearifan Lokal Budaya Sumatera</option><option>Antropologi Lingkungan</option>
-            <option>Antropologi Pedesaan</option><option>Antropologi Politik</option><option>Etnobotani</option>
-            <option>Antropologi Agraria</option><option>Metode Penelitian Antropologi</option>
-            <option>Antropologi Perkotaan</option><option>Teori Antropologi Klasik</option>
+            <option>Antro Pedesaan</option><option>Antro Politik</option><option>Etnobotani</option>
+            <option>Antro Agraria</option><option>Metode Penelitian Antropologi</option>
+            <option>Antro Perkotaan</option><option>Teori Antropologi Klasik</option>
             <option>Antropologi Ekonomi</option><option>Antropologi Kesehatan</option>
             <option>Antropologi Hukum</option><option>Antropologi Psikologi</option>
-            <option>Antropologi Gender dan Seksualitas</option><option>Folklor</option>
-            <option>Teori Sosial</option><option>Antropologi Pariwisata</option>
-            <option>Teori Antropologi Modern dan Postmodern</option><option>Antropologi Pembangunan</option>
-            <option>Antropologi Media</option><option>Antropologi Kependudukan</option>
-            <option>Antropologi Pendidikan</option><option>Studi Masyarakat Indonesia</option>
+            <option>Antro Gender & Seksualitas</option><option>Folklor</option>
+            <option>Teori Sosial</option><option>Antro Pariwisata</option>
+            <option>Teori Antro Modern & Postmodern</option><option>Antro Pembangunan</option>
+            <option>Antropologi Media</option><option>Antro Kependudukan</option>
+            <option>Antro Pendidikan</option><option>Studi Masyarakat Indonesia</option>
             <option>Perubahan Sosial Budaya</option><option>Pendidikan Multikultural</option>
-            <option>Antropologi Visual</option><option>Evaluasi Pembelajaran Antropologi</option>
+            <option>Antropologi Visual</option><option>Evaluasi Pembelajaran Antro</option>
           </select>
         </div>
         <div class="field">
@@ -1577,10 +1619,10 @@ footer strong { color: var(--green); }
               </div>
               <div class="mk-aktif-grid">
                 <div class="mk-tag">Etnografi <span class="mk-remove">×</span></div>
-                <div class="mk-tag">Antropologi Agama <span class="mk-remove">×</span></div>
-                <div class="mk-tag">Antropologi Lingkungan <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Agama <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Lingkungan <span class="mk-remove">×</span></div>
                 <div class="mk-tag">Kearifan Lokal Sumatera <span class="mk-remove">×</span></div>
-                <div class="mk-tag">Metode Penelitian Antropologi <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Metode Penelitian Antro <span class="mk-remove">×</span></div>
                 <div class="mk-tag">Antro Politik <span class="mk-remove">×</span></div>
                 <button class="mk-tag-add">+ Tambah matakuliah</button>
               </div>
@@ -1604,7 +1646,7 @@ footer strong { color: var(--green); }
               <div class="notif-item">
                 <div class="notif-dot"></div>
                 <div>
-                  <div class="notif-text">E-book baru: <em>Teori Antropologi Kontemporer</em> relevan untuk <strong>Antropologi Agama</strong></div>
+                  <div class="notif-text">E-book baru: <em>Teori Antropologi Kontemporer</em> relevan untuk <strong>Antro Agama</strong></div>
                   <div class="notif-time">1 hari yang lalu</div>
                 </div>
               </div>
@@ -1645,15 +1687,15 @@ footer strong { color: var(--green); }
                   <div class="saved-doc-title">Dinamika Ritual Adat Batak Toba di Era Modernisasi</div>
                   <div class="saved-doc-meta">Jurnal · Etnografi · Hasibuan, R. (2024)</div>
                 </div>
-                <button class="saved-doc-btn" onclick="showDetailDB_static(\'1\')">Buka</button>
+                <button class="saved-doc-btn" onclick="showDetail('doc1')">Buka</button>
               </div>
               <div class="saved-doc">
                 <div class="saved-doc-icon" style="background:#E8F5F0;">📗</div>
                 <div class="saved-doc-body">
                   <div class="saved-doc-title">Metode Penelitian Antropologi: Pendekatan Kualitatif</div>
-                  <div class="saved-doc-meta">E-Book · Metode Penelitian Antropologi · Spradley (2022)</div>
+                  <div class="saved-doc-meta">E-Book · Metode Penelitian Antro · Spradley (2022)</div>
                 </div>
-                <button class="saved-doc-btn" onclick="showDetailDB_static(\'2\')">Buka</button>
+                <button class="saved-doc-btn" onclick="showDetail('doc2')">Buka</button>
               </div>
               <div class="saved-doc">
                 <div class="saved-doc-icon" style="background:#FBF2E8;">🎓</div>
@@ -1661,15 +1703,15 @@ footer strong { color: var(--green); }
                   <div class="saved-doc-title">Kearifan Lokal Masyarakat Karo dalam Pertanian</div>
                   <div class="saved-doc-meta">Skripsi · Kearifan Lokal Sumatera · Tarigan (2023)</div>
                 </div>
-                <button class="saved-doc-btn" onclick="showDetailDB_static(\'3\')">Buka</button>
+                <button class="saved-doc-btn" onclick="showDetail('doc3')">Buka</button>
               </div>
               <div class="saved-doc">
                 <div class="saved-doc-icon" style="background:#F0EDFB;">📝</div>
                 <div class="saved-doc-body">
                   <div class="saved-doc-title">Transformasi Kepercayaan Animisme Masyarakat Pesisir</div>
-                  <div class="saved-doc-meta">Makalah · Antropologi Agama · Lubis (2024)</div>
+                  <div class="saved-doc-meta">Makalah · Antro Agama · Lubis (2024)</div>
                 </div>
-                <button class="saved-doc-btn" onclick="showDetailDB_static(\'4\')">Buka</button>
+                <button class="saved-doc-btn" onclick="showDetail('doc4')">Buka</button>
               </div>
             </div>
           </div>
@@ -1684,10 +1726,10 @@ footer strong { color: var(--green); }
               <p style="font-size:13px;color:var(--ink-muted);margin-bottom:14px;line-height:1.5;">Matakuliah yang Anda pilih akan digunakan untuk menyesuaikan rekomendasi dokumen di beranda.</p>
               <div class="mk-aktif-grid" style="margin-bottom:16px;">
                 <div class="mk-tag">Etnografi <span class="mk-remove">×</span></div>
-                <div class="mk-tag">Antropologi Agama <span class="mk-remove">×</span></div>
-                <div class="mk-tag">Antropologi Lingkungan <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Agama <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Lingkungan <span class="mk-remove">×</span></div>
                 <div class="mk-tag">Kearifan Lokal Sumatera <span class="mk-remove">×</span></div>
-                <div class="mk-tag">Metode Penelitian Antropologi <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Metode Penelitian Antro <span class="mk-remove">×</span></div>
                 <div class="mk-tag">Antro Politik <span class="mk-remove">×</span></div>
               </div>
               <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:10px;">Tambah dari daftar matakuliah:</div>
@@ -1695,18 +1737,18 @@ footer strong { color: var(--green); }
                 <option value="">-- Pilih matakuliah untuk ditambahkan --</option>
                 <option>Pengantar Antropologi</option><option>Pengantar Sosiologi</option>
                 <option>Sistem Sosial Budaya Indonesia</option><option>Pengantar Ilmu Sosial</option>
-                <option>Penulisan Karya Ilmiah</option><option>Antropologi Sosial Budaya</option>
-                <option>Masalah Sosial & Kemiskinan</option><option>Antropologi Pedesaan</option>
-                <option>Antropologi Perkotaan</option><option>Etnobotani</option><option>Antropologi Agraria</option>
-                <option>Teori Antropologi Klasik</option><option>Antropologi Ekonomi</option><option>Antropologi Kesehatan</option>
-                <option>Antropologi Hukum</option><option>Antropologi Psikologi</option>
-                <option>Antropologi Gender dan Seksualitas</option><option>Folklor</option>
-                <option>Teori Sosial</option><option>Antropologi Pariwisata</option>
-                <option>Teori Antropologi Modern dan Postmodern</option><option>Antropologi Pembangunan</option>
-                <option>Antropologi Media</option><option>Antropologi Kependudukan</option>
-                <option>Antropologi Pendidikan</option><option>Studi Masyarakat Indonesia</option>
+                <option>Penulisan Karya Ilmiah</option><option>Antro Sosial Budaya</option>
+                <option>Masalah Sosial & Kemiskinan</option><option>Antro Pedesaan</option>
+                <option>Antro Perkotaan</option><option>Etnobotani</option><option>Antro Agraria</option>
+                <option>Teori Antro Klasik</option><option>Antro Ekonomi</option><option>Antro Kesehatan</option>
+                <option>Antro Hukum</option><option>Antro Psikologi</option>
+                <option>Antro Gender & Seksualitas</option><option>Folklor</option>
+                <option>Teori Sosial</option><option>Antro Pariwisata</option>
+                <option>Teori Antro Modern & Postmodern</option><option>Antro Pembangunan</option>
+                <option>Antro Media</option><option>Antro Kependudukan</option>
+                <option>Antro Pendidikan</option><option>Studi Masyarakat Indonesia</option>
                 <option>Perubahan Sosial Budaya</option><option>Pendidikan Multikultural</option>
-                <option>Antropologi Visual</option><option>Evaluasi Pembelajaran Antropologi</option>
+                <option>Antro Visual</option><option>Evaluasi Pembelajaran Antro</option>
               </select>
               <button class="btn btn-primary btn-sm">+ Tambahkan matakuliah</button>
             </div>
@@ -1756,59 +1798,21 @@ footer strong { color: var(--green); }
 </div>
 
 
-<!-- ═══════════════════════════════════
-     PAGE — TEORI ANTROPOLOGI
-═══════════════════════════════════ -->
-<div id="page-teori" class="page">
-  <div class="topik-hero">
-    <div class="container">
-      <div class="hero-tag" style="background:rgba(255,255,255,0.15);color:#B8D8D0;margin-bottom:14px;">
-        📖 Referensi Teori
-      </div>
-      <h1 style="font-family:'Lora',serif;font-size:28px;font-weight:600;color:#fff;margin-bottom:8px;">Kumpulan Teori Antropologi</h1>
-      <p style="font-size:14px;color:#B8D8D0;max-width:500px;line-height:1.6;">Panduan teori-teori utama antropologi — tokoh, aliran, penjelasan, dan contoh penerapan untuk penelitian Anda.</p>
-    </div>
-  </div>
-  <div class="container teori-page">
-    <div class="teori-search">
-      <input type="text" id="teori-cari" placeholder="Cari teori atau tokoh... (contoh: Malinowski, Strukturalisme)" oninput="cariTeori()" />
-      <button class="btn btn-primary btn-sm" onclick="cariTeori()">Cari</button>
-    </div>
-    <div class="aliran-filter" id="aliran-filter">
-      <div class="filter-pill active" onclick="filterAliran(this,'semua')">Semua aliran</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Fungsionalisme')">Fungsionalisme</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Strukturalisme')">Strukturalisme</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Evolusionisme')">Evolusionisme</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Partikularisme Historis')">Partikularisme Historis</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Interpretivisme')">Interpretivisme</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Post-Strukturalisme')">Post-Strukturalisme</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Postmodernisme')">Postmodernisme</div>
-      <div class="filter-pill" onclick="filterAliran(this,'Feminisme Antropologis')">Feminisme</div>
-    </div>
-    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="teori-count">Memuat teori...</div>
-    <div class="teori-grid" id="teori-grid">
-      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat teori antropologi...</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PAGE — TEORI ANTROPOLOGI
-═══════════════════════════════════ -->
+<!-- PAGE TEORI -->
 <div id="page-teori" class="page">
   <div class="teori-hero">
     <div class="container">
       <div class="hero-tag" style="background:rgba(255,255,255,0.1);color:#9A9690;margin-bottom:14px;">📖 Referensi Teori</div>
       <h1>Kumpulan Teori Antropologi</h1>
-      <p>Pahami teori-teori utama antropologi dari berbagai aliran — lengkap dengan tokoh, penjelasan, dan contoh penerapan.</p>
-      <div class="teori-search">
+      <p>Pahami teori-teori utama dari berbagai aliran — lengkap dengan tokoh, penjelasan, dan contoh penerapan.</p>
+      <div class="teori-search-wrap">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         <input type="text" id="teori-search-input" placeholder="Cari teori atau tokoh..." oninput="cariTeori()" />
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="aliran-tabs" id="aliran-tabs">
+  <div class="container" style="padding-top:24px;padding-bottom:60px;">
+    <div class="aliran-tabs">
       <div class="aliran-tab active" onclick="filterAliran(this,'semua')">Semua Aliran</div>
       <div class="aliran-tab" onclick="filterAliran(this,'Fungsionalisme')">Fungsionalisme</div>
       <div class="aliran-tab" onclick="filterAliran(this,'Strukturalisme')">Strukturalisme</div>
@@ -1819,30 +1823,22 @@ footer strong { color: var(--green); }
       <div class="aliran-tab" onclick="filterAliran(this,'Postmodernisme')">Postmodernisme</div>
       <div class="aliran-tab" onclick="filterAliran(this,'Feminisme Antropologis')">Feminisme</div>
       <div class="aliran-tab" onclick="filterAliran(this,'Neo-Evolusionisme')">Neo-Evolusionisme</div>
-      <div class="aliran-tab" onclick="filterAliran(this,'Post-Humanisme')">Post-Humanisme</div>
     </div>
     <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="teori-count">Memuat teori...</div>
-    <div class="teori-list" id="teori-list">
-      <div style="text-align:center;padding:48px;color:var(--ink-muted);">Memuat teori antropologi...</div>
-    </div>
+    <div class="teori-list" id="teori-list"><div style="text-align:center;padding:48px;color:var(--ink-muted);">Memuat teori antropologi...</div></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     PAGE — TOPIK PENELITIAN
-═══════════════════════════════════ -->
+<!-- PAGE TOPIK -->
 <div id="page-topik" class="page">
   <div class="topik-hero">
     <div class="container">
-      <div class="hero-tag" style="background:rgba(255,255,255,0.15);color:#B8D8D0;margin-bottom:14px;">
-        💡 Ide Penelitian
-      </div>
+      <div class="hero-tag" style="background:rgba(255,255,255,0.15);color:#B8D8D0;margin-bottom:14px;">💡 Ide Penelitian</div>
       <h1>Topik Skripsi & Miniriset</h1>
-      <p>Kumpulan ide topik penelitian khusus mahasiswa antropologi — dilengkapi deskripsi, contoh judul, dan tingkat kesulitan.</p>
+      <p>Kumpulan ide topik penelitian khusus mahasiswa antropologi — lengkap dengan deskripsi, contoh judul, dan tingkat kesulitan.</p>
     </div>
   </div>
-
-  <div class="container">
+  <div class="container" style="padding-top:24px;padding-bottom:60px;">
     <div class="topik-filter">
       <div class="filter-pill active" onclick="filterTopik(this,'semua')">Semua</div>
       <div class="filter-pill" onclick="filterTopik(this,'Skripsi')">🎓 Skripsi</div>
@@ -1854,135 +1850,47 @@ footer strong { color: var(--green); }
       </div>
     </div>
     <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="topik-count">Memuat topik...</div>
-    <div class="topik-grid" id="topik-grid">
-      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat topik penelitian...</div>
-    </div>
+    <div class="topik-grid" id="topik-grid"><div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat topik penelitian...</div></div>
   </div>
 </div>
 
-<!-- Modal Submit Topik -->
+<!-- MODAL SUBMIT TOPIK -->
 <div class="modal-overlay" id="modal-topik">
   <div class="modal-box">
     <button class="modal-close" onclick="tutupModal()">×</button>
     <div class="modal-title">Submit Topik Penelitian</div>
     <div class="modal-sub">Bagikan ide topik penelitian Anda untuk membantu mahasiswa lain</div>
-    <div class="field">
-      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Judul topik <span style="color:#C0392B;font-size:11px;">wajib</span></label>
-      <input type="text" id="topik-judul" placeholder="Contoh: Identitas Budaya di Era Digital" />
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Judul topik</label><input type="text" id="topik-judul" placeholder="Contoh: Identitas Budaya di Era Digital" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;" /></div>
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Deskripsi singkat</label><textarea id="topik-deskripsi" rows="3" placeholder="Jelaskan gambaran umum topik..." style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;resize:vertical;"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Jenis</label><select id="topik-jenis" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;"><option>Skripsi</option><option>Miniriset</option></select></div>
+      <div><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Kesulitan</label><select id="topik-sulit" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;"><option>Mudah</option><option selected>Menengah</option><option>Sulit</option></select></div>
     </div>
-    <div class="field" style="margin-top:12px;">
-      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Deskripsi singkat <span style="color:#C0392B;font-size:11px;">wajib</span></label>
-      <textarea id="topik-deskripsi" rows="3" placeholder="Jelaskan gambaran umum topik ini..." style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;resize:vertical;"></textarea>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
-      <div class="field">
-        <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Jenis</label>
-        <select id="topik-jenis" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;outline:none;">
-          <option>Skripsi</option>
-          <option>Miniriset</option>
-        </select>
-      </div>
-      <div class="field">
-        <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Tingkat kesulitan</label>
-        <select id="topik-sulit" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;outline:none;">
-          <option>Mudah</option>
-          <option selected>Menengah</option>
-          <option>Sulit</option>
-        </select>
-      </div>
-    </div>
-    <div class="field" style="margin-top:12px;">
-      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Contoh judul penelitian</label>
-      <input type="text" id="topik-contoh" placeholder="Contoh judul spesifik yang bisa dipakai..." />
-    </div>
-    <div class="field" style="margin-top:12px;">
-      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Kata kunci</label>
-      <input type="text" id="topik-kata" placeholder="Pisahkan dengan koma: budaya, identitas, media sosial" />
-    </div>
-    <div class="field" style="margin-top:12px;">
-      <label style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block;">Matakuliah yang relevan</label>
-      <select id="topik-mk" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;outline:none;">
-        <option value="">-- Pilih matakuliah --</option>
-        <option value="1">Pengantar Antropologi</option>
-        <option value="3">Pengantar Sosiologi</option>
-        <option value="5">Etnografi</option>
-        <option value="6">Sistem Sosial Budaya Indonesia</option>
-        <option value="7">Antropologi Sosial Budaya</option>
-        <option value="8">Masalah Sosial dan Kemiskinan</option>
-        <option value="9">Kearifan Lokal Budaya Sumatera</option>
-        <option value="10">Antropologi Lingkungan</option>
-        <option value="11">Antropologi Agama</option>
-        <option value="12">Antropologi Pedesaan</option>
-        <option value="13">Antropologi Politik</option>
-        <option value="14">Etnobotani</option>
-        <option value="15">Antropologi Agraria</option>
-        <option value="16">Metode Penelitian Antropologi</option>
-        <option value="17">Antropologi Perkotaan</option>
-        <option value="18">Teori Antropologi Klasik</option>
-        <option value="19">Antropologi Ekonomi</option>
-        <option value="20">Antropologi Kesehatan</option>
-        <option value="21">Antropologi Hukum</option>
-        <option value="22">Antropologi Psikologi</option>
-        <option value="23">Antropologi Gender dan Seksualitas</option>
-        <option value="24">Folklor</option>
-        <option value="25">Teori Sosial</option>
-        <option value="26">Antropologi Pariwisata</option>
-        <option value="27">Teori Antropologi Modern dan Postmodern</option>
-        <option value="28">Antropologi Pembangunan</option>
-        <option value="29">Antropologi Media</option>
-        <option value="30">Antropologi Kependudukan</option>
-        <option value="31">Antropologi Pendidikan</option>
-        <option value="32">Studi Masyarakat Indonesia</option>
-        <option value="33">Perubahan Sosial Budaya</option>
-        <option value="34">Pendidikan Multikultural</option>
-        <option value="35">Antropologi Visual</option>
-        <option value="36">Evaluasi Pembelajaran Antropologi</option>
-      </select>
-    </div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px;" onclick="submitTopik()">
-      Kirim untuk ditinjau admin
-    </button>
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Contoh judul</label><input type="text" id="topik-contoh" placeholder="Contoh judul spesifik..." style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;" /></div>
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Kata kunci</label><input type="text" id="topik-kata" placeholder="budaya, identitas, media sosial" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;" /></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="submitTopik()">Kirim untuk ditinjau admin</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     PAGE — ADMIN
-═══════════════════════════════════ -->
+<!-- PAGE ADMIN -->
 <div id="page-admin" class="page">
-  <div class="container">
-    <div class="admin-page">
-      <div class="admin-header">
-        <div>
-          <div class="admin-title">⚙️ Panel Admin AntropHub</div>
-          <div class="admin-sub">Kelola dokumen, pengguna, dan konten platform</div>
-        </div>
-      </div>
-      <div class="admin-stats">
-        <div class="admin-stat">
-          <div class="admin-stat-num" id="admin-total-dok">-</div>
-          <div class="admin-stat-label">Total dokumen aktif</div>
-        </div>
-        <div class="admin-stat">
-          <div class="admin-stat-num" id="admin-pending">-</div>
-          <div class="admin-stat-label">Menunggu persetujuan</div>
-        </div>
-        <div class="admin-stat">
-          <div class="admin-stat-num" id="admin-total-user">-</div>
-          <div class="admin-stat-label">Total pengguna terdaftar</div>
-        </div>
-      </div>
-      <div class="admin-section">
-        <div class="admin-section-title">📋 Dokumen menunggu persetujuan</div>
-        <div id="admin-pending-list">
-          <div class="empty-state"><div class="empty-icon">⏳</div>Memuat data...</div>
-        </div>
-      </div>
-      <div class="admin-section">
-        <div class="admin-section-title">✅ Dokumen aktif terbaru</div>
-        <div id="admin-aktif-list">
-          <div class="empty-state"><div class="empty-icon">📚</div>Memuat data...</div>
-        </div>
-      </div>
+  <div class="container" style="padding-top:32px;padding-bottom:60px;">
+    <div style="margin-bottom:24px;">
+      <div style="font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:4px;">⚙️ Panel Admin AntropHub</div>
+      <div style="font-size:13px;color:var(--ink-muted);">Kelola dokumen, pengguna, dan konten platform</div>
+    </div>
+    <div class="admin-stats">
+      <div class="admin-stat"><div class="admin-stat-num" id="admin-total-dok">-</div><div class="admin-stat-label">Total dokumen aktif</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="admin-pending">-</div><div class="admin-stat-label">Menunggu persetujuan</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="admin-total-user">-</div><div class="admin-stat-label">Total pengguna</div></div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-section-title">📋 Dokumen menunggu persetujuan</div>
+      <div id="admin-pending-list"><div class="empty-state">⏳ Memuat data...</div></div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-section-title">✅ Dokumen aktif terbaru</div>
+      <div id="admin-aktif-list"><div class="empty-state">📚 Memuat data...</div></div>
     </div>
   </div>
 </div>
@@ -1993,638 +1901,11 @@ footer strong { color: var(--green); }
 </footer>
 
 <script>
-/* ── DATA DOKUMEN ── */
-const docs = {
-  doc1: {
-    title: 'Dinamika Ritual Adat Batak Toba di Era Modernisasi: Perspektif Etnografi',
-    badge: 'Jurnal', badgeClass: 'badge-blue', jenis: 'Jurnal Ilmiah',
-    author: 'Hasibuan, R.', year: '2024', mk: 'Etnografi', inst: 'Unimed', unduh: '72',
-    abstrak: 'Penelitian ini mengkaji perubahan pelaksanaan ritual adat masyarakat Batak Toba di tengah arus modernisasi. Menggunakan pendekatan etnografi selama 6 bulan di Kabupaten Toba, ditemukan bahwa komunitas lokal melakukan adaptasi selektif terhadap ritual tanpa menghilangkan nilai-nilai inti budaya mereka. Temuan menunjukkan bahwa ritual menjadi arena negosiasi antara tradisi dan modernitas.',
-    apa: 'Hasibuan, R. (2024). Dinamika ritual adat Batak Toba di era modernisasi: Perspektif etnografi. <i>Jurnal Antropologi Indonesia</i>, 45(2), 112–130.',
-    chicago: 'Hasibuan, Rahmat. "Dinamika Ritual Adat Batak Toba di Era Modernisasi." <i>Jurnal Antropologi Indonesia</i> 45, no. 2 (2024): 112–130.',
-    turabian: 'Hasibuan, Rahmat. "Dinamika Ritual Adat Batak Toba di Era Modernisasi." <i>Jurnal Antropologi Indonesia</i> 45, no. 2 (2024): 112–130.'
-  },
-  doc2: {
-    title: 'Metode Penelitian Antropologi: Pendekatan Kualitatif dan Etnografis',
-    badge: 'E-Book', badgeClass: 'badge-green', jenis: 'E-Book / Buku',
-    author: 'Spradley, J.P.', year: '2022', mk: 'Metode Penelitian Antropologi', inst: 'Pustaka Akademika', unduh: '145',
-    abstrak: 'Buku ini memberikan panduan komprehensif dalam melaksanakan penelitian kualitatif berbasis antropologi. Mencakup teknik wawancara mendalam, observasi partisipan, analisis data etnografis, serta penulisan laporan penelitian yang sesuai standar akademik internasional.',
-    apa: 'Spradley, J. P. (2022). <i>Metode penelitian antropologi: Pendekatan kualitatif dan etnografis</i>. Pustaka Akademika.',
-    chicago: 'Spradley, James P. <i>Metode Penelitian Antropologi</i>. Bandung: Pustaka Akademika, 2022.',
-    turabian: 'Spradley, James P. <i>Metode Penelitian Antropologi</i>. Bandung: Pustaka Akademika, 2022.'
-  },
-  doc3: {
-    title: 'Kearifan Lokal Masyarakat Karo dalam Pengelolaan Lingkungan Pertanian',
-    badge: 'Skripsi', badgeClass: 'badge-amber', jenis: 'Referensi Skripsi',
-    author: 'Tarigan, M.', year: '2023', mk: 'Kearifan Lokal Sumatera', inst: 'Unimed', unduh: '48',
-    abstrak: 'Penelitian ini mendeskripsikan bentuk-bentuk kearifan lokal masyarakat Karo dalam menjaga keseimbangan ekosistem pertanian di dataran tinggi Karo. Melalui wawancara mendalam dan observasi, teridentifikasi 11 praktik kearifan lokal yang masih aktif dijalankan oleh petani Karo hingga saat ini.',
-    apa: 'Tarigan, M. (2023). <i>Kearifan lokal masyarakat Karo dalam pengelolaan lingkungan pertanian</i> [Skripsi, Universitas Negeri Medan].',
-    chicago: 'Tarigan, Maulida. "Kearifan Lokal Masyarakat Karo dalam Pengelolaan Lingkungan Pertanian." Skripsi, Universitas Negeri Medan, 2023.',
-    turabian: 'Tarigan, Maulida. "Kearifan Lokal Masyarakat Karo." BA thesis, Universitas Negeri Medan, 2023.'
-  },
-  doc4: {
-    title: 'Transformasi Kepercayaan Animisme Masyarakat Pesisir Sumatera Utara',
-    badge: 'Makalah', badgeClass: 'badge-purple', jenis: 'Makalah Seminar',
-    author: 'Lubis, S.', year: '2024', mk: 'Antropologi Agama', inst: 'Unimed', unduh: '31',
-    abstrak: 'Makalah ini menganalisis perubahan sistem kepercayaan animisme pada masyarakat nelayan pesisir Sumatera Utara. Transformasi kepercayaan dikaji sebagai respons terhadap globalisasi, interaksi antar-agama, dan perubahan ekologi laut yang berdampak pada mata pencaharian masyarakat.',
-    apa: 'Lubis, S. (2024). Transformasi kepercayaan animisme masyarakat pesisir Sumatera Utara. <i>Seminar Nasional Antropologi Indonesia</i>, Universitas Airlangga.',
-    chicago: 'Lubis, Syahrul. "Transformasi Kepercayaan Animisme Masyarakat Pesisir." Paper, Seminar Nasional Antropologi, Universitas Airlangga, 2024.',
-    turabian: 'Lubis, Syahrul. "Transformasi Kepercayaan Animisme Masyarakat Pesisir." Paper, Seminar Nasional Antropologi, 2024.'
-  },
-  doc5: {
-    title: 'Perubahan Pola Konsumsi dan Identitas Kelas Menengah Urban di Kota Medan',
-    badge: 'Jurnal', badgeClass: 'badge-blue', jenis: 'Jurnal Ilmiah',
-    author: 'Nasution, A.', year: '2023', mk: 'Antro Perkotaan', inst: 'USU', unduh: '27',
-    abstrak: 'Artikel ini membahas bagaimana perubahan pola konsumsi masyarakat urban kelas menengah di Kota Medan berkaitan dengan pembentukan dan negosiasi identitas sosial. Data dikumpulkan melalui wawancara semi-terstruktur dan etnografi digital selama 4 bulan.',
-    apa: 'Nasution, A. (2023). Perubahan pola konsumsi dan identitas kelas menengah urban di Kota Medan. <i>Masyarakat: Jurnal Sosiologi</i>, 28(1), 55–78.',
-    chicago: 'Nasution, Ahmad. "Perubahan Pola Konsumsi dan Identitas Kelas Menengah Urban di Kota Medan." <i>Masyarakat: Jurnal Sosiologi</i> 28, no. 1 (2023): 55–78.',
-    turabian: 'Nasution, Ahmad. "Perubahan Pola Konsumsi dan Identitas Kelas Menengah Urban di Kota Medan." <i>Masyarakat: Jurnal Sosiologi</i> 28, no. 1 (2023): 55–78.'
-  },
-  doc6: {
-    title: 'Etnobotani Nusantara: Hubungan Manusia dan Tumbuhan dalam Perspektif Budaya',
-    badge: 'E-Book', badgeClass: 'badge-green', jenis: 'E-Book / Buku',
-    author: 'Purwanto, Y.', year: '2021', mk: 'Etnobotani', inst: 'LIPI Press', unduh: '89',
-    abstrak: 'Buku ini menyajikan kajian komprehensif tentang hubungan antara manusia dan tumbuhan dalam berbagai komunitas di kepulauan Nusantara. Mencakup aspek pemanfaatan, pelestarian, dan pengetahuan ekologi tradisional yang menjadi bagian penting dari identitas budaya lokal.',
-    apa: 'Purwanto, Y. (2021). <i>Etnobotani Nusantara: Hubungan manusia dan tumbuhan dalam perspektif budaya</i>. LIPI Press.',
-    chicago: 'Purwanto, Yaya. <i>Etnobotani Nusantara</i>. Jakarta: LIPI Press, 2021.',
-    turabian: 'Purwanto, Yaya. <i>Etnobotani Nusantara</i>. Jakarta: LIPI Press, 2021.'
-  }
-};
-
-let currentDoc = null;
-let currentFormat = 'apa';
-
-/* ── NAVIGATION ── */
-function showPage(id, navBtn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.querySelectorAll('.nav-link, .mobile-link').forEach(b => b.classList.remove('active'));
-  if (navBtn) navBtn.classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-function toggleMobile() {
-  document.getElementById('mobile-menu').classList.toggle('open');
-}
-
-/* ── KOLEKSI ── */
-var currentMKId = null;
-var currentJenis = null;
-
-async function selectMK(el, name, count) {
-  document.querySelectorAll('.mk-nav-item').forEach(i => i.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('koleksi-heading').textContent = name;
-  if (name === 'Semua') {
-    currentMKId = null;
-  } else {
-    const { data } = await _sb.from('matakuliah').select('id').eq('nama', name).single();
-    currentMKId = data ? data.id : null;
-  }
-  filterKoleksi();
-}
-
-function setType(el) {
-  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  var teks = el.textContent.trim().toLowerCase();
-  if (teks.includes('jurnal')) currentJenis = 'Jurnal';
-  else if (teks.includes('e-book')) currentJenis = 'E-Book';
-  else if (teks.includes('skripsi')) currentJenis = 'Skripsi';
-  else if (teks.includes('makalah')) currentJenis = 'Makalah';
-  else currentJenis = null;
-  filterKoleksi();
-}
-
-async function filterKoleksi() {
-  var koleksiList = document.getElementById('koleksi-doc-list');
-  if (!koleksiList) return;
-  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Memuat dokumen...</div>';
-  var query = _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true);
-  if (currentMKId) query = query.eq('matakuliah_id', currentMKId);
-  if (currentJenis) query = query.eq('jenis', currentJenis);
-  query = query.limit(30);
-  const { data, error } = await query;
-  if (error || !data || data.length === 0) {
-    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Tidak ada dokumen ditemukan.</div>';
-    document.getElementById('koleksi-sub').textContent = '0 dokumen tersedia';
-    return;
-  }
-  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen tersedia';
-  koleksiList.innerHTML = data.map(function(d) {
-    var icon = d.jenis === 'E-Book' ? '📗' : d.jenis === 'Skripsi' ? '🎓' : d.jenis === 'Makalah' ? '📝' : '📄';
-    var bg = d.jenis === 'E-Book' ? '#E8F5F0' : d.jenis === 'Skripsi' ? '#FBF2E8' : d.jenis === 'Makalah' ? '#F0EDFB' : '#EAF0FB';
-    var bc = d.jenis === 'E-Book' ? 'badge-green' : d.jenis === 'Skripsi' ? 'badge-amber' : d.jenis === 'Makalah' ? 'badge-purple' : 'badge-blue';
-    var mk = d.matakuliah ? d.matakuliah.nama : '-';
-    return '<div class="doc-row" onclick="showDetailDB(\'' + d.id + '\')">' +
-      '<div class="doc-type-icon" style="background:' + bg + ';">' + icon + '</div>' +
-      '<div class="doc-body">' +
-        '<span class="badge ' + bc + '">' + d.jenis + '</span>' +
-        '<div class="doc-title-text">' + d.judul + '</div>' +
-        '<div class="doc-meta-row">' +
-          '<span>👤 ' + d.penulis + ' (' + (d.tahun || '-') + ')</span>' +
-          '<span>📚 ' + mk + '</span>' +
-          (d.institusi ? '<span>🏛 ' + d.institusi + '</span>' : '') +
-        '</div>' +
-      '</div>' +
-      '<div class="doc-right">' +
-        '<span class="badge badge-gray">' + (d.jumlah_unduhan || 0) + ' unduhan</span>' +
-        '<button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB(\'' + d.id + '\')">Lihat detail</button>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-}
-
-
-function goKoleksi(mk) {
-  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
-  document.querySelectorAll('.mk-nav-item').forEach(item => {
-    if (item.querySelector('span') && item.querySelector('span').textContent.trim() === mk) {
-      item.classList.add('active');
-      document.getElementById('koleksi-heading').textContent = mk;
-    } else {
-      item.classList.remove('active');
-    }
-  });
-}
-
-function goKoleksiFilter(type) {
-  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
-  document.querySelectorAll('.filter-pill').forEach(p => {
-    p.classList.remove('active');
-    if (p.textContent.toLowerCase().includes(type)) p.classList.add('active');
-  });
-}
-
-/* ── DETAIL ── */
-function showDetail(id) {
-  currentDoc = docs[id];
-  if (!currentDoc) return;
-  document.getElementById('detail-breadcrumb').textContent = currentDoc.title.substring(0,40) + '...';
-  document.getElementById('detail-title').textContent = currentDoc.title;
-  document.getElementById('detail-badge').textContent = currentDoc.badge;
-  document.getElementById('detail-badge').className = 'badge ' + currentDoc.badgeClass;
-  document.getElementById('detail-author').textContent = currentDoc.author;
-  document.getElementById('detail-year').textContent = currentDoc.year;
-  document.getElementById('detail-mk').textContent = currentDoc.mk;
-  document.getElementById('detail-inst').textContent = currentDoc.inst;
-  document.getElementById('detail-jenis').textContent = currentDoc.jenis;
-  document.getElementById('detail-unduh').textContent = currentDoc.unduh + ' kali';
-  document.getElementById('detail-abstrak').textContent = currentDoc.abstrak;
-  currentFormat = 'apa';
-  document.querySelectorAll('.sit-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
-  document.getElementById('sit-display').innerHTML = currentDoc.apa;
-  updateTombolDokumen(currentDoc);
-  showPage('detail');
-}
-
-async function showDetailDB(id) {
-  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('id', id).single();
-  if (error || !data) return;
-  currentDoc = {
-    id: data.id,
-    title: data.judul,
-    badge: data.jenis,
-    badgeClass: data.jenis === 'Jurnal' ? 'badge-blue' : data.jenis === 'E-Book' ? 'badge-green' : data.jenis === 'Skripsi' ? 'badge-amber' : 'badge-purple',
-    author: data.penulis,
-    year: data.tahun,
-    mk: data.matakuliah ? data.matakuliah.nama : '-',
-    inst: data.institusi || '-',
-    jenis: data.jenis,
-    unduh: data.jumlah_unduhan || 0,
-    abstrak: data.abstrak || '-',
-    link_sumber: data.link_sumber,
-    file_pdf: data.file_pdf,
-    apa: data.penulis + ' (' + data.tahun + '). ' + data.judul + '.',
-    chicago: data.penulis + '. "' + data.judul + '." ' + data.tahun + '.',
-    turabian: data.penulis + '. "' + data.judul + '." ' + data.tahun + '.'
-  };
-  document.getElementById('detail-breadcrumb').textContent = currentDoc.title.substring(0,40) + '...';
-  document.getElementById('detail-title').textContent = currentDoc.title;
-  document.getElementById('detail-badge').textContent = currentDoc.badge;
-  document.getElementById('detail-badge').className = 'badge ' + currentDoc.badgeClass;
-  document.getElementById('detail-author').textContent = currentDoc.author;
-  document.getElementById('detail-year').textContent = currentDoc.year;
-  document.getElementById('detail-mk').textContent = currentDoc.mk;
-  document.getElementById('detail-inst').textContent = currentDoc.inst;
-  document.getElementById('detail-jenis').textContent = currentDoc.jenis;
-  document.getElementById('detail-unduh').textContent = currentDoc.unduh + ' kali';
-  document.getElementById('detail-abstrak').textContent = currentDoc.abstrak;
-  currentFormat = 'apa';
-  document.querySelectorAll('.sit-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
-  document.getElementById('sit-display').innerHTML = currentDoc.apa;
-  updateTombolDokumen(currentDoc);
-  showPage('detail');
-}
-
-function updateTombolDokumen(doc) {
-  var btnSumber = document.getElementById('btn-sumber');
-  var btnUnduh = document.getElementById('btn-unduh');
-  var btnTidak = document.getElementById('btn-tidak-tersedia');
-  btnSumber.style.display = 'none';
-  btnUnduh.style.display = 'none';
-  btnTidak.style.display = 'none';
-  if (doc.link_sumber) btnSumber.style.display = 'block';
-  if (doc.file_pdf) btnUnduh.style.display = 'block';
-  if (!doc.link_sumber && !doc.file_pdf) btnTidak.style.display = 'block';
-}
-
-function switchFormat(tab, fmt) {
-  currentFormat = fmt;
-  document.querySelectorAll('.sit-tab').forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-  if (currentDoc) document.getElementById('sit-display').innerHTML = currentDoc[fmt];
-}
-
-function copySit() {
-  if (!currentDoc) return;
-  const text = document.getElementById('sit-display').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    document.getElementById('copy-label').textContent = 'Tersalin!';
-    setTimeout(() => document.getElementById('copy-label').textContent = 'Salin sitasi', 1800);
-  });
-}
-
-/* ── AUTH ── */
-let isLoggedIn = false;
-
-function togglePw(id, btn) {
-  const input = document.getElementById(id);
-  input.type = input.type === 'password' ? 'text' : 'password';
-}
-
-function pickSem(el) {
-  document.querySelectorAll('.sem-option').forEach(s => s.classList.remove('active'));
-  el.classList.add('active');
-}
-
-/* ── AKUN TABS ── */
-function switchAkunTab(menuEl, tabId) {
-  document.querySelectorAll('.akun-menu-item').forEach(i => i.classList.remove('active'));
-  menuEl.classList.add('active');
-  document.querySelectorAll('.akun-tab').forEach(t => t.style.display = 'none');
-  document.getElementById(tabId).style.display = 'block';
-}
-
-
-
-/* SUPABASE INIT */
 const _sb = supabase.createClient(
   'https://mdhpkhuriemobhisnulo.supabase.co',
   'sb_publishable_6-8zNowvKI_uOpURJQc5gg_Ep69hxzk'
 );
 
-async function cekSesi() {
-  const { data: { session } } = await _sb.auth.getSession();
-  if (session) {
-    setLoggedIn(session.user);
-    cekAdmin(session.user);
-  }
-}
-cekSesi();
-muatDokumen();
-muatKoleksi();
-muatStatistik();
-
-async function muatStatistik() {
-  const jenis = ['Jurnal', 'E-Book', 'Skripsi', 'Makalah'];
-  const ids = ['stat-jurnal', 'stat-ebook', 'stat-skripsi', 'stat-makalah'];
-  for (var i = 0; i < jenis.length; i++) {
-    const { count } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', true).eq('jenis', jenis[i]);
-    var el = document.getElementById(ids[i]);
-    if (el) el.textContent = count || 0;
-  }
-}
-
-async function cariDokumen() {
-  var keyword = document.querySelector('.search-bar input').value.trim();
-  if (!keyword) return;
-  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
-  var koleksiList = document.getElementById('koleksi-doc-list');
-  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Mencari "' + keyword + '"...</div>';
-  document.getElementById('koleksi-heading').textContent = 'Hasil pencarian: "' + keyword + '"';
-  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true)
-    .or('judul.ilike.%'+keyword+'%,penulis.ilike.%'+keyword+'%,abstrak.ilike.%'+keyword+'%');
-  if (error || !data || data.length === 0) {
-    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Tidak ada hasil untuk "' + keyword + '"</div>';
-    document.getElementById('koleksi-sub').textContent = '0 dokumen ditemukan';
-    return;
-  }
-  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen ditemukan';
-  koleksiList.innerHTML = data.map(function(d) {
-    var icon = d.jenis === 'E-Book' ? '📗' : d.jenis === 'Skripsi' ? '🎓' : d.jenis === 'Makalah' ? '📝' : '📄';
-    var bg = d.jenis === 'E-Book' ? '#E8F5F0' : d.jenis === 'Skripsi' ? '#FBF2E8' : d.jenis === 'Makalah' ? '#F0EDFB' : '#EAF0FB';
-    var bc = d.jenis === 'E-Book' ? 'badge-green' : d.jenis === 'Skripsi' ? 'badge-amber' : d.jenis === 'Makalah' ? 'badge-purple' : 'badge-blue';
-    var mk = d.matakuliah ? d.matakuliah.nama : '-';
-    return '<div class="doc-row" onclick="showDetailDB(\'' + d.id + '\')">' +
-      '<div class="doc-type-icon" style="background:' + bg + ';">' + icon + '</div>' +
-      '<div class="doc-body">' +
-        '<span class="badge ' + bc + '">' + d.jenis + '</span>' +
-        '<div class="doc-title-text">' + d.judul + '</div>' +
-        '<div class="doc-meta-row">' +
-          '<span>👤 ' + d.penulis + ' (' + (d.tahun||'-') + ')</span>' +
-          '<span>📚 ' + mk + '</span>' +
-          (d.institusi ? '<span>🏛 ' + d.institusi + '</span>' : '') +
-        '</div>' +
-      '</div>' +
-      '<div class="doc-right">' +
-        '<button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB(\'' + d.id + '\')">Lihat detail</button>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-}
-
-async function muatKoleksi() {
-  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).limit(20);
-  var koleksiList = document.getElementById('koleksi-doc-list');
-  if (!koleksiList) return;
-  if (error || !data || data.length === 0) {
-    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Belum ada dokumen tersedia.</div>';
-    return;
-  }
-  koleksiList.innerHTML = data.map(function(d) {
-    var icon = d.jenis === 'E-Book' ? '📗' : d.jenis === 'Skripsi' ? '🎓' : d.jenis === 'Makalah' ? '📝' : '📄';
-    var bg = d.jenis === 'E-Book' ? '#E8F5F0' : d.jenis === 'Skripsi' ? '#FBF2E8' : d.jenis === 'Makalah' ? '#F0EDFB' : '#EAF0FB';
-    var bc = d.jenis === 'E-Book' ? 'badge-green' : d.jenis === 'Skripsi' ? 'badge-amber' : d.jenis === 'Makalah' ? 'badge-purple' : 'badge-blue';
-    var mk = d.matakuliah ? d.matakuliah.nama : '-';
-    return '<div class="doc-row" onclick="showDetailDB(\'' + d.id + '\')">' +
-      '<div class="doc-type-icon" style="background:' + bg + ';">' + icon + '</div>' +
-      '<div class="doc-body">' +
-        '<span class="badge ' + bc + '">' + d.jenis + '</span>' +
-        '<div class="doc-title-text">' + d.judul + '</div>' +
-        '<div class="doc-meta-row">' +
-          '<span>👤 ' + d.penulis + ' (' + (d.tahun || '-') + ')</span>' +
-          '<span>📚 ' + mk + '</span>' +
-          (d.institusi ? '<span>🏛 ' + d.institusi + '</span>' : '') +
-        '</div>' +
-      '</div>' +
-      '<div class="doc-right">' +
-        '<span class="badge badge-gray">' + (d.jumlah_unduhan || 0) + ' unduhan</span>' +
-        '<button class="btn btn-xs btn-outline-green" onclick="event.stopPropagation();showDetailDB(\'' + d.id + '\')">Lihat detail</button>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-}
-
-
-async function doLogin() {
-  const email = document.querySelector('#page-login input[type=text]').value.trim();
-  const pw    = document.getElementById('login-pw').value;
-  if (!email || !pw) { alert('Isi email dan password dulu!'); return; }
-  const { data, error } = await _sb.auth.signInWithPassword({ email, password: pw });
-  if (error) { alert('Login gagal: ' + error.message); return; }
-  setLoggedIn(data.user);
-}
-
-async function doDaftar() {
-  const inputs  = document.querySelectorAll('#page-daftar input[type=text]');
-  const nama    = inputs[0].value.trim() + ' ' + inputs[1].value.trim();
-  const email   = inputs[2].value.trim();
-  const pw      = document.getElementById('daftar-pw').value;
-  const semEl   = document.querySelector('.sem-option.active');
-  const semester = semEl ? parseInt(semEl.textContent.replace('Sem. ','')) : 1;
-  if (!email || !pw || !nama.trim()) { alert('Lengkapi semua data dulu!'); return; }
-  const { data, error } = await _sb.auth.signUp({
-    email, password: pw,
-    options: { data: { nama_lengkap: nama, semester } }
-  });
-  if (error) { alert('Daftar gagal: ' + error.message); return; }
-  alert('Pendaftaran berhasil! Silakan cek email Anda untuk konfirmasi.');
-  showPage('login', document.querySelectorAll('.nav-link')[0]);
-}
-
-async function doLogout() {
-  await _sb.auth.signOut();
-  setLoggedOut();
-}
-
-function setLoggedIn(user) {
-  isLoggedIn = true;
-  document.getElementById('nav-auth-btns').style.display = 'none';
-  document.getElementById('nav-user-btns').style.display = 'flex';
-  document.getElementById('nav-akun').style.display = '';
-  document.getElementById('mobile-akun').style.display = '';
-  document.getElementById('mobile-masuk').style.display = 'none';
-  document.getElementById('mobile-daftar').style.display = 'none';
-  muatProfilAkun(user);
-  cekAdmin(user);
-  showPage('beranda', document.querySelectorAll('.nav-link')[0]);
-}
-
-function setLoggedOut() {
-  isLoggedIn = false;
-  document.getElementById('nav-auth-btns').style.display = 'flex';
-  document.getElementById('nav-user-btns').style.display = 'none';
-  document.getElementById('nav-akun').style.display = 'none';
-  document.getElementById('nav-admin').style.display = 'none';
-  document.getElementById('mobile-masuk').style.display = '';
-  document.getElementById('mobile-daftar').style.display = '';
-  showPage('beranda', document.querySelectorAll('.nav-link')[0]);
-}
-
-async function muatProfilAkun(user) {
-  if (!user) return;
-  const { data: profil } = await _sb.from('profiles').select('*').eq('id', user.id).single();
-  if (!profil) return;
-  const nama = profil.nama_lengkap || user.email;
-  const inisial = nama.split(' ').map(function(n){return n[0];}).join('').substring(0,2).toUpperCase();
-  const el = document.querySelector('.avatar-circle');
-  if (el) el.textContent = inisial;
-  const elNama = document.querySelector('.profile-name');
-  if (elNama) elNama.textContent = nama;
-  const elUniv = document.querySelector('.profile-univ');
-  if (elUniv) elUniv.textContent = (profil.universitas||'Unimed') + ' · Semester ' + (profil.semester||1);
-}
-
-async function muatDokumen() {
-  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).limit(10);
-  if (error || !data || data.length === 0) return;
-  const list = document.querySelector('#page-beranda .doc-list');
-  if (!list) return;
-  list.innerHTML = data.map(function(d) {
-    var icon = d.jenis === 'E-Book' ? '📗' : d.jenis === 'Skripsi' ? '🎓' : d.jenis === 'Makalah' ? '📝' : '📄';
-    var bg = d.jenis === 'E-Book' ? '#E8F5F0' : d.jenis === 'Skripsi' ? '#FBF2E8' : d.jenis === 'Makalah' ? '#F0EDFB' : '#EAF0FB';
-    var bc = d.jenis === 'E-Book' ? 'badge-green' : d.jenis === 'Skripsi' ? 'badge-amber' : d.jenis === 'Makalah' ? 'badge-purple' : 'badge-blue';
-    var mk = d.matakuliah ? d.matakuliah.nama : '-';
-    return '<div class="doc-row" onclick="showDetailDB(\''+d.id+'\')"><div class="doc-type-icon" style="background:'+bg+';">'+icon+'</div><div class="doc-body"><span class="badge '+bc+'">'+d.jenis+'</span><div class="doc-title-text">'+d.judul+'</div><div class="doc-meta-row"><span>👤 '+d.penulis+' ('+(d.tahun||'-')+')</span><span>📚 '+mk+'</span>'+(d.institusi?'<span>🏛 '+d.institusi+'</span>':'')+'</div></div><div class="doc-right"><button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetailDB(\''+d.id+'\')">Lihat detail</button></div></div>';
-  }).join('');
-}
-
-async function uploadDokumen() {
-  const result = await _sb.auth.getSession();
-  const session = result.data.session;
-  if (!session) { alert('Anda harus login dulu untuk upload dokumen!'); showPage('login'); return; }
-  const judul   = document.getElementById('u-judul').value.trim();
-  const penulis = document.getElementById('u-penulis').value.trim();
-  const tahun   = parseInt(document.getElementById('u-tahun').value) || null;
-  const jenis   = document.getElementById('u-jenis').value;
-  const link    = document.getElementById('u-link').value.trim();
-  const fileInput = document.getElementById('file-input');
-  const file    = fileInput.files[0];
-  if (!judul || !penulis || !jenis) { alert('Lengkapi judul, penulis, dan jenis dokumen!'); return; }
-  let file_pdf = null;
-  if (file) {
-    const namaFile = session.user.id + '/' + Date.now() + '_' + file.name.replace(/\s/g,'_');
-    const { data: upData, error: upErr } = await _sb.storage.from('dokumen-pdf').upload(namaFile, file);
-    if (upErr) { alert('Gagal upload file: ' + upErr.message); return; }
-    const { data: urlData } = _sb.storage.from('dokumen-pdf').getPublicUrl(namaFile);
-    file_pdf = urlData.publicUrl;
-  }
-  const { error } = await _sb.from('dokumen').insert({
-    judul: judul, penulis: penulis, tahun: tahun, jenis: jenis,
-    link_sumber: link || null,
-    file_pdf: file_pdf,
-    uploaded_by: session.user.id,
-    disetujui: false
-  });
-  if (error) { alert('Gagal simpan dokumen: ' + error.message); return; }
-  alert('Dokumen berhasil dikirim! Menunggu persetujuan moderator.');
-  document.getElementById('u-judul').value = '';
-  document.getElementById('u-penulis').value = '';
-  document.getElementById('u-tahun').value = '';
-  document.getElementById('u-link').value = '';
-  document.getElementById('file-label').textContent = 'Klik untuk pilih file PDF';
-  fileInput.value = '';
-}
-
-function piliFile(input) {
-  const file = input.files[0];
-  if (file) {
-    document.getElementById('file-label').textContent = '✅ ' + file.name;
-  }
-}
-
-function bukaSumber() {
-  if (currentDoc && currentDoc.link_sumber) {
-    window.open(currentDoc.link_sumber, '_blank');
-  }
-}
-
-function unduhPDF() {
-  if (currentDoc && currentDoc.file_pdf) {
-    window.open(currentDoc.file_pdf, '_blank');
-  }
-}
-
-async function simpanDokumen() {
-  const result = await _sb.auth.getSession();
-  const session = result.data.session;
-  if (!session) { alert('Login dulu untuk menyimpan dokumen!'); showPage('login'); return; }
-  if (!currentDoc) return;
-  const { error } = await _sb.from('dokumen_tersimpan').insert({
-    user_id: session.user.id,
-    dokumen_id: currentDoc.id
-  });
-  if (error && error.code === '23505') { alert('Dokumen sudah ada di koleksi Anda!'); return; }
-  if (error) { alert('Gagal menyimpan: ' + error.message); return; }
-  alert('Dokumen berhasil disimpan ke koleksi Anda!');
-}
-
-function bagikanDokumen() {
-  if (!currentDoc) return;
-  const url = window.location.href;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(function() {
-      alert('Link berhasil disalin!');
-    });
-  } else {
-    alert('Link: ' + url);
-  }
-}
-
-
-/* ═══════════════════════════════════
-   TEORI ANTROPOLOGI
-═══════════════════════════════════ */
-.teori-page { padding: 32px 0 60px; }
-.teori-search { display: flex; gap: 8px; margin-bottom: 20px; }
-.teori-search input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; }
-.teori-search input:focus { border-color: var(--green); }
-.aliran-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
-.teori-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
-.teori-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: all 0.15s; cursor: pointer; }
-.teori-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
-.teori-card.expanded { border-color: var(--green); grid-column: span 2; }
-.teori-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
-.teori-nama { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
-.teori-tokoh { font-size: 13px; color: var(--green-dark); font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
-.teori-aliran { font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--green-light); color: var(--green-dark); font-weight: 500; }
-.teori-tahun { font-size: 11px; color: var(--ink-muted); }
-.teori-penjelasan { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 10px; }
-.teori-detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
-.teori-card.expanded .teori-detail { display: block; }
-.teori-detail-item { margin-bottom: 10px; }
-.teori-detail-label { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
-.teori-detail-val { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
-.teori-expand-btn { font-size: 12px; color: var(--green); cursor: pointer; display: flex; align-items: center; gap: 4px; background: none; border: none; padding: 0; font-family: inherit; }
-
-@media (max-width: 768px) {
-  .teori-grid { grid-template-columns: 1fr; }
-  .teori-card.expanded { grid-column: span 1; }
-}
-
-/* ── TEORI ANTROPOLOGI ── */
-var allTeori = [];
-var filterAliranTeori = 'semua';
-
-async function muatTeori() {
-  const { data, error } = await _sb.from('teori_antropologi').select('*').order('aliran');
-  if (error) return;
-  allTeori = data || [];
-  renderTeori();
-}
-muatTeori();
-
-function renderTeori() {
-  var grid = document.getElementById('teori-grid');
-  var count = document.getElementById('teori-count');
-  if (!grid) return;
-  var keyword = document.getElementById('teori-cari') ? document.getElementById('teori-cari').value.toLowerCase() : '';
-  var filtered = allTeori.filter(function(t) {
-    var matchAliran = filterAliranTeori === 'semua' || t.aliran === filterAliranTeori;
-    var matchKeyword = !keyword || t.nama_teori.toLowerCase().includes(keyword) || t.tokoh.toLowerCase().includes(keyword) || t.aliran.toLowerCase().includes(keyword);
-    return matchAliran && matchKeyword;
-  });
-  if (count) count.textContent = filtered.length + ' teori ditemukan';
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Tidak ada teori ditemukan.</div>';
-    return;
-  }
-  grid.innerHTML = filtered.map(function(t) {
-    return '<div class="teori-card" id="teori-'+t.id+'">' +
-      '<div class="teori-card-head">' +
-        '<div>' +
-          '<div class="teori-nama">' + t.nama_teori + '</div>' +
-          '<div class="teori-tokoh">👤 ' + t.tokoh + ' <span class="teori-tahun">(' + (t.tahun||'-') + ')</span></div>' +
-        '</div>' +
-        '<span class="teori-aliran">' + t.aliran + '</span>' +
-      '</div>' +
-      '<div class="teori-penjelasan">' + t.penjelasan.substring(0,180) + '...</div>' +
-      '<div class="teori-detail">' +
-        (t.konsep_kunci ? '<div class="teori-detail-item"><div class="teori-detail-label">Konsep kunci</div><div class="teori-detail-val">🔑 ' + t.konsep_kunci + '</div></div>' : '') +
-        (t.contoh_penerapan ? '<div class="teori-detail-item"><div class="teori-detail-label">Contoh penerapan</div><div class="teori-detail-val">💡 ' + t.contoh_penerapan + '</div></div>' : '') +
-        '<div class="teori-detail-item"><div class="teori-detail-label">Penjelasan lengkap</div><div class="teori-detail-val">' + t.penjelasan + '</div></div>' +
-      '</div>' +
-      '<button class="teori-expand-btn" onclick="toggleTeori('+t.id+')" id="btn-teori-'+t.id+'">▼ Lihat selengkapnya</button>' +
-    '</div>';
-  }).join('');
-}
-
-function toggleTeori(id) {
-  var card = document.getElementById('teori-'+id);
-  var btn = document.getElementById('btn-teori-'+id);
-  var expanded = card.classList.toggle('expanded');
-  btn.textContent = expanded ? '▲ Tutup' : '▼ Lihat selengkapnya';
-}
-
-function filterAliran(el, aliran) {
-  document.querySelectorAll('.aliran-filter .filter-pill').forEach(function(p){ p.classList.remove('active'); });
-  el.classList.add('active');
-  filterAliranTeori = aliran;
-  renderTeori();
-}
-
-function cariTeori() { renderTeori(); }
 
 /* ── TEORI ANTROPOLOGI ── */
 var allTeori = [];

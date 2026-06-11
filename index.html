@@ -1830,6 +1830,420 @@ const _sb = supabase.createClient(
   'sb_publishable_6-8zNowvKI_uOpURJQc5gg_Ep69hxzk'
 );
 
+/* ── NAVIGATION ── */
+function showPage(id, navBtn) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-link, .mobile-link').forEach(function(b) { b.classList.remove('active'); });
+  if (navBtn) navBtn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleMobile() {
+  var m = document.getElementById('mobile-menu');
+  if (m) m.classList.toggle('open');
+}
+
+/* ── AUTH ── */
+var isLoggedIn = false;
+
+async function cekSesi() {
+  const { data: { session } } = await _sb.auth.getSession();
+  if (session) { setLoggedIn(session.user); cekAdmin(session.user); }
+}
+
+async function doLogin() {
+  var email = document.querySelector('#page-login input[type=text]');
+  var pw = document.getElementById('login-pw');
+  if (!email || !pw) { alert('Isi email dan password dulu!'); return; }
+  if (!email.value.trim() || !pw.value) { alert('Isi email dan password dulu!'); return; }
+  const { data, error } = await _sb.auth.signInWithPassword({ email: email.value.trim(), password: pw.value });
+  if (error) { alert('Login gagal: ' + error.message); return; }
+  setLoggedIn(data.user);
+}
+
+async function doDaftar() {
+  var inputs = document.querySelectorAll('#page-daftar input[type=text]');
+  var nama = (inputs[0] ? inputs[0].value.trim() : '') + ' ' + (inputs[1] ? inputs[1].value.trim() : '');
+  var email = inputs[2] ? inputs[2].value.trim() : '';
+  var pw = document.getElementById('daftar-pw');
+  var semEl = document.querySelector('.sem-option.active');
+  var semester = semEl ? parseInt(semEl.textContent.replace('Sem. ','')) : 1;
+  if (!email || !pw || !pw.value || !nama.trim()) { alert('Lengkapi semua data dulu!'); return; }
+  const { data, error } = await _sb.auth.signUp({ email: email, password: pw.value, options: { data: { nama_lengkap: nama, semester: semester } } });
+  if (error) { alert('Daftar gagal: ' + error.message); return; }
+  alert('Pendaftaran berhasil! Silakan login.');
+  showPage('login', document.querySelectorAll('.nav-link')[0]);
+}
+
+async function doLogout() {
+  await _sb.auth.signOut();
+  setLoggedOut();
+}
+
+function setLoggedIn(user) {
+  isLoggedIn = true;
+  document.getElementById('nav-auth-btns').style.display = 'none';
+  document.getElementById('nav-user-btns').style.display = 'flex';
+  document.getElementById('nav-akun').style.display = '';
+  document.getElementById('mobile-akun').style.display = '';
+  document.getElementById('mobile-masuk').style.display = 'none';
+  document.getElementById('mobile-daftar').style.display = 'none';
+  muatProfilAkun(user);
+  showPage('beranda', document.querySelectorAll('.nav-link')[0]);
+}
+
+function setLoggedOut() {
+  isLoggedIn = false;
+  document.getElementById('nav-auth-btns').style.display = 'flex';
+  document.getElementById('nav-user-btns').style.display = 'none';
+  document.getElementById('nav-akun').style.display = 'none';
+  document.getElementById('nav-admin').style.display = 'none';
+  document.getElementById('mobile-akun').style.display = 'none';
+  document.getElementById('mobile-masuk').style.display = '';
+  document.getElementById('mobile-daftar').style.display = '';
+  showPage('beranda', document.querySelectorAll('.nav-link')[0]);
+}
+
+function togglePw(id, btn) {
+  var input = document.getElementById(id);
+  if (input) input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+function pickSem(el) {
+  document.querySelectorAll('.sem-option').forEach(function(s) { s.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+/* ── PROFIL ── */
+async function muatProfilAkun(user) {
+  if (!user) return;
+  const { data: profil } = await _sb.from('profiles').select('*').eq('id', user.id).single();
+  if (!profil) return;
+  var nama = profil.nama_lengkap || user.email;
+  var inisial = nama.split(' ').map(function(n){ return n[0]; }).join('').substring(0,2).toUpperCase();
+  var el = document.querySelector('.avatar-circle');
+  if (el) el.textContent = inisial;
+  var elNama = document.querySelector('.profile-name');
+  if (elNama) elNama.textContent = nama;
+  var elUniv = document.querySelector('.profile-univ');
+  if (elUniv) elUniv.textContent = (profil.universitas||'Unimed') + ' · Semester ' + (profil.semester||1);
+}
+
+/* ── STATISTIK ── */
+async function muatStatistik() {
+  var jenis = ['Jurnal','E-Book','Skripsi','Makalah'];
+  var ids = ['stat-jurnal','stat-ebook','stat-skripsi','stat-makalah'];
+  for (var i = 0; i < jenis.length; i++) {
+    const { count } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', true).eq('jenis', jenis[i]);
+    var el = document.getElementById(ids[i]);
+    if (el) el.textContent = count || 0;
+  }
+}
+
+/* ── DOKUMEN ── */
+function buildDocRow(d, size) {
+  var icon = d.jenis === 'E-Book' ? '📗' : d.jenis === 'Skripsi' ? '🎓' : d.jenis === 'Makalah' ? '📝' : '📄';
+  var bg = d.jenis === 'E-Book' ? '#E8F5F0' : d.jenis === 'Skripsi' ? '#FBF2E8' : d.jenis === 'Makalah' ? '#F0EDFB' : '#EAF0FB';
+  var bc = d.jenis === 'E-Book' ? 'badge-green' : d.jenis === 'Skripsi' ? 'badge-amber' : d.jenis === 'Makalah' ? 'badge-purple' : 'badge-blue';
+  var mk = d.matakuliah ? d.matakuliah.nama : '-';
+  var row = document.createElement('div');
+  row.className = 'doc-row';
+  row.addEventListener('click', function() { showDetailDB(d.id); });
+  row.innerHTML =
+    '<div class="doc-type-icon" style="background:' + bg + ';">' + icon + '</div>' +
+    '<div class="doc-body">' +
+      '<span class="badge ' + bc + '">' + d.jenis + '</span>' +
+      '<div class="doc-title-text">' + d.judul + '</div>' +
+      '<div class="doc-meta-row">' +
+        '<span>👤 ' + d.penulis + ' (' + (d.tahun||'-') + ')</span>' +
+        '<span>📚 ' + mk + '</span>' +
+        (d.institusi ? '<span>🏛 ' + d.institusi + '</span>' : '') +
+      '</div>' +
+    '</div>' +
+    '<div class="doc-right">' +
+      '<span class="badge badge-gray">' + (d.jumlah_unduhan||0) + ' unduhan</span>' +
+      '<button class="btn btn-xs btn-outline-green">Lihat detail</button>' +
+    '</div>';
+  row.querySelector('button').addEventListener('click', function(e) {
+    e.stopPropagation();
+    showDetailDB(d.id);
+  });
+  return row;
+}
+
+async function muatDokumen() {
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).limit(10);
+  if (error || !data || data.length === 0) return;
+  var list = document.getElementById('beranda-doc-list');
+  if (!list) return;
+  list.innerHTML = '';
+  data.forEach(function(d) { list.appendChild(buildDocRow(d)); });
+}
+
+async function muatKoleksi() {
+  var koleksiList = document.getElementById('koleksi-doc-list');
+  if (!koleksiList) return;
+  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Memuat dokumen...</div>';
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).limit(20);
+  if (error || !data || data.length === 0) {
+    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Belum ada dokumen.</div>';
+    return;
+  }
+  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen tersedia';
+  koleksiList.innerHTML = '';
+  data.forEach(function(d) { koleksiList.appendChild(buildDocRow(d)); });
+}
+
+async function cariDokumen() {
+  var keyword = document.querySelector('.search-bar input').value.trim();
+  if (!keyword) return;
+  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
+  var koleksiList = document.getElementById('koleksi-doc-list');
+  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Mencari "' + keyword + '"...</div>';
+  document.getElementById('koleksi-heading').textContent = 'Hasil pencarian: "' + keyword + '"';
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true)
+    .or('judul.ilike.%' + keyword + '%,penulis.ilike.%' + keyword + '%,abstrak.ilike.%' + keyword + '%');
+  if (error || !data || data.length === 0) {
+    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Tidak ada hasil untuk "' + keyword + '"</div>';
+    document.getElementById('koleksi-sub').textContent = '0 dokumen ditemukan';
+    return;
+  }
+  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen ditemukan';
+  koleksiList.innerHTML = '';
+  data.forEach(function(d) { koleksiList.appendChild(buildDocRow(d)); });
+}
+
+/* ── KOLEKSI FILTER ── */
+var currentMKId = null;
+var currentJenis = null;
+
+async function selectMK(el, name, count) {
+  document.querySelectorAll('.mk-nav-item').forEach(function(i) { i.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('koleksi-heading').textContent = name;
+  if (name === 'Semua') {
+    currentMKId = null;
+  } else {
+    const { data } = await _sb.from('matakuliah').select('id').eq('nama', name).single();
+    currentMKId = data ? data.id : null;
+  }
+  filterKoleksi();
+}
+
+function setType(el) {
+  document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+  el.classList.add('active');
+  var teks = el.textContent.trim().toLowerCase();
+  if (teks.includes('jurnal')) currentJenis = 'Jurnal';
+  else if (teks.includes('e-book')) currentJenis = 'E-Book';
+  else if (teks.includes('skripsi')) currentJenis = 'Skripsi';
+  else if (teks.includes('makalah')) currentJenis = 'Makalah';
+  else currentJenis = null;
+  filterKoleksi();
+}
+
+async function filterKoleksi() {
+  var koleksiList = document.getElementById('koleksi-doc-list');
+  if (!koleksiList) return;
+  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Memuat...</div>';
+  var query = _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true);
+  if (currentMKId) query = query.eq('matakuliah_id', currentMKId);
+  if (currentJenis) query = query.eq('jenis', currentJenis);
+  query = query.limit(30);
+  const { data, error } = await query;
+  if (error || !data || data.length === 0) {
+    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Tidak ada dokumen.</div>';
+    document.getElementById('koleksi-sub').textContent = '0 dokumen';
+    return;
+  }
+  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen tersedia';
+  koleksiList.innerHTML = '';
+  data.forEach(function(d) { koleksiList.appendChild(buildDocRow(d)); });
+}
+
+function goKoleksi(mk) {
+  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
+}
+
+function goKoleksiFilter(type) {
+  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
+}
+
+/* ── DETAIL DOKUMEN ── */
+var currentDoc = null;
+var currentFormat = 'apa';
+var docs = {};
+
+function showDetail(id) {
+  var d = docs[id];
+  if (!d) return;
+  currentDoc = d;
+  document.getElementById('detail-breadcrumb').textContent = d.title.substring(0,40) + '...';
+  document.getElementById('detail-title').textContent = d.title;
+  document.getElementById('detail-badge').textContent = d.badge;
+  document.getElementById('detail-badge').className = 'badge ' + d.badgeClass;
+  document.getElementById('detail-author').textContent = d.author;
+  document.getElementById('detail-year').textContent = d.year;
+  document.getElementById('detail-mk').textContent = d.mk;
+  document.getElementById('detail-inst').textContent = d.inst;
+  document.getElementById('detail-jenis').textContent = d.jenis;
+  document.getElementById('detail-unduh').textContent = d.unduh + ' kali';
+  document.getElementById('detail-abstrak').textContent = d.abstrak;
+  currentFormat = 'apa';
+  document.querySelectorAll('.sit-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
+  document.getElementById('sit-display').innerHTML = d.apa||'-';
+  updateTombolDokumen(d);
+  showPage('detail');
+}
+
+async function showDetailDB(id) {
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('id', id).single();
+  if (error || !data) return;
+  currentDoc = {
+    id: data.id, title: data.judul,
+    badge: data.jenis,
+    badgeClass: data.jenis === 'Jurnal' ? 'badge-blue' : data.jenis === 'E-Book' ? 'badge-green' : data.jenis === 'Skripsi' ? 'badge-amber' : 'badge-purple',
+    author: data.penulis, year: data.tahun,
+    mk: data.matakuliah ? data.matakuliah.nama : '-',
+    inst: data.institusi || '-', jenis: data.jenis,
+    unduh: data.jumlah_unduhan || 0,
+    abstrak: data.abstrak || '-',
+    link_sumber: data.link_sumber, file_pdf: data.file_pdf,
+    apa: data.penulis + ' (' + data.tahun + '). ' + data.judul + '.',
+    chicago: data.penulis + '. "' + data.judul + '." ' + data.tahun + '.',
+    turabian: data.penulis + '. "' + data.judul + '." ' + data.tahun + '.'
+  };
+  document.getElementById('detail-breadcrumb').textContent = currentDoc.title.substring(0,40) + '...';
+  document.getElementById('detail-title').textContent = currentDoc.title;
+  document.getElementById('detail-badge').textContent = currentDoc.badge;
+  document.getElementById('detail-badge').className = 'badge ' + currentDoc.badgeClass;
+  document.getElementById('detail-author').textContent = currentDoc.author;
+  document.getElementById('detail-year').textContent = currentDoc.year;
+  document.getElementById('detail-mk').textContent = currentDoc.mk;
+  document.getElementById('detail-inst').textContent = currentDoc.inst;
+  document.getElementById('detail-jenis').textContent = currentDoc.jenis;
+  document.getElementById('detail-unduh').textContent = currentDoc.unduh + ' kali';
+  document.getElementById('detail-abstrak').textContent = currentDoc.abstrak;
+  currentFormat = 'apa';
+  document.querySelectorAll('.sit-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
+  document.getElementById('sit-display').innerHTML = currentDoc.apa;
+  updateTombolDokumen(currentDoc);
+  showPage('detail');
+}
+
+function updateTombolDokumen(doc) {
+  var btnSumber = document.getElementById('btn-sumber');
+  var btnUnduh = document.getElementById('btn-unduh');
+  var btnTidak = document.getElementById('btn-tidak-tersedia');
+  if (btnSumber) btnSumber.style.display = doc.link_sumber ? 'block' : 'none';
+  if (btnUnduh) btnUnduh.style.display = doc.file_pdf ? 'block' : 'none';
+  if (btnTidak) btnTidak.style.display = (!doc.link_sumber && !doc.file_pdf) ? 'block' : 'none';
+}
+
+function switchFormat(tab, fmt) {
+  currentFormat = fmt;
+  document.querySelectorAll('.sit-tab').forEach(function(t) { t.classList.remove('active'); });
+  tab.classList.add('active');
+  if (currentDoc) document.getElementById('sit-display').innerHTML = currentDoc[fmt] || '-';
+}
+
+function copySit() {
+  if (!currentDoc) return;
+  var text = document.getElementById('sit-display').innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    document.getElementById('copy-label').textContent = 'Tersalin!';
+    setTimeout(function() { document.getElementById('copy-label').textContent = 'Salin sitasi'; }, 1800);
+  });
+}
+
+function bukaSumber() { if (currentDoc && currentDoc.link_sumber) window.open(currentDoc.link_sumber, '_blank'); }
+function unduhPDF() { if (currentDoc && currentDoc.file_pdf) window.open(currentDoc.file_pdf, '_blank'); }
+
+async function simpanDokumen() {
+  const result = await _sb.auth.getSession();
+  const session = result.data.session;
+  if (!session) { alert('Login dulu!'); showPage('login'); return; }
+  if (!currentDoc) return;
+  const { error } = await _sb.from('dokumen_tersimpan').insert({ user_id: session.user.id, dokumen_id: currentDoc.id });
+  if (error && error.code === '23505') { alert('Dokumen sudah ada di koleksi Anda!'); return; }
+  if (error) { alert('Gagal menyimpan: ' + error.message); return; }
+  alert('Dokumen berhasil disimpan!');
+}
+
+function bagikanDokumen() {
+  if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(function() { alert('Link disalin!'); });
+}
+
+/* ── UPLOAD ── */
+async function uploadDokumen() {
+  const result = await _sb.auth.getSession();
+  const session = result.data.session;
+  if (!session) { alert('Login dulu!'); showPage('login'); return; }
+  var judul = document.getElementById('u-judul').value.trim();
+  var penulis = document.getElementById('u-penulis').value.trim();
+  var tahun = parseInt(document.getElementById('u-tahun').value) || null;
+  var jenis = document.getElementById('u-jenis').value;
+  var link = document.getElementById('u-link').value.trim();
+  var fileInput = document.getElementById('file-input');
+  var file = fileInput ? fileInput.files[0] : null;
+  if (!judul || !penulis || !jenis) { alert('Lengkapi judul, penulis, dan jenis dokumen!'); return; }
+  var file_pdf = null;
+  if (file) {
+    var namaFile = session.user.id + '/' + Date.now() + '_' + file.name.replace(/\s/g,'_');
+    const { data: upData, error: upErr } = await _sb.storage.from('dokumen-pdf').upload(namaFile, file);
+    if (upErr) { alert('Gagal upload file: ' + upErr.message); return; }
+    const { data: urlData } = _sb.storage.from('dokumen-pdf').getPublicUrl(namaFile);
+    file_pdf = urlData.publicUrl;
+  }
+  const { error } = await _sb.from('dokumen').insert({ judul: judul, penulis: penulis, tahun: tahun, jenis: jenis, link_sumber: link||null, file_pdf: file_pdf, uploaded_by: session.user.id, disetujui: false });
+  if (error) { alert('Gagal: ' + error.message); return; }
+  alert('Dokumen berhasil dikirim! Menunggu persetujuan moderator.');
+}
+
+function piliFile(input) {
+  var file = input.files[0];
+  if (file) { var el = document.getElementById('file-label'); if (el) el.textContent = '✅ ' + file.name; }
+}
+
+function updateSitasiLive() {
+  var p = document.getElementById('u-penulis') ? document.getElementById('u-penulis').value.trim() : '';
+  var j = document.getElementById('u-judul') ? document.getElementById('u-judul').value.trim() : '';
+  var t = document.getElementById('u-tahun') ? document.getElementById('u-tahun').value.trim() : '';
+  var jenis = document.getElementById('u-jenis') ? document.getElementById('u-jenis').value : '';
+  var el = document.getElementById('sitasi-live-preview');
+  if (!el) return;
+  if (!p && !j) { el.textContent = 'Isi nama penulis, judul, dan tahun untuk melihat preview sitasi...'; return; }
+  var pf = p||'Penulis'; var jf = j||'Judul'; var tf = t||'tttt';
+  var s = '';
+  if (jenis === 'E-Book / Buku') s = pf+' ('+tf+'). '+jf+'. Penerbit.';
+  else if (jenis === 'Referensi Skripsi') s = pf+' ('+tf+'). '+jf+' [Skripsi, Universitas].';
+  else if (jenis === 'Makalah Seminar') s = pf+' ('+tf+'). '+jf+'. Nama Seminar.';
+  else s = pf+' ('+tf+'). '+jf+'. Nama Jurnal, Vol(No), hal.';
+  el.textContent = s;
+}
+
+/* ── AKUN TABS ── */
+function switchAkunTab(menuEl, tabId) {
+  document.querySelectorAll('.akun-menu-item').forEach(function(i) { i.classList.remove('active'); });
+  menuEl.classList.add('active');
+  document.querySelectorAll('.akun-tab').forEach(function(t) { t.style.display = 'none'; });
+  var tab = document.getElementById(tabId);
+  if (tab) tab.style.display = 'block';
+}
+
+/* ── INIT ── */
+async function cekSesiInit() {
+  const { data: { session } } = await _sb.auth.getSession();
+  if (session) { setLoggedIn(session.user); cekAdmin(session.user); }
+}
+cekSesiInit();
+muatDokumen();
+muatKoleksi();
+muatStatistik();
+muatTeori();
+muatTopik();
 
 /* ── TEORI ANTROPOLOGI ── */
 var allTeori = [];

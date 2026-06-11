@@ -649,6 +649,31 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focu
   .auth-box { padding: 28px 20px; }
 }
 
+/* ═══════════════════════════════════
+   ISTILAH ANTROPOLOGI
+═══════════════════════════════════ */
+.istilah-hero { background: var(--amber-light); border-bottom: 1px solid var(--border); padding: 40px 0 32px; margin-bottom: 32px; }
+.istilah-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.istilah-hero p { font-size: 14px; color: var(--ink-soft); max-width: 500px; line-height: 1.6; }
+.istilah-search { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
+.istilah-search input { flex: 1; border: none; background: transparent; font-size: 14px; color: var(--ink); outline: none; }
+.kategori-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.kategori-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
+.kategori-tab.active { background: var(--amber); border-color: var(--amber); color: #fff; }
+.istilah-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.istilah-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; transition: all 0.15s; }
+.istilah-card:hover { border-color: var(--amber); box-shadow: var(--shadow-sm); }
+.istilah-nama { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.istilah-asal { font-size: 11px; color: var(--ink-muted); font-style: italic; margin-bottom: 10px; }
+.istilah-definisi { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 10px; }
+.istilah-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); line-height: 1.5; border-left: 3px solid var(--amber); }
+.istilah-contoh strong { color: var(--ink-soft); }
+.istilah-kategori { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; background: var(--amber-light); color: #7A4E1A; margin-bottom: 8px; }
+
+@media (max-width: 768px) {
+  .istilah-grid { grid-template-columns: 1fr; }
+}
+
 /* ── FOOTER ── */
 footer {
   background: var(--white); border-top: 1px solid var(--border);
@@ -692,6 +717,33 @@ footer strong { color: var(--green); }
   .container { padding: 0 16px; }
   .cat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .hero-section { padding: 40px 0 32px; }
+}
+
+/* ═══════════════════════════════════
+   ISTILAH ANTROPOLOGI
+═══════════════════════════════════ */
+.istilah-hero { background: #2C3E50; color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.istilah-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.istilah-hero p { font-size: 14px; color: #BDC3C7; max-width: 500px; line-height: 1.6; }
+.istilah-search { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
+.istilah-search input { flex: 1; border: none; background: transparent; font-size: 14px; color: #fff; outline: none; }
+.istilah-search input::placeholder { color: rgba(255,255,255,0.5); }
+.kategori-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.kategori-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
+.kategori-tab.active { background: #2C3E50; border-color: #2C3E50; color: #fff; }
+.istilah-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.istilah-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; transition: all 0.15s; }
+.istilah-card:hover { border-color: #2C3E50; box-shadow: var(--shadow-sm); }
+.istilah-nama { font-size: 16px; font-weight: 600; color: #2C3E50; margin-bottom: 4px; font-family: 'Lora', serif; }
+.istilah-asal { font-size: 11px; color: var(--ink-muted); margin-bottom: 8px; font-style: italic; }
+.istilah-definisi { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 8px; }
+.istilah-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); line-height: 1.5; margin-bottom: 8px; }
+.istilah-contoh strong { color: var(--ink-soft); }
+.istilah-kategori { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; background: #EAF0FB; color: #185FA5; display: inline-block; }
+.istilah-count { font-size: 13px; color: var(--ink-muted); margin-bottom: 16px; }
+
+@media (max-width: 768px) {
+  .istilah-grid { grid-template-columns: 1fr; }
 }
 
 /* ═══════════════════════════════════
@@ -790,6 +842,8 @@ footer strong { color: var(--green); }
         <button class="nav-link" onclick="showPage('koleksi',this)">Koleksi</button>
         <button class="nav-link" onclick="showPage('topik',this)">Topik Penelitian</button>
         <button class="nav-link" onclick="showPage('teori',this)">Teori</button>
+        <button class="nav-link" onclick="showPage('istilah',this)">Istilah</button>
+        <button class="nav-link" onclick="showPage('istilah',this)">Istilah</button>
         <button class="nav-link" onclick="showPage('upload',this)">Upload</button>
         <button class="nav-link" onclick="showPage('tentang',this)">Tentang</button>
         <button class="nav-link" onclick="showPage('akun',this)" id="nav-akun" style="display:none;">Akun Saya</button>
@@ -1722,6 +1776,77 @@ footer strong { color: var(--green); }
 </div>
 
 
+<!-- ═══════════════════════════════════
+     PAGE — ISTILAH ANTROPOLOGI
+═══════════════════════════════════ -->
+<div id="page-istilah" class="page">
+  <div class="istilah-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:var(--amber-light);color:#7A4E1A;margin-bottom:14px;">📝 Kamus Istilah</div>
+      <h1>Kumpulan Istilah Antropologi</h1>
+      <p>Pahami istilah-istilah penting yang sering muncul dalam jurnal, buku, dan perkuliahan antropologi.</p>
+      <div class="istilah-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="istilah-search-input" placeholder="Cari istilah..." oninput="cariIstilah()" />
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="kategori-tabs">
+      <div class="kategori-tab active" onclick="filterKategori(this,'semua')">Semua</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Metode Penelitian')">Metode Penelitian</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Teori Sosial')">Teori Sosial</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Teori Antropologi')">Teori Antropologi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Organisasi Sosial')">Organisasi Sosial</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Ritual & Simbolisme')">Ritual & Simbolisme</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Perubahan Budaya')">Perubahan Budaya</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Metodologi')">Metodologi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Ekonomi Antropologi')">Ekonomi Antropologi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Kepercayaan & Religi')">Kepercayaan & Religi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Tradisi Lisan')">Tradisi Lisan</div>
+    </div>
+    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="istilah-count">Memuat istilah...</div>
+    <div class="istilah-grid" id="istilah-grid">
+      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat istilah antropologi...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE — ISTILAH ANTROPOLOGI
+═══════════════════════════════════ -->
+<div id="page-istilah" class="page">
+  <div class="istilah-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:rgba(255,255,255,0.1);color:#BDC3C7;margin-bottom:14px;">📝 Kamus Mini</div>
+      <h1>Istilah-istilah Antropologi</h1>
+      <p>Kumpulan istilah penting yang sering dipakai dalam jurnal, buku, dan perkuliahan antropologi — lengkap dengan definisi dan contoh penggunaan.</p>
+      <div class="istilah-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="istilah-search-input" placeholder="Cari istilah..." oninput="cariIstilah()" />
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="kategori-tabs">
+      <div class="kategori-tab active" onclick="filterKategori(this,'semua')">Semua</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Metodologi')">Metodologi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Teori Antropologi')">Teori</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Teori Sosial')">Teori Sosial</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Organisasi Sosial')">Organisasi Sosial</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Ritual & Simbolisme')">Ritual</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Perubahan Budaya')">Perubahan Budaya</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Ekonomi Antropologi')">Ekonomi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Kepercayaan & Religi')">Religi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Tradisi Lisan')">Tradisi Lisan</div>
+    </div>
+    <div class="istilah-count" id="istilah-count">Memuat istilah...</div>
+    <div class="istilah-grid" id="istilah-grid">
+      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat istilah antropologi...</div>
+    </div>
+  </div>
+</div>
+
 <!-- PAGE TEORI -->
 <div id="page-teori" class="page">
   <div class="teori-hero">
@@ -2244,6 +2369,58 @@ muatKoleksi();
 muatStatistik();
 muatTeori();
 muatTopik();
+muatIstilah();
+
+/* ── ISTILAH ANTROPOLOGI ── */
+var allIstilah = [];
+var filterKategoriAktif = 'semua';
+
+async function muatIstilah() {
+  const { data, error } = await _sb.from('istilah_antropologi').select('*').order('istilah');
+  if (error) return;
+  allIstilah = data || [];
+  renderIstilah();
+}
+muatIstilah();
+
+function renderIstilah() {
+  var grid = document.getElementById('istilah-grid');
+  var count = document.getElementById('istilah-count');
+  if (!grid) return;
+  var keyword = (document.getElementById('istilah-search-input') || {}).value || '';
+  keyword = keyword.toLowerCase().trim();
+  var filtered = allIstilah.filter(function(t) {
+    var matchKat = filterKategoriAktif === 'semua' || t.kategori === filterKategoriAktif;
+    var matchKw = !keyword ||
+      t.istilah.toLowerCase().includes(keyword) ||
+      t.definisi.toLowerCase().includes(keyword) ||
+      (t.kategori && t.kategori.toLowerCase().includes(keyword));
+    return matchKat && matchKw;
+  });
+  if (count) count.textContent = filtered.length + ' istilah ditemukan';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Tidak ada istilah ditemukan.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(function(t) {
+    return '<div class="istilah-card">' +
+      (t.kategori ? '<span class="istilah-kategori">' + t.kategori + '</span>' : '') +
+      '<div class="istilah-nama">' + t.istilah + '</div>' +
+      (t.asal_bahasa ? '<div class="istilah-asal">🌐 ' + t.asal_bahasa + '</div>' : '') +
+      '<div class="istilah-definisi">' + t.definisi + '</div>' +
+      (t.contoh_penggunaan ? '<div class="istilah-contoh"><strong>Contoh:</strong> ' + t.contoh_penggunaan + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function filterKategori(el, kat) {
+  document.querySelectorAll('.kategori-tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  filterKategoriAktif = kat;
+  renderIstilah();
+}
+
+function cariIstilah() { renderIstilah(); }
 
 /* ── TEORI ANTROPOLOGI ── */
 var allTeori = [];
@@ -2540,21 +2717,7 @@ async function hapusDokumen(id) {
   alert('Dokumen berhasil dihapus.'); muatDataAdmin(); muatDokumen(); muatKoleksi();
 }
 
-function updateSitasiLive() {
-  const p = document.getElementById('u-penulis').value.trim();
-  const j = document.getElementById('u-judul').value.trim();
-  const t = document.getElementById('u-tahun').value.trim();
-  const jenis = document.getElementById('u-jenis').value;
-  const el = document.getElementById('sitasi-live-preview');
-  if (!p && !j) { el.textContent = 'Isi nama penulis, judul, dan tahun untuk melihat preview sitasi...'; return; }
-  const pf = p || 'Penulis'; const jf = j || 'Judul dokumen'; const tf = t || 'tttt';
-  let s = '';
-  if (jenis === 'E-Book / Buku') s = pf+' ('+tf+'). '+jf+'. Penerbit.';
-  else if (jenis === 'Referensi Skripsi') s = pf+' ('+tf+'). '+jf+' [Skripsi, Universitas].';
-  else if (jenis === 'Makalah Seminar') s = pf+' ('+tf+'). '+jf+'. Nama Seminar.';
-  else s = pf+' ('+tf+'). '+jf+'. Nama Jurnal, Vol(No), hal–hal.';
-  el.textContent = s;
-}
+
 </script>
 </body>
 </html>

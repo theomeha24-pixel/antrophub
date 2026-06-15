@@ -843,7 +843,6 @@ footer strong { color: var(--green); }
         <button class="nav-link" onclick="showPage('topik',this)">Topik Penelitian</button>
         <button class="nav-link" onclick="showPage('teori',this)">Teori</button>
         <button class="nav-link" onclick="showPage('istilah',this)">Istilah</button>
-        <button class="nav-link" onclick="showPage('istilah',this)">Istilah</button>
         <button class="nav-link" onclick="showPage('upload',this)">Upload</button>
         <button class="nav-link" onclick="showPage('tentang',this)">Tentang</button>
         <button class="nav-link" onclick="showPage('akun',this)" id="nav-akun" style="display:none;">Akun Saya</button>
@@ -1815,37 +1814,6 @@ footer strong { color: var(--green); }
 <!-- ═══════════════════════════════════
      PAGE — ISTILAH ANTROPOLOGI
 ═══════════════════════════════════ -->
-<div id="page-istilah" class="page">
-  <div class="istilah-hero">
-    <div class="container">
-      <div class="hero-tag" style="background:rgba(255,255,255,0.1);color:#BDC3C7;margin-bottom:14px;">📝 Kamus Mini</div>
-      <h1>Istilah-istilah Antropologi</h1>
-      <p>Kumpulan istilah penting yang sering dipakai dalam jurnal, buku, dan perkuliahan antropologi — lengkap dengan definisi dan contoh penggunaan.</p>
-      <div class="istilah-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="text" id="istilah-search-input" placeholder="Cari istilah..." oninput="cariIstilah()" />
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="kategori-tabs">
-      <div class="kategori-tab active" onclick="filterKategori(this,'semua')">Semua</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Metodologi')">Metodologi</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Teori Antropologi')">Teori</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Teori Sosial')">Teori Sosial</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Organisasi Sosial')">Organisasi Sosial</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Ritual & Simbolisme')">Ritual</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Perubahan Budaya')">Perubahan Budaya</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Ekonomi Antropologi')">Ekonomi</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Kepercayaan & Religi')">Religi</div>
-      <div class="kategori-tab" onclick="filterKategori(this,'Tradisi Lisan')">Tradisi Lisan</div>
-    </div>
-    <div class="istilah-count" id="istilah-count">Memuat istilah...</div>
-    <div class="istilah-grid" id="istilah-grid">
-      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat istilah antropologi...</div>
-    </div>
-  </div>
-</div>
 
 <!-- PAGE TEORI -->
 <div id="page-teori" class="page">
@@ -2381,7 +2349,6 @@ async function muatIstilah() {
   allIstilah = data || [];
   renderIstilah();
 }
-muatIstilah();
 
 function renderIstilah() {
   var grid = document.getElementById('istilah-grid');

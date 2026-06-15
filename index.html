@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AntropHub — Referensi Akademik Antropologi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #F7F5F0;
+  color: #1C1A17;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── TOKENS ── */
+:root {
+  --green:       #1A7A5E;
+  --green-light: #E8F5F0;
+  --green-mid:   #2E9E7A;
+  --green-dark:  #0F4F3C;
+  --amber:       #C8873A;
+  --amber-light: #FBF2E8;
+  --ink:         #1C1A17;
+  --ink-soft:    #4A4740;
+  --ink-muted:   #8A8680;
+  --paper:       #F7F5F0;
+  --paper-warm:  #EDE9E2;
+  --white:       #FDFCFA;
+  --border:      #DEDAD3;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --shadow-sm:   0 1px 3px rgba(28,26,23,0.07);
+  --shadow-md:   0 4px 16px rgba(28,26,23,0.09);
+  --shadow-lg:   0 8px 32px rgba(28,26,23,0.12);
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.page { display: none; min-height: calc(100vh - 64px); }
+.page.active { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ── NAV ── */
+nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-mark {
+  width: 34px; height: 34px;
+  background: var(--green);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Lora', serif;
+  font-size: 16px; font-weight: 600;
+  color: #fff; letter-spacing: -0.5px;
+}
+.logo-text { font-family: 'Lora', serif; font-size: 17px; font-weight: 600; color: var(--ink); }
+.logo-text span { color: var(--green); }
+
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-link {
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 400;
+  color: var(--ink-soft);
+  cursor: pointer; border: none; background: none;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-link:hover { background: var(--paper-warm); color: var(--ink); }
+.nav-link.active { background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+
+.nav-cta {
+  padding: 8px 18px;
+  background: var(--green);
+  color: #fff; border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--green-dark); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; }
+.hamburger span { width: 22px; height: 2px; background: var(--ink); border-radius: 2px; display: block; }
+
+/* ── BADGES & PILLS ── */
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 500;
+  padding: 3px 9px; border-radius: 20px;
+}
+.badge-green { background: var(--green-light); color: var(--green-dark); }
+.badge-amber { background: var(--amber-light); color: #7A4E1A; }
+.badge-blue  { background: #EAF0FB; color: #1A4E8A; }
+.badge-purple{ background: #F0EDFB; color: #4A2EA0; }
+.badge-gray  { background: var(--paper-warm); color: var(--ink-soft); }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 20px; border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 500;
+  cursor: pointer; border: none; transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green-dark); }
+.btn-secondary { background: var(--white); color: var(--ink); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--paper-warm); }
+.btn-outline-green { background: transparent; color: var(--green); border: 1px solid var(--green); }
+.btn-outline-green:hover { background: var(--green-light); }
+.btn-sm { padding: 7px 14px; font-size: 13px; }
+.btn-xs { padding: 5px 11px; font-size: 12px; }
+
+/* ── FORM ── */
+.input-wrap { position: relative; }
+.input-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-muted); pointer-events: none; }
+input[type="text"], input[type="email"], select, textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: var(--ink);
+  outline: none; transition: border-color 0.15s;
+}
+input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+  border-color: var(--green);
+}
+.input-with-icon input { padding-left: 40px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.card:hover { box-shadow: var(--shadow-md); border-color: #C8C4BB; }
+.card-sm { padding: 14px 16px; border-radius: var(--radius-md); }
+
+/* ── SECTION HEADING ── */
+.section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.section-title { font-family: 'Lora', serif; font-size: 20px; font-weight: 600; color: var(--ink); }
+.section-link { font-size: 13px; color: var(--green); cursor: pointer; font-weight: 500; }
+.section-link:hover { text-decoration: underline; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* ═══════════════════════════════════
+   PAGE 1 — BERANDA
+═══════════════════════════════════ */
+.hero-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 0 48px;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500;
+  background: var(--green-light); color: var(--green-dark);
+  padding: 5px 12px; border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600; line-height: 1.2;
+  color: var(--ink); margin-bottom: 16px;
+}
+.hero-title em { font-style: italic; color: var(--green); }
+.hero-sub {
+  font-size: 16px; color: var(--ink-soft);
+  max-width: 520px; margin-bottom: 32px; line-height: 1.7;
+}
+.search-bar {
+  display: flex; align-items: center;
+  background: var(--paper-warm);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 6px 6px 6px 18px;
+  max-width: 540px; gap: 8px;
+}
+.search-bar svg { color: var(--ink-muted); flex-shrink: 0; }
+.search-bar input {
+  flex: 1; border: none; background: transparent;
+  padding: 8px 0; font-size: 15px; color: var(--ink); outline: none;
+}
+.search-bar button {
+  background: var(--green); color: #fff;
+  border: none; padding: 10px 22px;
+  border-radius: 18px; font-size: 14px; font-weight: 500;
+  cursor: pointer; flex-shrink: 0;
+  transition: background 0.15s;
+}
+.search-bar button:hover { background: var(--green-dark); }
+
+.stats-row { display: flex; gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); }
+.stat-item {
+  flex: 1; padding: 20px 0; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num { font-family: 'Lora', serif; font-size: 26px; font-weight: 600; color: var(--green); }
+.stat-label { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+.beranda-body { padding: 40px 0; }
+
+/* Semester aktif */
+.semester-card {
+  background: var(--green-light);
+  border: 1px solid #B8E0D4;
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 36px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.semester-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--green); border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+}
+.semester-icon svg { color: #fff; }
+.semester-info { flex: 1; }
+.semester-label { font-size: 12px; color: var(--green-dark); font-weight: 500; margin-bottom: 8px; }
+.semester-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.mk-chip {
+  font-size: 12px; padding: 4px 11px;
+  background: var(--white); color: var(--green-dark);
+  border: 1px solid #9ED4C4; border-radius: 20px;
+  cursor: pointer; transition: background 0.15s;
+}
+.mk-chip:hover { background: #C8EBE2; }
+.mk-chip-add {
+  font-size: 12px; padding: 4px 11px;
+  background: transparent; color: var(--green);
+  border: 1px dashed var(--green); border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Kategori grid */
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 36px; }
+.cat-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 18px 16px;
+  cursor: pointer; transition: all 0.15s; text-align: center;
+}
+.cat-card:hover { border-color: var(--green); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+.cat-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px; font-size: 20px;
+}
+.cat-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+.cat-count { font-size: 11px; color: var(--ink-muted); }
+
+/* Doc cards horizontal */
+.doc-list { display: flex; flex-direction: column; gap: 10px; }
+.doc-row {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 16px 18px;
+  display: flex; align-items: flex-start; gap: 14px;
+  cursor: pointer; transition: all 0.15s;
+}
+.doc-row:hover { border-color: #C8C4BB; box-shadow: var(--shadow-sm); }
+.doc-type-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+.doc-body { flex: 1; min-width: 0; }
+.doc-title-text { font-size: 14px; font-weight: 500; color: var(--ink); margin: 4px 0; line-height: 1.4; }
+.doc-meta-row { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--ink-muted); flex-wrap: wrap; margin-top: 4px; }
+.doc-meta-row span { display: flex; align-items: center; gap: 4px; }
+.doc-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════
+   PAGE 2 — KOLEKSI
+═══════════════════════════════════ */
+.koleksi-layout { display: grid; grid-template-columns: 232px 1fr; gap: 0; min-height: calc(100vh - 64px); }
+
+.koleksi-sidebar {
+  background: var(--white); border-right: 1px solid var(--border);
+  padding: 20px 0; overflow-y: auto;
+  position: sticky; top: 64px; height: calc(100vh - 64px);
+}
+.sidebar-section-title {
+  font-size: 11px; font-weight: 600; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 0 16px; margin-bottom: 6px;
+}
+.mk-nav-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 16px; cursor: pointer; font-size: 13px;
+  color: var(--ink-soft); transition: background 0.1s;
+  border-left: 2px solid transparent;
+}
+.mk-nav-item:hover { background: var(--paper-warm); }
+.mk-nav-item.active { background: var(--green-light); color: var(--green-dark); font-weight: 500; border-left-color: var(--green); }
+.mk-nav-count { font-size: 11px; color: var(--ink-muted); background: var(--paper-warm); padding: 1px 7px; border-radius: 10px; }
+.mk-nav-item.active .mk-nav-count { background: #B8E0D4; color: var(--green-dark); }
+
+.koleksi-main { padding: 24px; background: var(--paper); }
+.koleksi-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-pill {
+  font-size: 12px; padding: 6px 13px;
+  border: 1px solid var(--border); border-radius: 20px;
+  cursor: pointer; color: var(--ink-soft); background: var(--white);
+  transition: all 0.12s; white-space: nowrap;
+}
+.filter-pill.active { background: var(--green); border-color: var(--green); color: #fff; }
+.results-info { font-size: 13px; color: var(--ink-muted); margin-left: auto; }
+
+/* ═══════════════════════════════════
+   PAGE 3 — DETAIL DOKUMEN
+═══════════════════════════════════ */
+.detail-page { padding: 36px 0 60px; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-muted); margin-bottom: 24px; }
+.breadcrumb a { color: var(--green); cursor: pointer; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb-sep { color: var(--border); }
+.detail-layout { display: grid; grid-template-columns: 1fr 300px; gap: 28px; }
+.detail-main .doc-header { margin-bottom: 24px; }
+.doc-main-title { font-family: 'Lora', serif; font-size: 24px; font-weight: 600; line-height: 1.3; color: var(--ink); margin: 12px 0; }
+.doc-author-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+.doc-author { font-size: 14px; color: var(--ink-soft); display: flex; align-items: center; gap: 5px; }
+.doc-year { font-size: 13px; color: var(--ink-muted); }
+.meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+.meta-item { background: var(--paper-warm); border-radius: var(--radius-md); padding: 12px 14px; }
+.meta-key { font-size: 11px; color: var(--ink-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.meta-val { font-size: 13px; color: var(--ink); font-weight: 500; }
+.abstract-section { margin-bottom: 24px; }
+.abstract-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+.abstract-text { font-size: 14px; color: var(--ink-soft); line-height: 1.8; }
+
+/* Sitasi box */
+.sitasi-section { background: var(--paper-warm); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 24px; }
+.sitasi-format-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+.sit-tab {
+  font-size: 12px; padding: 5px 12px;
+  border-radius: 20px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--white);
+  color: var(--ink-soft); transition: all 0.12s;
+}
+.sit-tab.active { background: var(--green); border-color: var(--green); color: #fff; }
+.sit-text {
+  font-size: 12px; line-height: 1.7;
+  color: var(--ink); font-family: 'Lora', serif;
+  background: var(--white); padding: 12px 14px;
+  border-radius: var(--radius-md); border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.copy-btn {
+  font-size: 12px; color: var(--green); cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+  background: none; border: none; font-family: inherit; padding: 0;
+}
+.copy-btn:hover { text-decoration: underline; }
+
+/* Detail sidebar */
+.detail-sidebar .action-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+}
+.action-card .btn { width: 100%; justify-content: center; margin-bottom: 8px; }
+.action-card .btn:last-child { margin-bottom: 0; }
+.related-list { display: flex; flex-direction: column; gap: 8px; }
+.related-item {
+  padding: 12px 14px; background: var(--white);
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  cursor: pointer; transition: border-color 0.12s;
+}
+.related-item:hover { border-color: var(--green); }
+.related-title { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.35; margin-bottom: 4px; }
+.related-meta { font-size: 11px; color: var(--ink-muted); }
+
+/* ═══════════════════════════════════
+   PAGE 4 — UPLOAD
+═══════════════════════════════════ */
+.upload-page { padding: 40px 0 60px; max-width: 640px; margin: 0 auto; }
+.upload-page h1 { font-family: 'Lora', serif; font-size: 26px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.upload-page .sub { font-size: 14px; color: var(--ink-soft); margin-bottom: 32px; line-height: 1.6; }
+.form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px; }
+.form-card h3 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+.form-card h3 svg { color: var(--green); }
+.field { margin-bottom: 16px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+.field label .required { color: #C0392B; font-size: 11px; }
+.field .hint { font-size: 12px; color: var(--ink-muted); margin-top: 4px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.drop-zone {
+  border: 2px dashed var(--border); border-radius: var(--radius-lg);
+  padding: 36px; text-align: center; cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.drop-zone:hover { border-color: var(--green); background: var(--green-light); }
+.drop-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+.drop-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.drop-sub { font-size: 12px; color: var(--ink-muted); }
+.sitasi-live {
+  font-family: 'Lora', serif; font-size: 12px; line-height: 1.7;
+  color: var(--ink); background: var(--paper-warm);
+  padding: 12px 14px; border-radius: var(--radius-md);
+  border: 1px solid var(--border); min-height: 44px;
+}
+.guideline { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.guideline:last-child { border-bottom: none; padding-bottom: 0; }
+.guideline-icon { width: 20px; height: 20px; flex-shrink: 0; }
+.guideline-text { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+/* ═══════════════════════════════════
+   PAGE 5 — TENTANG
+═══════════════════════════════════ */
+.tentang-hero {
+  background: var(--green-dark); color: #fff;
+  padding: 72px 0 56px;
+}
+.tentang-hero h1 { font-family: 'Lora', serif; font-size: clamp(26px, 4vw, 38px); font-weight: 600; line-height: 1.2; margin-bottom: 16px; }
+.tentang-hero h1 em { font-style: italic; color: #7FD4B8; }
+.tentang-hero p { font-size: 16px; color: #B8D8D0; max-width: 520px; line-height: 1.7; }
+
+.tentang-body { padding: 56px 0; }
+.value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+.value-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 20px; }
+.value-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+.value-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.value-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+
+.about-section { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 48px; align-items: center; }
+.about-text h2 { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 14px; }
+.about-text p { font-size: 14px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 12px; }
+.about-visual { background: var(--green-light); border: 1px solid #B8E0D4; border-radius: var(--radius-xl); padding: 28px; }
+.target-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #B8E0D4; }
+.target-item:last-child { border-bottom: none; }
+.target-emoji { font-size: 22px; flex-shrink: 0; }
+.target-info h4 { font-size: 14px; font-weight: 500; color: var(--green-dark); margin-bottom: 2px; }
+.target-info p { font-size: 12px; color: var(--green); line-height: 1.4; }
+
+.cta-banner { background: var(--ink); border-radius: var(--radius-xl); padding: 40px 36px; text-align: center; }
+.cta-banner h2 { font-family: 'Lora', serif; font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+.cta-banner p { font-size: 14px; color: #9A9690; margin-bottom: 24px; }
+.cta-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ═══════════════════════════════════
+   AUTH — LOGIN & DAFTAR
+═══════════════════════════════════ */
+.auth-page {
+  min-height: calc(100vh - 64px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 16px;
+  background: var(--paper);
+}
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 40px 36px;
+  width: 100%; max-width: 420px;
+  box-shadow: var(--shadow-md);
+}
+.auth-logo { text-align: center; margin-bottom: 28px; }
+.auth-logo .logo-mark { width: 44px; height: 44px; font-size: 20px; margin: 0 auto 10px; border-radius: var(--radius-lg); }
+.auth-title { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.auth-sub { font-size: 13px; color: var(--ink-muted); }
+.auth-field { margin-bottom: 14px; }
+.auth-field label { display: block; font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+.auth-field input {
+  width: 100%; padding: 11px 14px;
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
+  background: var(--paper-warm); outline: none; transition: border-color 0.15s;
+}
+.auth-field input:focus { border-color: var(--green); background: var(--white); }
+.auth-field .field-hint { font-size: 11px; color: var(--ink-muted); margin-top: 4px; }
+.auth-btn {
+  width: 100%; padding: 12px;
+  background: var(--green); color: #fff; border: none;
+  border-radius: var(--radius-md); font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 500; cursor: pointer;
+  transition: background 0.15s; margin-top: 4px;
+}
+.auth-btn:hover { background: var(--green-dark); }
+.auth-divider { display: flex; align-items: center; gap: 10px; margin: 18px 0; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.auth-divider span { font-size: 12px; color: var(--ink-muted); }
+.auth-switch { text-align: center; font-size: 13px; color: var(--ink-muted); margin-top: 20px; }
+.auth-switch a { color: var(--green); cursor: pointer; font-weight: 500; text-decoration: none; }
+.auth-switch a:hover { text-decoration: underline; }
+.auth-forgot { text-align: right; margin-top: -8px; margin-bottom: 14px; }
+.auth-forgot a { font-size: 12px; color: var(--green); cursor: pointer; }
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 40px; }
+.toggle-pw {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; color: var(--ink-muted); padding: 0;
+}
+.semester-sel { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.sem-option {
+  padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-md);
+  text-align: center; cursor: pointer; font-size: 13px; color: var(--ink-soft);
+  transition: all 0.12s; background: var(--paper-warm);
+}
+.sem-option:hover, .sem-option.active { border-color: var(--green); background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+.prodi-check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-soft); margin-top: 6px; }
+.prodi-check input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--green); }
+
+/* ═══════════════════════════════════
+   AKUN SAYA
+═══════════════════════════════════ */
+.akun-page { padding: 32px 0 60px; }
+.akun-layout { display: grid; grid-template-columns: 260px 1fr; gap: 24px; }
+.akun-sidebar { display: flex; flex-direction: column; gap: 12px; }
+.profile-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px 20px; text-align: center;
+}
+.avatar-circle {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--green-light); border: 2px solid #B8E0D4;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Lora', serif; font-size: 22px; font-weight: 600;
+  color: var(--green-dark); margin: 0 auto 12px;
+}
+.profile-name { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.profile-univ { font-size: 12px; color: var(--ink-muted); margin-bottom: 12px; }
+.profile-badges { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 14px; }
+.profile-edit-btn {
+  width: 100%; padding: 8px; border: 1px solid var(--border);
+  border-radius: var(--radius-md); background: var(--paper-warm);
+  font-size: 13px; color: var(--ink-soft); cursor: pointer;
+}
+.profile-edit-btn:hover { border-color: var(--green); color: var(--green); }
+.akun-menu-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.akun-menu-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; cursor: pointer; font-size: 13px;
+  color: var(--ink-soft); border-bottom: 1px solid var(--border);
+  transition: background 0.1s; border-left: 2px solid transparent;
+}
+.akun-menu-item:last-child { border-bottom: none; }
+.akun-menu-item:hover { background: var(--paper-warm); }
+.akun-menu-item.active { background: var(--green-light); color: var(--green-dark); font-weight: 500; border-left-color: var(--green); }
+.akun-menu-item svg { flex-shrink: 0; }
+
+.akun-main { display: flex; flex-direction: column; gap: 16px; }
+.akun-section {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px 22px;
+}
+.akun-section-title {
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+.akun-section-title svg { color: var(--green); }
+
+/* Statistik */
+.stat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat-card { background: var(--paper-warm); border-radius: var(--radius-md); padding: 14px 16px; text-align: center; }
+.stat-card-num { font-family: 'Lora', serif; font-size: 24px; font-weight: 600; color: var(--green); }
+.stat-card-label { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+/* Notifikasi */
+.notif-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.notif-item:last-child { border-bottom: none; }
+.notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 5px; }
+.notif-dot.read { background: var(--border); }
+.notif-text { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.notif-time { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+
+/* Dokumen tersimpan */
+.saved-doc {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.saved-doc:last-child { border-bottom: none; }
+.saved-doc-icon { width: 34px; height: 34px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.saved-doc-body { flex: 1; min-width: 0; }
+.saved-doc-title { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.35; margin-bottom: 2px; }
+.saved-doc-meta { font-size: 11px; color: var(--ink-muted); }
+.saved-doc-btn { font-size: 12px; padding: 5px 10px; border: 1px solid var(--border); border-radius: var(--radius-md); background: transparent; cursor: pointer; color: var(--ink-soft); flex-shrink: 0; }
+.saved-doc-btn:hover { border-color: var(--green); color: var(--green); }
+
+/* MK aktif */
+.mk-aktif-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+.mk-tag {
+  font-size: 12px; padding: 5px 12px;
+  background: var(--green-light); color: var(--green-dark);
+  border: 1px solid #B8E0D4; border-radius: 20px;
+  display: flex; align-items: center; gap: 5px;
+}
+.mk-tag .mk-remove { cursor: pointer; color: var(--green); opacity: 0.6; font-size: 14px; }
+.mk-tag-add {
+  font-size: 12px; padding: 5px 12px;
+  border: 1px dashed var(--green); color: var(--green);
+  border-radius: 20px; cursor: pointer; background: transparent;
+}
+
+/* Upload saya */
+.my-upload-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.my-upload-row:last-child { border-bottom: none; }
+.upload-status { font-size: 11px; padding: 3px 8px; border-radius: 10px; flex-shrink: 0; }
+.status-approved { background: var(--green-light); color: var(--green-dark); }
+.status-pending  { background: var(--amber-light); color: #7A4E1A; }
+
+/* Logout btn */
+.logout-btn {
+  width: 100%; padding: 10px; border: 1px solid #EADAD5;
+  border-radius: var(--radius-md); background: transparent;
+  font-size: 13px; color: #B03A2E; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.logout-btn:hover { background: #FDF0EE; }
+
+@media (max-width: 768px) {
+  .akun-layout { grid-template-columns: 1fr; }
+  .stat-cards { grid-template-columns: 1fr 1fr; }
+  .auth-box { padding: 28px 20px; }
+}
+
+/* ═══════════════════════════════════
+   ISTILAH ANTROPOLOGI
+═══════════════════════════════════ */
+.istilah-hero { background: var(--amber-light); border-bottom: 1px solid var(--border); padding: 40px 0 32px; margin-bottom: 32px; }
+.istilah-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.istilah-hero p { font-size: 14px; color: var(--ink-soft); max-width: 500px; line-height: 1.6; }
+.istilah-search { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
+.istilah-search input { flex: 1; border: none; background: transparent; font-size: 14px; color: var(--ink); outline: none; }
+.kategori-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.kategori-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
+.kategori-tab.active { background: var(--amber); border-color: var(--amber); color: #fff; }
+.istilah-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.istilah-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; transition: all 0.15s; }
+.istilah-card:hover { border-color: var(--amber); box-shadow: var(--shadow-sm); }
+.istilah-nama { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.istilah-asal { font-size: 11px; color: var(--ink-muted); font-style: italic; margin-bottom: 10px; }
+.istilah-definisi { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 10px; }
+.istilah-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); line-height: 1.5; border-left: 3px solid var(--amber); }
+.istilah-contoh strong { color: var(--ink-soft); }
+.istilah-kategori { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; background: var(--amber-light); color: #7A4E1A; margin-bottom: 8px; }
+
+@media (max-width: 768px) {
+  .istilah-grid { grid-template-columns: 1fr; }
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--white); border-top: 1px solid var(--border);
+  padding: 24px 0; text-align: center;
+  font-size: 13px; color: var(--ink-muted);
+}
+footer strong { color: var(--green); }
+
+/* ── MOBILE NAV ── */
+.mobile-menu {
+  display: none; flex-direction: column; gap: 2px;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 8px 16px 16px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-link {
+  padding: 10px 12px; border-radius: var(--radius-md);
+  font-size: 14px; color: var(--ink-soft);
+  cursor: pointer; border: none; background: none;
+  text-align: left;
+}
+.mobile-link.active { background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .koleksi-layout { grid-template-columns: 1fr; }
+  .koleksi-sidebar { display: none; }
+  .detail-layout { grid-template-columns: 1fr; }
+  .meta-grid { grid-template-columns: 1fr; }
+  .value-grid { grid-template-columns: 1fr; }
+  .about-section { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .stats-row { flex-wrap: wrap; }
+  .stat-item { min-width: 50%; border-bottom: 1px solid var(--border); }
+  .semester-card { flex-direction: column; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hero-section { padding: 40px 0 32px; }
+}
+
+/* ═══════════════════════════════════
+   ISTILAH ANTROPOLOGI
+═══════════════════════════════════ */
+.istilah-hero { background: #2C3E50; color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.istilah-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.istilah-hero p { font-size: 14px; color: #BDC3C7; max-width: 500px; line-height: 1.6; }
+.istilah-search { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
+.istilah-search input { flex: 1; border: none; background: transparent; font-size: 14px; color: #fff; outline: none; }
+.istilah-search input::placeholder { color: rgba(255,255,255,0.5); }
+.kategori-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.kategori-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
+.kategori-tab.active { background: #2C3E50; border-color: #2C3E50; color: #fff; }
+.istilah-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.istilah-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; transition: all 0.15s; }
+.istilah-card:hover { border-color: #2C3E50; box-shadow: var(--shadow-sm); }
+.istilah-nama { font-size: 16px; font-weight: 600; color: #2C3E50; margin-bottom: 4px; font-family: 'Lora', serif; }
+.istilah-asal { font-size: 11px; color: var(--ink-muted); margin-bottom: 8px; font-style: italic; }
+.istilah-definisi { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 8px; }
+.istilah-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); line-height: 1.5; margin-bottom: 8px; }
+.istilah-contoh strong { color: var(--ink-soft); }
+.istilah-kategori { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; background: #EAF0FB; color: #185FA5; display: inline-block; }
+.istilah-count { font-size: 13px; color: var(--ink-muted); margin-bottom: 16px; }
+
+@media (max-width: 768px) {
+  .istilah-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════
+   TEORI ANTROPOLOGI
+═══════════════════════════════════ */
+.teori-hero { background: var(--ink); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.teori-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.teori-hero p { font-size: 14px; color: #9A9690; max-width: 500px; line-height: 1.6; }
+.teori-search-wrap { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-xl); padding: 8px 16px; max-width: 400px; margin-top: 16px; }
+.teori-search-wrap input { flex: 1; border: none; background: transparent; font-size: 14px; color: #fff; outline: none; }
+.teori-search-wrap input::placeholder { color: rgba(255,255,255,0.5); }
+.aliran-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.aliran-tab { font-size: 12px; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--ink-soft); transition: all 0.12s; }
+.aliran-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.teori-list { display: flex; flex-direction: column; gap: 12px; }
+.teori-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.15s; }
+.teori-card:hover { box-shadow: var(--shadow-md); border-color: #C8C4BB; }
+.teori-card-header { padding: 16px 20px; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.teori-card-left { flex: 1; }
+.teori-nama { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.teori-tokoh { font-size: 13px; color: var(--ink-soft); }
+.teori-card-body { display: none; padding: 0 20px 18px; border-top: 1px solid var(--border); }
+.teori-card-body.open { display: block; }
+.teori-section { margin-top: 14px; }
+.teori-section-label { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.teori-section-text { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+.teori-konsep { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.konsep-tag { font-size: 11px; padding: 3px 9px; background: var(--paper-warm); border: 1px solid var(--border); border-radius: 20px; color: var(--ink-soft); }
+.toggle-icon { font-size: 18px; color: var(--ink-muted); flex-shrink: 0; }
+
+/* ═══════════════════════════════════
+   TOPIK PENELITIAN  
+═══════════════════════════════════ */
+.topik-hero { background: var(--green-dark); color: #fff; padding: 40px 0 32px; margin-bottom: 32px; }
+.topik-hero h1 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.topik-hero p { font-size: 14px; color: #B8D8D0; max-width: 500px; line-height: 1.6; }
+.topik-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+.topik-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.topik-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; transition: all 0.15s; }
+.topik-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.topik-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.topik-title { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; flex: 1; }
+.topik-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 10px; }
+.topik-contoh { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); padding: 8px 10px; border-radius: var(--radius-md); margin-bottom: 10px; line-height: 1.5; }
+.topik-contoh strong { color: var(--ink-soft); }
+.topik-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.difficulty-easy { background: #E1F5EE; color: #085041; }
+.difficulty-med { background: #FAEEDA; color: #7A4E1A; }
+.difficulty-hard { background: #FDECEA; color: #922B21; }
+.submit-topik-card { background: var(--green-light); border: 1.5px dashed var(--green); border-radius: var(--radius-lg); padding: 24px 20px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.submit-topik-card:hover { background: #C8EBE2; }
+.submit-topik-card h3 { font-size: 14px; font-weight: 500; color: var(--green-dark); margin-bottom: 6px; }
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--white); border-radius: var(--radius-xl); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; margin: 20px; }
+.modal-title { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.modal-sub { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; }
+.modal-close { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--ink-muted); }
+
+/* ADMIN */
+.admin-page { padding: 32px 0 60px; }
+.admin-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 24px; }
+.admin-stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; }
+.admin-stat-num { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; color: var(--green); }
+.admin-stat-label { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+.admin-section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; margin-bottom: 16px; }
+.admin-section-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 16px; }
+.pending-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.pending-item:last-child { border-bottom: none; }
+.pending-body { flex: 1; }
+.pending-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.pending-meta { font-size: 12px; color: var(--ink-muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.pending-actions { display: flex; gap: 6px; margin-top: 10px; }
+.btn-approve { padding: 6px 14px; background: var(--green); color: #fff; border: none; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; }
+.btn-reject { padding: 6px 14px; background: transparent; color: #B03A2E; border: 1px solid #EADAD5; border-radius: var(--radius-md); font-size: 13px; cursor: pointer; }
+.empty-state { text-align: center; padding: 32px; color: var(--ink-muted); font-size: 13px; }
+@media (max-width: 768px) {
+  .topik-grid { grid-template-columns: 1fr; }
+  .admin-stats { grid-template-columns: 1fr 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a class="logo" onclick="showPage('beranda')">
+        <div class="logo-mark">A</div>
+        <span class="logo-text">Antrop<span>Hub</span></span>
+      </a>
+      <div class="nav-links">
+        <button class="nav-link active" onclick="showPage('beranda',this)">Beranda</button>
+        <button class="nav-link" onclick="showPage('koleksi',this)">Koleksi</button>
+        <button class="nav-link" onclick="showPage('topik',this)">Topik Penelitian</button>
+        <button class="nav-link" onclick="showPage('teori',this)">Teori</button>
+        <button class="nav-link" onclick="showPage('istilah',this)">Istilah</button>
+        <button class="nav-link" onclick="showPage('upload',this)">Upload</button>
+        <button class="nav-link" onclick="showPage('tentang',this)">Tentang</button>
+        <button class="nav-link" onclick="showPage('akun',this)" id="nav-akun" style="display:none;">Akun Saya</button>
+        <button class="nav-link" onclick="showPage('admin',this)" id="nav-admin" style="display:none;">⚙️ Admin</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;" id="nav-auth-btns">
+        <button class="btn btn-secondary btn-sm" onclick="showPage('login')">Masuk</button>
+        <button class="nav-cta" onclick="showPage('daftar')">Daftar</button>
+      </div>
+      <div style="display:none;gap:8px;align-items:center;" id="nav-user-btns">
+        <button class="btn btn-secondary btn-sm" onclick="showPage('akun',document.getElementById('nav-akun'))">👤 Akun Saya</button>
+        <button class="nav-cta" onclick="showPage('upload')">+ Upload</button>
+      </div>
+      <div class="hamburger" onclick="toggleMobile()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-link active" onclick="showPage('beranda',this);toggleMobile()">Beranda</button>
+  <button class="mobile-link" onclick="showPage('koleksi',this);toggleMobile()">Koleksi</button>
+  <button class="mobile-link" onclick="showPage('upload',this);toggleMobile()">Upload</button>
+  <button class="mobile-link" onclick="showPage('tentang',this);toggleMobile()">Tentang</button>
+  <button class="mobile-link" id="mobile-akun" style="display:none;" onclick="showPage('akun',this);toggleMobile()">Akun Saya</button>
+  <hr style="border:none;border-top:1px solid var(--border);margin:4px 0;" />
+  <button class="mobile-link" id="mobile-masuk" onclick="showPage('login');toggleMobile()">Masuk</button>
+  <button class="mobile-link" id="mobile-daftar" onclick="showPage('daftar');toggleMobile()">Daftar</button>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 1 — BERANDA
+═══════════════════════════════════ -->
+<div id="page-beranda" class="page active">
+  <div class="hero-section">
+    <div class="container">
+      <div class="hero-tag">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+        Universitas Negeri Medan · Jurusan Antropologi
+      </div>
+      <h1 class="hero-title">Referensi akademik <em>lengkap</em><br>untuk mahasiswa antropologi</h1>
+      <p class="hero-sub">Temukan jurnal ilmiah, e-book, makalah, dan skripsi yang terorganisir berdasarkan 35 matakuliah di jurusan antropologi.</p>
+      <div class="search-bar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" placeholder="Cari judul, penulis, matakuliah..." onkeydown="if(event.key==='Enter')cariDokumen()" />
+        <button onclick="cariDokumen()">Cari</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-num" id="stat-jurnal">-</div><div class="stat-label">Jurnal Ilmiah</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-ebook">-</div><div class="stat-label">E-Book</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-skripsi">-</div><div class="stat-label">Referensi Skripsi</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-makalah">-</div><div class="stat-label">Makalah</div></div>
+    <div class="stat-item"><div class="stat-num">35</div><div class="stat-label">Matakuliah</div></div>
+  </div>
+
+  <div class="beranda-body">
+    <div class="container">
+
+      <!-- Matakuliah aktif -->
+      <div class="semester-card">
+        <div class="semester-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="semester-info">
+          <div class="semester-label">Matakuliah aktif saya — Semester 5 · Klik untuk filter langsung</div>
+          <div class="semester-chips">
+            <div class="mk-chip" onclick="goKoleksi('Etnografi')">Etnografi</div>
+            <div class="mk-chip" onclick="goKoleksi('Antro Agama')">Antro Agama</div>
+            <div class="mk-chip" onclick="goKoleksi('Antro Lingkungan')">Antro Lingkungan</div>
+            <div class="mk-chip" onclick="goKoleksi('Kearifan Lokal Sumatera')">Kearifan Lokal Sumatera</div>
+            <div class="mk-chip" onclick="goKoleksi('Metode Penelitian Antro')">Metode Penelitian Antro</div>
+            <div class="mk-chip" onclick="goKoleksi('Antro Politik')">Antro Politik</div>
+            <div class="mk-chip-add">+ Atur matakuliah</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kategori dokumen -->
+      <div class="section-head">
+        <div class="section-title">Jelajah koleksi</div>
+        <span class="section-link" onclick="showPage('koleksi', document.querySelectorAll('.nav-link')[1])">Lihat semua →</span>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card" onclick="goKoleksiFilter('jurnal')">
+          <div class="cat-icon" style="background:#EAF0FB;">📄</div>
+          <div class="cat-name">Jurnal Ilmiah</div>
+          <div class="cat-count">2.400 dokumen</div>
+        </div>
+        <div class="cat-card" onclick="goKoleksiFilter('ebook')">
+          <div class="cat-icon" style="background:#E8F5F0;">📗</div>
+          <div class="cat-name">E-Book & Buku</div>
+          <div class="cat-count">890 dokumen</div>
+        </div>
+        <div class="cat-card" onclick="goKoleksiFilter('skripsi')">
+          <div class="cat-icon" style="background:#FBF2E8;">🎓</div>
+          <div class="cat-name">Referensi Skripsi</div>
+          <div class="cat-count">1.200 dokumen</div>
+        </div>
+        <div class="cat-card" onclick="goKoleksiFilter('makalah')">
+          <div class="cat-icon" style="background:#F0EDFB;">📝</div>
+          <div class="cat-name">Makalah</div>
+          <div class="cat-count">640 dokumen</div>
+        </div>
+      </div>
+
+      <!-- Rekomendasi -->
+      <div class="section-head">
+        <div class="section-title">Rekomendasi untuk semester Anda</div>
+        <span class="section-link" onclick="showPage('koleksi', document.querySelectorAll('.nav-link')[1])">Lihat semua →</span>
+      </div>
+      <div class="doc-list" id="beranda-doc-list">
+        <div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Memuat dokumen...</div>
+      </div>
+          <div class="doc-right">
+            <span class="badge badge-amber">Sering dipakai</span>
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc1')">Lihat detail</button>
+          </div>
+        </div>
+        <div class="doc-row" onclick="showDetail('doc2')">
+          <div class="doc-type-icon" style="background:#E8F5F0;">📗</div>
+          <div class="doc-body">
+            <span class="badge badge-green">E-Book</span>
+            <div class="doc-title-text">Metode Penelitian Antropologi: Pendekatan Kualitatif dan Etnografis</div>
+            <div class="doc-meta-row">
+              <span>👤 Spradley, J.P. (2022)</span>
+              <span>📚 Metode Penelitian Antro</span>
+            </div>
+          </div>
+          <div class="doc-right">
+            <span class="badge badge-purple">Rekomendasi dosen</span>
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc2')">Lihat detail</button>
+          </div>
+        </div>
+        <div class="doc-row" onclick="showDetail('doc3')">
+          <div class="doc-type-icon" style="background:#FBF2E8;">🎓</div>
+          <div class="doc-body">
+            <span class="badge badge-amber">Skripsi</span>
+            <div class="doc-title-text">Kearifan Lokal Masyarakat Karo dalam Pengelolaan Lingkungan Pertanian</div>
+            <div class="doc-meta-row">
+              <span>👤 Tarigan, M. (2023)</span>
+              <span>📚 Kearifan Lokal Sumatera</span>
+              <span>🏛 Unimed</span>
+            </div>
+          </div>
+          <div class="doc-right">
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc3')">Lihat detail</button>
+          </div>
+        </div>
+        <div class="doc-row" onclick="showDetail('doc4')">
+          <div class="doc-type-icon" style="background:#F0EDFB;">📝</div>
+          <div class="doc-body">
+            <span class="badge badge-purple">Makalah</span>
+            <div class="doc-title-text">Transformasi Kepercayaan Animisme Masyarakat Pesisir Sumatera Utara</div>
+            <div class="doc-meta-row">
+              <span>👤 Lubis, S. (2024)</span>
+              <span>📚 Antro Agama</span>
+            </div>
+          </div>
+          <div class="doc-right">
+            <button class="btn btn-sm btn-outline-green" onclick="event.stopPropagation();showDetail('doc4')">Lihat detail</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 2 — KOLEKSI
+═══════════════════════════════════ -->
+<div id="page-koleksi" class="page">
+  <div class="koleksi-layout">
+    <div class="koleksi-sidebar">
+      <div style="padding:12px 16px 8px;">
+        <div class="input-with-icon" style="position:relative;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8A8680;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" placeholder="Cari matakuliah..." style="padding-left:34px;font-size:13px;" />
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        <div class="sidebar-section-title" style="margin-bottom:4px;">Matakuliah</div>
+        <div class="mk-nav-item active" onclick="selectMK(this,'Semua',5134)"><span>Semua koleksi</span><span class="mk-nav-count">5.1K</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Pengantar Antropologi',142)"><span>Pengantar Antropologi</span><span class="mk-nav-count">142</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Pengantar Sosiologi',98)"><span>Pengantar Sosiologi</span><span class="mk-nav-count">98</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Etnografi',210)"><span>Etnografi</span><span class="mk-nav-count">210</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Sis. Sosial Budaya Indonesia',176)"><span>Sis. Sosial Budaya Indonesia</span><span class="mk-nav-count">176</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Pengantar Ilmu Sosial',87)"><span>Pengantar Ilmu Sosial</span><span class="mk-nav-count">87</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Penulisan Karya Ilmiah',64)"><span>Penulisan Karya Ilmiah</span><span class="mk-nav-count">64</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Sosial Budaya',188)"><span>Antro Sosial Budaya</span><span class="mk-nav-count">188</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Masalah Sosial & Kemiskinan',93)"><span>Masalah Sosial & Kemiskinan</span><span class="mk-nav-count">93</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Agama',195)"><span>Antro Agama</span><span class="mk-nav-count">195</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Kearifan Lokal Sumatera',88)"><span>Kearifan Lokal Sumatera</span><span class="mk-nav-count">88</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Lingkungan',113)"><span>Antro Lingkungan</span><span class="mk-nav-count">113</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pedesaan',76)"><span>Antro Pedesaan</span><span class="mk-nav-count">76</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Politik',92)"><span>Antro Politik</span><span class="mk-nav-count">92</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Etnobotani',54)"><span>Etnobotani</span><span class="mk-nav-count">54</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Agraria',61)"><span>Antro Agraria</span><span class="mk-nav-count">61</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Metode Penelitian Antro',167)"><span>Metode Penelitian Antro</span><span class="mk-nav-count">167</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Perkotaan',104)"><span>Antro Perkotaan</span><span class="mk-nav-count">104</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Teori Antro Klasik',134)"><span>Teori Antro Klasik</span><span class="mk-nav-count">134</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Ekonomi',118)"><span>Antro Ekonomi</span><span class="mk-nav-count">118</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Kesehatan',148)"><span>Antro Kesehatan</span><span class="mk-nav-count">148</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Hukum',89)"><span>Antro Hukum</span><span class="mk-nav-count">89</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Psikologi',72)"><span>Antro Psikologi</span><span class="mk-nav-count">72</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Gender & Seksualitas',67)"><span>Antro Gender & Seksualitas</span><span class="mk-nav-count">67</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Folklor',72)"><span>Folklor</span><span class="mk-nav-count">72</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Teori Sosial',95)"><span>Teori Sosial</span><span class="mk-nav-count">95</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pariwisata',65)"><span>Antro Pariwisata</span><span class="mk-nav-count">65</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Teori Antro Modern & Postmodern',82)"><span>Teori Antro Modern & Postmodern</span><span class="mk-nav-count">82</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pembangunan',77)"><span>Antro Pembangunan</span><span class="mk-nav-count">77</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Media',58)"><span>Antro Media</span><span class="mk-nav-count">58</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Kependudukan',61)"><span>Antro Kependudukan</span><span class="mk-nav-count">61</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Pendidikan',55)"><span>Antro Pendidikan</span><span class="mk-nav-count">55</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Studi Masyarakat Indonesia',109)"><span>Studi Masyarakat Indonesia</span><span class="mk-nav-count">109</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Perubahan Sosial Budaya',121)"><span>Perubahan Sosial Budaya</span><span class="mk-nav-count">121</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Pendidikan Multikultural',48)"><span>Pendidikan Multikultural</span><span class="mk-nav-count">48</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Antro Visual',44)"><span>Antro Visual</span><span class="mk-nav-count">44</span></div>
+        <div class="mk-nav-item" onclick="selectMK(this,'Evaluasi Pembelajaran Antro',39)"><span>Evaluasi Pembelajaran Antro</span><span class="mk-nav-count">39</span></div>
+      </div>
+    </div>
+
+    <div class="koleksi-main">
+      <div style="margin-bottom:16px;">
+        <div style="font-family:'Lora',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:4px;" id="koleksi-heading">Semua koleksi</div>
+        <div style="font-size:13px;color:var(--ink-muted);" id="koleksi-sub">5.134 dokumen tersedia</div>
+      </div>
+      <div class="filter-bar" style="margin-bottom:16px;">
+        <div class="filter-pill active" onclick="setType(this,'semua')">Semua tipe</div>
+        <div class="filter-pill" onclick="setType(this,'jurnal')">📄 Jurnal</div>
+        <div class="filter-pill" onclick="setType(this,'ebook')">📗 E-Book</div>
+        <div class="filter-pill" onclick="setType(this,'skripsi')">🎓 Skripsi</div>
+        <div class="filter-pill" onclick="setType(this,'makalah')">📝 Makalah</div>
+      </div>
+      <div class="doc-list" id="koleksi-doc-list">
+        <div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Memuat dokumen...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 3 — DETAIL DOKUMEN
+═══════════════════════════════════ -->
+<div id="page-detail" class="page">
+  <div class="container">
+    <div class="detail-page">
+      <div class="breadcrumb">
+        <a onclick="showPage('beranda')">Beranda</a>
+        <span class="breadcrumb-sep">›</span>
+        <a onclick="showPage('koleksi')">Koleksi</a>
+        <span class="breadcrumb-sep">›</span>
+        <span id="detail-breadcrumb">Detail dokumen</span>
+      </div>
+
+      <div class="detail-layout">
+        <div class="detail-main">
+          <div class="doc-header">
+            <span class="badge" id="detail-badge">Jurnal</span>
+            <h1 class="doc-main-title" id="detail-title">Judul Dokumen</h1>
+            <div class="doc-author-row">
+              <span class="doc-author">👤 <span id="detail-author">Penulis</span></span>
+              <span class="doc-year" id="detail-year">Tahun</span>
+            </div>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-item"><div class="meta-key">Matakuliah</div><div class="meta-val" id="detail-mk">—</div></div>
+            <div class="meta-item"><div class="meta-key">Institusi</div><div class="meta-val" id="detail-inst">—</div></div>
+            <div class="meta-item"><div class="meta-key">Jenis dokumen</div><div class="meta-val" id="detail-jenis">—</div></div>
+            <div class="meta-item"><div class="meta-key">Jumlah diunduh</div><div class="meta-val" id="detail-unduh">—</div></div>
+          </div>
+
+          <div class="abstract-section">
+            <div class="abstract-title">Abstrak</div>
+            <p class="abstract-text" id="detail-abstrak">—</p>
+          </div>
+
+          <div class="sitasi-section">
+            <div class="abstract-title">Sitasi otomatis</div>
+            <div class="sitasi-format-tabs">
+              <div class="sit-tab active" onclick="switchFormat(this,'apa')">APA 7</div>
+              <div class="sit-tab" onclick="switchFormat(this,'chicago')">Chicago</div>
+              <div class="sit-tab" onclick="switchFormat(this,'turabian')">Turabian</div>
+            </div>
+            <div class="sit-text" id="sit-display">—</div>
+            <button class="copy-btn" onclick="copySit()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span id="copy-label">Salin sitasi</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-sidebar">
+          <div class="action-card">
+            <button class="btn btn-primary" id="btn-sumber" style="width:100%;justify-content:center;margin-bottom:8px;display:none;" onclick="bukaSumber()">
+              🔗 Baca di Sumber Asli
+            </button>
+            <button class="btn btn-primary" id="btn-unduh" style="width:100%;justify-content:center;margin-bottom:8px;display:none;background:#1A5A9E;" onclick="unduhPDF()">
+              📥 Unduh PDF
+            </button>
+            <div id="btn-tidak-tersedia" style="width:100%;text-align:center;padding:10px;font-size:13px;color:var(--ink-muted);background:var(--paper-warm);border-radius:var(--border-radius-md);margin-bottom:8px;display:none;">
+              📋 File belum tersedia
+            </div>
+            <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-bottom:8px;" onclick="simpanDokumen()">
+              🔖 Simpan ke koleksi
+            </button>
+            <button class="btn btn-secondary" style="width:100%;justify-content:center;" onclick="bagikanDokumen()">
+              🔗 Bagikan
+            </button>
+          </div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px;">Dokumen terkait</div>
+          <div class="related-list">
+            <div class="related-item" onclick="showDetail('doc2')">
+              <div class="related-title">Metode Penelitian Antropologi: Pendekatan Kualitatif</div>
+              <div class="related-meta">E-Book · Metode Penelitian</div>
+            </div>
+            <div class="related-item" onclick="showDetail('doc4')">
+              <div class="related-title">Transformasi Kepercayaan Animisme Masyarakat Pesisir</div>
+              <div class="related-meta">Makalah · Antro Agama</div>
+            </div>
+            <div class="related-item" onclick="showDetail('doc3')">
+              <div class="related-title">Kearifan Lokal Masyarakat Karo dalam Pertanian</div>
+              <div class="related-meta">Skripsi · Kearifan Lokal Sumatera</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 4 — UPLOAD
+═══════════════════════════════════ -->
+<div id="page-upload" class="page">
+  <div class="container">
+    <div class="upload-page">
+      <h1>Upload dokumen</h1>
+      <p class="sub">Bagikan referensi akademik Anda untuk membantu mahasiswa antropologi seluruh Indonesia. Setiap dokumen yang disetujui akan langsung tersedia di koleksi.</p>
+
+      <div class="form-card" style="border-left:3px solid var(--green);">
+        <h3>
+          <svg class="guideline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          Panduan kualitas dokumen
+        </h3>
+        <div>
+          <div class="guideline"><svg class="guideline-icon" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="guideline-text">Dokumen berkaitan langsung dengan matakuliah di jurusan antropologi</span></div>
+          <div class="guideline"><svg class="guideline-icon" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="guideline-text">Sertakan nama penulis, tahun terbit, dan asal institusi yang lengkap</span></div>
+          <div class="guideline"><svg class="guideline-icon" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="guideline-text">Tuliskan abstrak atau deskripsi agar mudah ditemukan lewat pencarian</span></div>
+          <div class="guideline"><svg class="guideline-icon" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="guideline-text">Pastikan tidak melanggar hak cipta — karya sendiri atau dokumen open access</span></div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Informasi dokumen
+        </h3>
+        <div class="field">
+          <label>Judul dokumen <span class="required">wajib</span></label>
+          <input type="text" id="u-judul" placeholder="Judul lengkap sesuai dokumen asli..." oninput="updateSitasiLive()" />
+        </div>
+        <div class="field">
+          <label>Penulis / Pengarang <span class="required">wajib</span></label>
+          <input type="text" id="u-penulis" placeholder="Contoh: Hasibuan, R." oninput="updateSitasiLive()" />
+          <div class="hint">Nama belakang, Nama depan. Pisahkan beberapa penulis dengan titik koma (;)</div>
+        </div>
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0;">
+            <label>Jenis dokumen <span class="required">wajib</span></label>
+            <select id="u-jenis" onchange="updateSitasiLive()">
+              <option value="">-- Pilih jenis --</option>
+              <option>Jurnal Ilmiah</option>
+              <option>E-Book / Buku</option>
+              <option>Referensi Skripsi</option>
+              <option>Makalah Seminar</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Tahun terbit <span class="required">wajib</span></label>
+            <input type="text" id="u-tahun" placeholder="2024" maxlength="4" oninput="updateSitasiLive()" />
+          </div>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <label>Matakuliah yang relevan <span class="required">wajib</span></label>
+          <select>
+            <option value="">-- Pilih matakuliah --</option>
+            <option>Pengantar Antropologi</option><option>Pengantar Sosiologi</option><option>Etnografi</option>
+            <option>Sistem Sosial Budaya Indonesia</option><option>Pengantar Ilmu Sosial</option>
+            <option>Penulisan Karya Ilmiah</option><option>Antropologi Sosial Budaya</option>
+            <option>Masalah Sosial dan Kemiskinan</option><option>Antropologi Agama</option>
+            <option>Kearifan Lokal Budaya Sumatera</option><option>Antropologi Lingkungan</option>
+            <option>Antro Pedesaan</option><option>Antro Politik</option><option>Etnobotani</option>
+            <option>Antro Agraria</option><option>Metode Penelitian Antropologi</option>
+            <option>Antro Perkotaan</option><option>Teori Antropologi Klasik</option>
+            <option>Antropologi Ekonomi</option><option>Antropologi Kesehatan</option>
+            <option>Antropologi Hukum</option><option>Antropologi Psikologi</option>
+            <option>Antro Gender & Seksualitas</option><option>Folklor</option>
+            <option>Teori Sosial</option><option>Antro Pariwisata</option>
+            <option>Teori Antro Modern & Postmodern</option><option>Antro Pembangunan</option>
+            <option>Antropologi Media</option><option>Antro Kependudukan</option>
+            <option>Antro Pendidikan</option><option>Studi Masyarakat Indonesia</option>
+            <option>Perubahan Sosial Budaya</option><option>Pendidikan Multikultural</option>
+            <option>Antropologi Visual</option><option>Evaluasi Pembelajaran Antro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Abstrak / Deskripsi <span class="required">wajib</span></label>
+          <textarea rows="4" placeholder="Tulis ringkasan isi dokumen. Minimal 50 kata — semakin detail, semakin mudah ditemukan."></textarea>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Preview sitasi otomatis
+        </h3>
+        <p style="font-size:13px;color:var(--ink-muted);margin-bottom:12px;">Sistem membuat sitasi APA, Chicago, dan Turabian secara otomatis dari data di atas.</p>
+        <div class="field">
+          <label style="font-weight:400;color:var(--ink-muted);">Format APA 7</label>
+          <div class="sitasi-live" id="sitasi-live-preview">Isi nama penulis, judul, dan tahun untuk melihat preview sitasi...</div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          File &amp; Sumber Dokumen
+        </h3>
+        <div class="field">
+          <label style="font-weight:500;font-size:13px;color:var(--ink);margin-bottom:6px;display:block;">Link sumber asli</label>
+          <input type="text" id="u-link" placeholder="https://jurnal.unimed.ac.id/..." />
+          <div class="hint">Isi link ke halaman jurnal/repositori resmi tempat dokumen dipublikasikan</div>
+        </div>
+        <div class="field" style="margin-top:14px;">
+          <label style="font-weight:500;font-size:13px;color:var(--ink);margin-bottom:6px;display:block;">Upload file PDF <span style="font-size:11px;color:var(--ink-muted);">(hanya untuk karya sendiri atau open access)</span></label>
+          <div class="drop-zone" onclick="document.getElementById('file-input').click()">
+            <span class="drop-icon">📁</span>
+            <div class="drop-title" id="file-label">Klik untuk pilih file PDF</div>
+            <div class="drop-sub">PDF saja — maksimal 50 MB</div>
+          </div>
+          <input type="file" id="file-input" accept=".pdf" style="display:none;" onchange="piliFile(this)" />
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;font-size:15px;" onclick="uploadDokumen()">
+        Kirim untuk ditinjau moderator
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 5 — TENTANG
+═══════════════════════════════════ -->
+<div id="page-tentang" class="page">
+  <div class="tentang-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:rgba(255,255,255,0.12);color:#B8D8D0;">Platform Akademik Antropologi Indonesia</div>
+      <h1 class="tentang-hero" style="font-family:'Lora',serif;font-size:clamp(26px,4vw,38px);font-weight:600;line-height:1.2;margin-bottom:16px;color:#fff;">Dibangun <em style="font-style:italic;color:#7FD4B8;">oleh</em> mahasiswa,<br>untuk mahasiswa antropologi</h1>
+      <p style="font-size:16px;color:#B8D8D0;max-width:520px;line-height:1.7;">AntropHub lahir dari kebutuhan nyata mahasiswa antropologi yang kesulitan menemukan referensi akademik yang relevan dan terorganisir.</p>
+    </div>
+  </div>
+
+  <div class="tentang-body">
+    <div class="container">
+
+      <div class="value-grid">
+        <div class="value-card">
+          <span class="value-icon">🎯</span>
+          <div class="value-title">Relevan & terorganisir</div>
+          <div class="value-desc">Setiap dokumen terhubung langsung ke matakuliah spesifik, sehingga Anda tidak perlu mencari jarum di tumpukan jerami.</div>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🤝</span>
+          <div class="value-title">Dari komunitas</div>
+          <div class="value-desc">Mahasiswa dan dosen berkontribusi langsung menambah koleksi. Semakin banyak yang berbagi, semakin kaya referensinya.</div>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🌐</span>
+          <div class="value-title">Mulai Unimed, nasional</div>
+          <div class="value-desc">Berakar dari jurusan Antropologi Unimed, namun terbuka untuk seluruh mahasiswa antropologi di Indonesia.</div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="about-section">
+        <div class="about-text">
+          <h2>Mengapa AntropHub dibuat?</h2>
+          <p>Mahasiswa antropologi sering menghabiskan berjam-jam hanya untuk mencari referensi yang tepat. Jurnal tersebar di berbagai platform, skripsi tersimpan di perpustakaan fisik, dan e-book sulit diakses.</p>
+          <p>AntropHub menjawab masalah ini dengan menyediakan satu tempat yang terorganisir berdasarkan 35 matakuliah di jurusan antropologi — dilengkapi sitasi otomatis, filter matakuliah, dan kemampuan berbagi antar mahasiswa.</p>
+          <button class="btn btn-primary" onclick="showPage('koleksi',document.querySelectorAll('.nav-link')[1])">Mulai jelajah koleksi</button>
+        </div>
+        <div class="about-visual">
+          <div style="font-size:13px;font-weight:600;color:var(--green-dark);margin-bottom:14px;">Siapa target pengguna AntropHub?</div>
+          <div class="target-item">
+            <span class="target-emoji">👨‍🎓</span>
+            <div class="target-info">
+              <h4>Mahasiswa S1 Antropologi</h4>
+              <p>Mencari referensi tugas, makalah, dan skripsi sesuai matakuliah yang sedang diambil</p>
+            </div>
+          </div>
+          <div class="target-item">
+            <span class="target-emoji">👩‍🏫</span>
+            <div class="target-info">
+              <h4>Dosen Antropologi</h4>
+              <p>Berbagi materi perkuliahan dan merekomendasikan referensi kepada mahasiswa</p>
+            </div>
+          </div>
+          <div class="target-item">
+            <span class="target-emoji">🔬</span>
+            <div class="target-info">
+              <h4>Peneliti & Akademisi</h4>
+              <p>Mempublikasikan hasil riset dan menjangkau komunitas antropologi Indonesia</p>
+            </div>
+          </div>
+          <div class="target-item" style="border-bottom:none;padding-bottom:0;">
+            <span class="target-emoji">🗺</span>
+            <div class="target-info">
+              <h4>Mahasiswa S2/S3</h4>
+              <p>Referensi lintas topik antropologi untuk penelitian lanjutan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <h2>Siap berkontribusi?</h2>
+        <p>Upload dokumen akademik Anda dan bantu sesama mahasiswa antropologi Indonesia menemukan referensi yang tepat.</p>
+        <div class="cta-actions">
+          <button class="btn btn-primary" onclick="showPage('upload',document.querySelectorAll('.nav-link')[2])">Upload dokumen pertama Anda</button>
+          <button class="btn" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);" onclick="showPage('koleksi',document.querySelectorAll('.nav-link')[1])">Jelajah koleksi</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 6 — LOGIN
+═══════════════════════════════════ -->
+<div id="page-login" class="page">
+  <div class="auth-page">
+    <div class="auth-box">
+      <div class="auth-logo">
+        <div class="logo-mark" style="width:44px;height:44px;font-size:20px;margin:0 auto 10px;border-radius:12px;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-weight:600;color:#fff;">A</div>
+        <div class="auth-title">Masuk ke AntropHub</div>
+        <div class="auth-sub">Akses koleksi lengkap referensi akademik antropologi</div>
+      </div>
+
+      <div class="auth-field">
+        <label>Email</label>
+        <input type="text" placeholder="email@mahasiswa.unimed.ac.id" />
+      </div>
+      <div class="auth-field">
+        <label>Password</label>
+        <div class="password-wrap">
+          <input type="password" id="login-pw" placeholder="Masukkan password..." />
+          <button class="toggle-pw" onclick="togglePw('login-pw',this)" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="auth-forgot"><a>Lupa password?</a></div>
+
+      <button class="auth-btn" onclick="doLogin()">Masuk</button>
+
+      <div class="auth-divider"><span>atau</span></div>
+
+      <button class="auth-btn" style="background:var(--paper-warm);color:var(--ink);border:1px solid var(--border);" onclick="doLogin()">
+        🎓 Masuk dengan akun kampus
+      </button>
+
+      <div class="auth-switch">
+        Belum punya akun? <a onclick="showPage('daftar')">Daftar sekarang</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 7 — DAFTAR
+═══════════════════════════════════ -->
+<div id="page-daftar" class="page">
+  <div class="auth-page">
+    <div class="auth-box" style="max-width:460px;">
+      <div class="auth-logo">
+        <div class="logo-mark" style="width:44px;height:44px;font-size:20px;margin:0 auto 10px;border-radius:12px;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-weight:600;color:#fff;">A</div>
+        <div class="auth-title">Buat akun AntropHub</div>
+        <div class="auth-sub">Gratis untuk seluruh mahasiswa antropologi Indonesia</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="auth-field" style="margin-bottom:0;">
+          <label>Nama depan</label>
+          <input type="text" placeholder="Budi" />
+        </div>
+        <div class="auth-field" style="margin-bottom:0;">
+          <label>Nama belakang</label>
+          <input type="text" placeholder="Santoso" />
+        </div>
+      </div>
+
+      <div class="auth-field" style="margin-top:14px;">
+        <label>Email</label>
+        <input type="text" placeholder="email@mahasiswa.unimed.ac.id" />
+        <div class="field-hint">Gunakan email kampus jika tersedia</div>
+      </div>
+
+      <div class="auth-field">
+        <label>Password</label>
+        <div class="password-wrap">
+          <input type="password" id="daftar-pw" placeholder="Minimal 8 karakter..." />
+          <button class="toggle-pw" onclick="togglePw('daftar-pw',this)" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-field">
+        <label>Universitas</label>
+        <select>
+          <option>Universitas Negeri Medan (Unimed)</option>
+          <option>Universitas Sumatera Utara (USU)</option>
+          <option>Universitas Indonesia (UI)</option>
+          <option>Universitas Gadjah Mada (UGM)</option>
+          <option>Universitas Airlangga (Unair)</option>
+          <option>Universitas Hasanuddin (Unhas)</option>
+          <option>Universitas lainnya...</option>
+        </select>
+      </div>
+
+      <div class="auth-field">
+        <label>Semester aktif</label>
+        <div class="semester-sel">
+          <div class="sem-option" onclick="pickSem(this)">Sem. 1</div>
+          <div class="sem-option" onclick="pickSem(this)">Sem. 2</div>
+          <div class="sem-option" onclick="pickSem(this)">Sem. 3</div>
+          <div class="sem-option" onclick="pickSem(this)">Sem. 4</div>
+          <div class="sem-option active" onclick="pickSem(this)">Sem. 5</div>
+          <div class="sem-option" onclick="pickSem(this)">Sem. 6</div>
+          <div class="sem-option" onclick="pickSem(this)">Sem. 7</div>
+          <div class="sem-option" onclick="pickSem(this)">Sem. 8+</div>
+        </div>
+        <div class="field-hint" style="margin-top:6px;">Untuk menyesuaikan rekomendasi referensi</div>
+      </div>
+
+      <div class="auth-field">
+        <div class="prodi-check">
+          <input type="checkbox" checked />
+          Saya menyetujui <a style="color:var(--green);cursor:pointer;margin:0 4px;">syarat & ketentuan</a> AntropHub
+        </div>
+      </div>
+
+      <button class="auth-btn" onclick="doDaftar()">Buat akun</button>
+
+      <div class="auth-switch" style="margin-top:16px;">
+        Sudah punya akun? <a onclick="showPage('login')">Masuk di sini</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 8 — AKUN SAYA
+═══════════════════════════════════ -->
+<div id="page-akun" class="page">
+  <div class="container">
+    <div class="akun-page">
+      <div style="font-family:'Lora',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:20px;">Akun Saya</div>
+      <div class="akun-layout">
+
+        <!-- Sidebar kiri -->
+        <div class="akun-sidebar">
+          <div class="profile-card">
+            <div class="avatar-circle">MA</div>
+            <div class="profile-name">Muhammad Andi</div>
+            <div class="profile-univ">Unimed · Antropologi · Sem. 5</div>
+            <div class="profile-badges">
+              <span class="badge badge-green">Kontributor</span>
+              <span class="badge badge-amber">Semester 5</span>
+            </div>
+            <button class="profile-edit-btn">✏️ Edit profil</button>
+          </div>
+
+          <div class="akun-menu-card">
+            <div class="akun-menu-item active" onclick="switchAkunTab(this,'tab-ringkasan')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Ringkasan
+            </div>
+            <div class="akun-menu-item" onclick="switchAkunTab(this,'tab-notifikasi')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+              Notifikasi
+              <span style="margin-left:auto;font-size:10px;background:#E24B4A;color:#fff;padding:2px 6px;border-radius:10px;">3</span>
+            </div>
+            <div class="akun-menu-item" onclick="switchAkunTab(this,'tab-tersimpan')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+              Dokumen Tersimpan
+            </div>
+            <div class="akun-menu-item" onclick="switchAkunTab(this,'tab-matakuliah')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              Matakuliah Aktif
+            </div>
+            <div class="akun-menu-item" onclick="switchAkunTab(this,'tab-upload')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload Saya
+            </div>
+          </div>
+
+          <button class="logout-btn" onclick="doLogout()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Keluar dari akun
+          </button>
+        </div>
+
+        <!-- Konten kanan -->
+        <div class="akun-main">
+
+          <!-- Tab: Ringkasan -->
+          <div id="tab-ringkasan" class="akun-tab">
+            <div class="akun-section">
+              <div class="akun-section-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                Aktivitas saya
+              </div>
+              <div class="stat-cards">
+                <div class="stat-card">
+                  <div class="stat-card-num">24</div>
+                  <div class="stat-card-label">Dokumen tersimpan</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-num">7</div>
+                  <div class="stat-card-label">Dokumen diupload</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-num">312</div>
+                  <div class="stat-card-label">Total unduhan kontribusi</div>
+                </div>
+              </div>
+            </div>
+            <div class="akun-section">
+              <div class="akun-section-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                Matakuliah aktif semester ini
+              </div>
+              <div class="mk-aktif-grid">
+                <div class="mk-tag">Etnografi <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Agama <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Lingkungan <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Kearifan Lokal Sumatera <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Metode Penelitian Antro <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Politik <span class="mk-remove">×</span></div>
+                <button class="mk-tag-add">+ Tambah matakuliah</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab: Notifikasi -->
+          <div id="tab-notifikasi" class="akun-tab" style="display:none;">
+            <div class="akun-section">
+              <div class="akun-section-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                Notifikasi terbaru
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">3 jurnal baru ditambahkan untuk matakuliah <strong>Etnografi</strong></div>
+                  <div class="notif-time">2 jam yang lalu</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">E-book baru: <em>Teori Antropologi Kontemporer</em> relevan untuk <strong>Antro Agama</strong></div>
+                  <div class="notif-time">1 hari yang lalu</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">Upload Anda <em>Kearifan Lokal Karo</em> telah diunduh 12 kali oleh mahasiswa lain</div>
+                  <div class="notif-time">2 hari yang lalu</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot read"></div>
+                <div>
+                  <div class="notif-text">Dokumen upload Anda telah disetujui moderator</div>
+                  <div class="notif-time">5 hari yang lalu</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot read"></div>
+                <div>
+                  <div class="notif-text">Selamat datang di AntropHub! Mulai jelajah koleksi referensi untuk matakuliah Anda.</div>
+                  <div class="notif-time">7 hari yang lalu</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab: Tersimpan -->
+          <div id="tab-tersimpan" class="akun-tab" style="display:none;">
+            <div class="akun-section">
+              <div class="akun-section-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                Dokumen tersimpan (24)
+              </div>
+              <div class="saved-doc">
+                <div class="saved-doc-icon" style="background:#EAF0FB;">📄</div>
+                <div class="saved-doc-body">
+                  <div class="saved-doc-title">Dinamika Ritual Adat Batak Toba di Era Modernisasi</div>
+                  <div class="saved-doc-meta">Jurnal · Etnografi · Hasibuan, R. (2024)</div>
+                </div>
+                <button class="saved-doc-btn" onclick="showDetail('doc1')">Buka</button>
+              </div>
+              <div class="saved-doc">
+                <div class="saved-doc-icon" style="background:#E8F5F0;">📗</div>
+                <div class="saved-doc-body">
+                  <div class="saved-doc-title">Metode Penelitian Antropologi: Pendekatan Kualitatif</div>
+                  <div class="saved-doc-meta">E-Book · Metode Penelitian Antro · Spradley (2022)</div>
+                </div>
+                <button class="saved-doc-btn" onclick="showDetail('doc2')">Buka</button>
+              </div>
+              <div class="saved-doc">
+                <div class="saved-doc-icon" style="background:#FBF2E8;">🎓</div>
+                <div class="saved-doc-body">
+                  <div class="saved-doc-title">Kearifan Lokal Masyarakat Karo dalam Pertanian</div>
+                  <div class="saved-doc-meta">Skripsi · Kearifan Lokal Sumatera · Tarigan (2023)</div>
+                </div>
+                <button class="saved-doc-btn" onclick="showDetail('doc3')">Buka</button>
+              </div>
+              <div class="saved-doc">
+                <div class="saved-doc-icon" style="background:#F0EDFB;">📝</div>
+                <div class="saved-doc-body">
+                  <div class="saved-doc-title">Transformasi Kepercayaan Animisme Masyarakat Pesisir</div>
+                  <div class="saved-doc-meta">Makalah · Antro Agama · Lubis (2024)</div>
+                </div>
+                <button class="saved-doc-btn" onclick="showDetail('doc4')">Buka</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab: Matakuliah -->
+          <div id="tab-matakuliah" class="akun-tab" style="display:none;">
+            <div class="akun-section">
+              <div class="akun-section-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                Kelola matakuliah aktif
+              </div>
+              <p style="font-size:13px;color:var(--ink-muted);margin-bottom:14px;line-height:1.5;">Matakuliah yang Anda pilih akan digunakan untuk menyesuaikan rekomendasi dokumen di beranda.</p>
+              <div class="mk-aktif-grid" style="margin-bottom:16px;">
+                <div class="mk-tag">Etnografi <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Agama <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Lingkungan <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Kearifan Lokal Sumatera <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Metode Penelitian Antro <span class="mk-remove">×</span></div>
+                <div class="mk-tag">Antro Politik <span class="mk-remove">×</span></div>
+              </div>
+              <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:10px;">Tambah dari daftar matakuliah:</div>
+              <select style="width:100%;margin-bottom:10px;">
+                <option value="">-- Pilih matakuliah untuk ditambahkan --</option>
+                <option>Pengantar Antropologi</option><option>Pengantar Sosiologi</option>
+                <option>Sistem Sosial Budaya Indonesia</option><option>Pengantar Ilmu Sosial</option>
+                <option>Penulisan Karya Ilmiah</option><option>Antro Sosial Budaya</option>
+                <option>Masalah Sosial & Kemiskinan</option><option>Antro Pedesaan</option>
+                <option>Antro Perkotaan</option><option>Etnobotani</option><option>Antro Agraria</option>
+                <option>Teori Antro Klasik</option><option>Antro Ekonomi</option><option>Antro Kesehatan</option>
+                <option>Antro Hukum</option><option>Antro Psikologi</option>
+                <option>Antro Gender & Seksualitas</option><option>Folklor</option>
+                <option>Teori Sosial</option><option>Antro Pariwisata</option>
+                <option>Teori Antro Modern & Postmodern</option><option>Antro Pembangunan</option>
+                <option>Antro Media</option><option>Antro Kependudukan</option>
+                <option>Antro Pendidikan</option><option>Studi Masyarakat Indonesia</option>
+                <option>Perubahan Sosial Budaya</option><option>Pendidikan Multikultural</option>
+                <option>Antro Visual</option><option>Evaluasi Pembelajaran Antro</option>
+              </select>
+              <button class="btn btn-primary btn-sm">+ Tambahkan matakuliah</button>
+            </div>
+          </div>
+
+          <!-- Tab: Upload saya -->
+          <div id="tab-upload" class="akun-tab" style="display:none;">
+            <div class="akun-section">
+              <div class="akun-section-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Upload saya (7 dokumen)
+              </div>
+              <div class="my-upload-row">
+                <div class="saved-doc-icon" style="background:#EAF0FB;">📄</div>
+                <div class="saved-doc-body">
+                  <div class="saved-doc-title">Etnografi Komunitas Nelayan Melayu Deli</div>
+                  <div class="saved-doc-meta">Jurnal · Etnografi · Diupload 10 Apr 2025</div>
+                </div>
+                <span class="upload-status status-approved">✓ Disetujui</span>
+              </div>
+              <div class="my-upload-row">
+                <div class="saved-doc-icon" style="background:#FBF2E8;">🎓</div>
+                <div class="saved-doc-body">
+                  <div class="saved-doc-title">Strategi Bertahan Hidup Masyarakat Miskin Perkotaan Medan</div>
+                  <div class="saved-doc-meta">Skripsi · Masalah Sosial & Kemiskinan · Diupload 2 Mar 2025</div>
+                </div>
+                <span class="upload-status status-approved">✓ Disetujui</span>
+              </div>
+              <div class="my-upload-row">
+                <div class="saved-doc-icon" style="background:#F0EDFB;">📝</div>
+                <div class="saved-doc-body">
+                  <div class="saved-doc-title">Peran Dukun dalam Sistem Pengobatan Tradisional Batak</div>
+                  <div class="saved-doc-meta">Makalah · Antro Kesehatan · Diupload 28 Apr 2025</div>
+                </div>
+                <span class="upload-status status-pending">⏳ Menunggu review</span>
+              </div>
+              <div style="margin-top:14px;">
+                <button class="btn btn-primary btn-sm" onclick="showPage('upload')">+ Upload dokumen baru</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE — ISTILAH ANTROPOLOGI
+═══════════════════════════════════ -->
+<div id="page-istilah" class="page">
+  <div class="istilah-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:var(--amber-light);color:#7A4E1A;margin-bottom:14px;">📝 Kamus Istilah</div>
+      <h1>Kumpulan Istilah Antropologi</h1>
+      <p>Pahami istilah-istilah penting yang sering muncul dalam jurnal, buku, dan perkuliahan antropologi.</p>
+      <div class="istilah-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="istilah-search-input" placeholder="Cari istilah..." oninput="cariIstilah()" />
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="kategori-tabs">
+      <div class="kategori-tab active" onclick="filterKategori(this,'semua')">Semua</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Metode Penelitian')">Metode Penelitian</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Teori Sosial')">Teori Sosial</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Teori Antropologi')">Teori Antropologi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Organisasi Sosial')">Organisasi Sosial</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Ritual & Simbolisme')">Ritual & Simbolisme</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Perubahan Budaya')">Perubahan Budaya</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Metodologi')">Metodologi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Ekonomi Antropologi')">Ekonomi Antropologi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Kepercayaan & Religi')">Kepercayaan & Religi</div>
+      <div class="kategori-tab" onclick="filterKategori(this,'Tradisi Lisan')">Tradisi Lisan</div>
+    </div>
+    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="istilah-count">Memuat istilah...</div>
+    <div class="istilah-grid" id="istilah-grid">
+      <div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat istilah antropologi...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE — ISTILAH ANTROPOLOGI
+═══════════════════════════════════ -->
+
+<!-- PAGE TEORI -->
+<div id="page-teori" class="page">
+  <div class="teori-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:rgba(255,255,255,0.1);color:#9A9690;margin-bottom:14px;">📖 Referensi Teori</div>
+      <h1>Kumpulan Teori Antropologi</h1>
+      <p>Pahami teori-teori utama dari berbagai aliran — lengkap dengan tokoh, penjelasan, dan contoh penerapan.</p>
+      <div class="teori-search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="teori-search-input" placeholder="Cari teori atau tokoh..." oninput="cariTeori()" />
+      </div>
+    </div>
+  </div>
+  <div class="container" style="padding-top:24px;padding-bottom:60px;">
+    <div class="aliran-tabs">
+      <div class="aliran-tab active" onclick="filterAliran(this,'semua')">Semua Aliran</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Fungsionalisme')">Fungsionalisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Strukturalisme')">Strukturalisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Evolusionisme')">Evolusionisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Partikularisme Historis')">Partikularisme Historis</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Interpretivisme')">Interpretivisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Post-Strukturalisme')">Post-Strukturalisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Postmodernisme')">Postmodernisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Feminisme Antropologis')">Feminisme</div>
+      <div class="aliran-tab" onclick="filterAliran(this,'Neo-Evolusionisme')">Neo-Evolusionisme</div>
+    </div>
+    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="teori-count">Memuat teori...</div>
+    <div class="teori-list" id="teori-list"><div style="text-align:center;padding:48px;color:var(--ink-muted);">Memuat teori antropologi...</div></div>
+  </div>
+</div>
+
+<!-- PAGE TOPIK -->
+<div id="page-topik" class="page">
+  <div class="topik-hero">
+    <div class="container">
+      <div class="hero-tag" style="background:rgba(255,255,255,0.15);color:#B8D8D0;margin-bottom:14px;">💡 Ide Penelitian</div>
+      <h1>Topik Skripsi & Miniriset</h1>
+      <p>Kumpulan ide topik penelitian khusus mahasiswa antropologi — lengkap dengan deskripsi, contoh judul, dan tingkat kesulitan.</p>
+    </div>
+  </div>
+  <div class="container" style="padding-top:24px;padding-bottom:60px;">
+    <div class="topik-filter">
+      <div class="filter-pill active" onclick="filterTopik(this,'semua')">Semua</div>
+      <div class="filter-pill" onclick="filterTopik(this,'Skripsi')">🎓 Skripsi</div>
+      <div class="filter-pill" onclick="filterTopik(this,'Miniriset')">📝 Miniriset</div>
+      <div style="margin-left:auto;display:flex;gap:6px;">
+        <div class="filter-pill" onclick="filterSulitTopik(this,'Mudah')">🟢 Mudah</div>
+        <div class="filter-pill" onclick="filterSulitTopik(this,'Menengah')">🟡 Menengah</div>
+        <div class="filter-pill" onclick="filterSulitTopik(this,'Sulit')">🔴 Sulit</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--ink-muted);margin-bottom:16px;" id="topik-count">Memuat topik...</div>
+    <div class="topik-grid" id="topik-grid"><div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Memuat topik penelitian...</div></div>
+  </div>
+</div>
+
+<!-- MODAL SUBMIT TOPIK -->
+<div class="modal-overlay" id="modal-topik">
+  <div class="modal-box">
+    <button class="modal-close" onclick="tutupModal()">×</button>
+    <div class="modal-title">Submit Topik Penelitian</div>
+    <div class="modal-sub">Bagikan ide topik penelitian Anda untuk membantu mahasiswa lain</div>
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Judul topik</label><input type="text" id="topik-judul" placeholder="Contoh: Identitas Budaya di Era Digital" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;" /></div>
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Deskripsi singkat</label><textarea id="topik-deskripsi" rows="3" placeholder="Jelaskan gambaran umum topik..." style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;resize:vertical;"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Jenis</label><select id="topik-jenis" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;"><option>Skripsi</option><option>Miniriset</option></select></div>
+      <div><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Kesulitan</label><select id="topik-sulit" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;"><option>Mudah</option><option selected>Menengah</option><option>Sulit</option></select></div>
+    </div>
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Contoh judul</label><input type="text" id="topik-contoh" placeholder="Contoh judul spesifik..." style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;" /></div>
+    <div style="margin-bottom:12px;"><label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;">Kata kunci</label><input type="text" id="topik-kata" placeholder="budaya, identitas, media sosial" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:13px;" /></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="submitTopik()">Kirim untuk ditinjau admin</button>
+  </div>
+</div>
+
+<!-- PAGE ADMIN -->
+<div id="page-admin" class="page">
+  <div class="container" style="padding-top:32px;padding-bottom:60px;">
+    <div style="margin-bottom:24px;">
+      <div style="font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:4px;">⚙️ Panel Admin AntropHub</div>
+      <div style="font-size:13px;color:var(--ink-muted);">Kelola dokumen, pengguna, dan konten platform</div>
+    </div>
+    <div class="admin-stats">
+      <div class="admin-stat"><div class="admin-stat-num" id="admin-total-dok">-</div><div class="admin-stat-label">Total dokumen aktif</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="admin-pending">-</div><div class="admin-stat-label">Menunggu persetujuan</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="admin-total-user">-</div><div class="admin-stat-label">Total pengguna</div></div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-section-title">📋 Dokumen menunggu persetujuan</div>
+      <div id="admin-pending-list"><div class="empty-state">⏳ Memuat data...</div></div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-section-title">✅ Dokumen aktif terbaru</div>
+      <div id="admin-aktif-list"><div class="empty-state">📚 Memuat data...</div></div>
+    </div>
+  </div>
+</div>
+
+  <div class="container">
+    <p>© 2025 <strong>AntropHub</strong> · Platform Akademik Antropologi Indonesia · Bermula dari Universitas Negeri Medan</p>
+  </div>
+</footer>
+
+<script>
+const _sb = supabase.createClient(
+  'https://mdhpkhuriemobhisnulo.supabase.co',
+  'sb_publishable_6-8zNowvKI_uOpURJQc5gg_Ep69hxzk'
+);
+
+/* ── NAVIGATION ── */
+function showPage(id, navBtn) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-link, .mobile-link').forEach(function(b) { b.classList.remove('active'); });
+  if (navBtn) navBtn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleMobile() {
+  var m = document.getElementById('mobile-menu');
+  if (m) m.classList.toggle('open');
+}
+
+/* ── AUTH ── */
+var isLoggedIn = false;
+
+async function cekSesi() {
+  const { data: { session } } = await _sb.auth.getSession();
+  if (session) { setLoggedIn(session.user); cekAdmin(session.user); }
+}
+
+async function doLogin() {
+  var email = document.querySelector('#page-login input[type=text]');
+  var pw = document.getElementById('login-pw');
+  if (!email || !pw) { alert('Isi email dan password dulu!'); return; }
+  if (!email.value.trim() || !pw.value) { alert('Isi email dan password dulu!'); return; }
+  const { data, error } = await _sb.auth.signInWithPassword({ email: email.value.trim(), password: pw.value });
+  if (error) { alert('Login gagal: ' + error.message); return; }
+  setLoggedIn(data.user);
+}
+
+async function doDaftar() {
+  var inputs = document.querySelectorAll('#page-daftar input[type=text]');
+  var nama = (inputs[0] ? inputs[0].value.trim() : '') + ' ' + (inputs[1] ? inputs[1].value.trim() : '');
+  var email = inputs[2] ? inputs[2].value.trim() : '';
+  var pw = document.getElementById('daftar-pw');
+  var semEl = document.querySelector('.sem-option.active');
+  var semester = semEl ? parseInt(semEl.textContent.replace('Sem. ','')) : 1;
+  if (!email || !pw || !pw.value || !nama.trim()) { alert('Lengkapi semua data dulu!'); return; }
+  const { data, error } = await _sb.auth.signUp({ email: email, password: pw.value, options: { data: { nama_lengkap: nama, semester: semester } } });
+  if (error) { alert('Daftar gagal: ' + error.message); return; }
+  alert('Pendaftaran berhasil! Silakan login.');
+  showPage('login', document.querySelectorAll('.nav-link')[0]);
+}
+
+async function doLogout() {
+  await _sb.auth.signOut();
+  setLoggedOut();
+}
+
+function setLoggedIn(user) {
+  isLoggedIn = true;
+  document.getElementById('nav-auth-btns').style.display = 'none';
+  document.getElementById('nav-user-btns').style.display = 'flex';
+  document.getElementById('nav-akun').style.display = '';
+  document.getElementById('mobile-akun').style.display = '';
+  document.getElementById('mobile-masuk').style.display = 'none';
+  document.getElementById('mobile-daftar').style.display = 'none';
+  muatProfilAkun(user);
+  showPage('beranda', document.querySelectorAll('.nav-link')[0]);
+}
+
+function setLoggedOut() {
+  isLoggedIn = false;
+  document.getElementById('nav-auth-btns').style.display = 'flex';
+  document.getElementById('nav-user-btns').style.display = 'none';
+  document.getElementById('nav-akun').style.display = 'none';
+  document.getElementById('nav-admin').style.display = 'none';
+  document.getElementById('mobile-akun').style.display = 'none';
+  document.getElementById('mobile-masuk').style.display = '';
+  document.getElementById('mobile-daftar').style.display = '';
+  showPage('beranda', document.querySelectorAll('.nav-link')[0]);
+}
+
+function togglePw(id, btn) {
+  var input = document.getElementById(id);
+  if (input) input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+function pickSem(el) {
+  document.querySelectorAll('.sem-option').forEach(function(s) { s.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+/* ── PROFIL ── */
+async function muatProfilAkun(user) {
+  if (!user) return;
+  const { data: profil } = await _sb.from('profiles').select('*').eq('id', user.id).single();
+  if (!profil) return;
+  var nama = profil.nama_lengkap || user.email;
+  var inisial = nama.split(' ').map(function(n){ return n[0]; }).join('').substring(0,2).toUpperCase();
+  var el = document.querySelector('.avatar-circle');
+  if (el) el.textContent = inisial;
+  var elNama = document.querySelector('.profile-name');
+  if (elNama) elNama.textContent = nama;
+  var elUniv = document.querySelector('.profile-univ');
+  if (elUniv) elUniv.textContent = (profil.universitas||'Unimed') + ' · Semester ' + (profil.semester||1);
+}
+
+/* ── STATISTIK ── */
+async function muatStatistik() {
+  var jenis = ['Jurnal','E-Book','Skripsi','Makalah'];
+  var ids = ['stat-jurnal','stat-ebook','stat-skripsi','stat-makalah'];
+  for (var i = 0; i < jenis.length; i++) {
+    const { count } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', true).eq('jenis', jenis[i]);
+    var el = document.getElementById(ids[i]);
+    if (el) el.textContent = count || 0;
+  }
+}
+
+/* ── DOKUMEN ── */
+function buildDocRow(d, size) {
+  var icon = d.jenis === 'E-Book' ? '📗' : d.jenis === 'Skripsi' ? '🎓' : d.jenis === 'Makalah' ? '📝' : '📄';
+  var bg = d.jenis === 'E-Book' ? '#E8F5F0' : d.jenis === 'Skripsi' ? '#FBF2E8' : d.jenis === 'Makalah' ? '#F0EDFB' : '#EAF0FB';
+  var bc = d.jenis === 'E-Book' ? 'badge-green' : d.jenis === 'Skripsi' ? 'badge-amber' : d.jenis === 'Makalah' ? 'badge-purple' : 'badge-blue';
+  var mk = d.matakuliah ? d.matakuliah.nama : '-';
+  var row = document.createElement('div');
+  row.className = 'doc-row';
+  row.addEventListener('click', function() { showDetailDB(d.id); });
+  row.innerHTML =
+    '<div class="doc-type-icon" style="background:' + bg + ';">' + icon + '</div>' +
+    '<div class="doc-body">' +
+      '<span class="badge ' + bc + '">' + d.jenis + '</span>' +
+      '<div class="doc-title-text">' + d.judul + '</div>' +
+      '<div class="doc-meta-row">' +
+        '<span>👤 ' + d.penulis + ' (' + (d.tahun||'-') + ')</span>' +
+        '<span>📚 ' + mk + '</span>' +
+        (d.institusi ? '<span>🏛 ' + d.institusi + '</span>' : '') +
+      '</div>' +
+    '</div>' +
+    '<div class="doc-right">' +
+      '<span class="badge badge-gray">' + (d.jumlah_unduhan||0) + ' unduhan</span>' +
+      '<button class="btn btn-xs btn-outline-green">Lihat detail</button>' +
+    '</div>';
+  row.querySelector('button').addEventListener('click', function(e) {
+    e.stopPropagation();
+    showDetailDB(d.id);
+  });
+  return row;
+}
+
+async function muatDokumen() {
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).limit(10);
+  if (error || !data || data.length === 0) return;
+  var list = document.getElementById('beranda-doc-list');
+  if (!list) return;
+  list.innerHTML = '';
+  data.forEach(function(d) { list.appendChild(buildDocRow(d)); });
+}
+
+async function muatKoleksi() {
+  var koleksiList = document.getElementById('koleksi-doc-list');
+  if (!koleksiList) return;
+  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);font-size:13px;">Memuat dokumen...</div>';
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).limit(20);
+  if (error || !data || data.length === 0) {
+    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Belum ada dokumen.</div>';
+    return;
+  }
+  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen tersedia';
+  koleksiList.innerHTML = '';
+  data.forEach(function(d) { koleksiList.appendChild(buildDocRow(d)); });
+}
+
+async function cariDokumen() {
+  var keyword = document.querySelector('.search-bar input').value.trim();
+  if (!keyword) return;
+  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
+  var koleksiList = document.getElementById('koleksi-doc-list');
+  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Mencari "' + keyword + '"...</div>';
+  document.getElementById('koleksi-heading').textContent = 'Hasil pencarian: "' + keyword + '"';
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true)
+    .or('judul.ilike.%' + keyword + '%,penulis.ilike.%' + keyword + '%,abstrak.ilike.%' + keyword + '%');
+  if (error || !data || data.length === 0) {
+    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Tidak ada hasil untuk "' + keyword + '"</div>';
+    document.getElementById('koleksi-sub').textContent = '0 dokumen ditemukan';
+    return;
+  }
+  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen ditemukan';
+  koleksiList.innerHTML = '';
+  data.forEach(function(d) { koleksiList.appendChild(buildDocRow(d)); });
+}
+
+/* ── KOLEKSI FILTER ── */
+var currentMKId = null;
+var currentJenis = null;
+
+async function selectMK(el, name, count) {
+  document.querySelectorAll('.mk-nav-item').forEach(function(i) { i.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('koleksi-heading').textContent = name;
+  if (name === 'Semua') {
+    currentMKId = null;
+  } else {
+    const { data } = await _sb.from('matakuliah').select('id').eq('nama', name).single();
+    currentMKId = data ? data.id : null;
+  }
+  filterKoleksi();
+}
+
+function setType(el) {
+  document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+  el.classList.add('active');
+  var teks = el.textContent.trim().toLowerCase();
+  if (teks.includes('jurnal')) currentJenis = 'Jurnal';
+  else if (teks.includes('e-book')) currentJenis = 'E-Book';
+  else if (teks.includes('skripsi')) currentJenis = 'Skripsi';
+  else if (teks.includes('makalah')) currentJenis = 'Makalah';
+  else currentJenis = null;
+  filterKoleksi();
+}
+
+async function filterKoleksi() {
+  var koleksiList = document.getElementById('koleksi-doc-list');
+  if (!koleksiList) return;
+  koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Memuat...</div>';
+  var query = _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true);
+  if (currentMKId) query = query.eq('matakuliah_id', currentMKId);
+  if (currentJenis) query = query.eq('jenis', currentJenis);
+  query = query.limit(30);
+  const { data, error } = await query;
+  if (error || !data || data.length === 0) {
+    koleksiList.innerHTML = '<div style="text-align:center;padding:32px;color:var(--ink-muted);">Tidak ada dokumen.</div>';
+    document.getElementById('koleksi-sub').textContent = '0 dokumen';
+    return;
+  }
+  document.getElementById('koleksi-sub').textContent = data.length + ' dokumen tersedia';
+  koleksiList.innerHTML = '';
+  data.forEach(function(d) { koleksiList.appendChild(buildDocRow(d)); });
+}
+
+function goKoleksi(mk) {
+  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
+}
+
+function goKoleksiFilter(type) {
+  showPage('koleksi', document.querySelectorAll('.nav-link')[1]);
+}
+
+/* ── DETAIL DOKUMEN ── */
+var currentDoc = null;
+var currentFormat = 'apa';
+var docs = {};
+
+function showDetail(id) {
+  var d = docs[id];
+  if (!d) return;
+  currentDoc = d;
+  document.getElementById('detail-breadcrumb').textContent = d.title.substring(0,40) + '...';
+  document.getElementById('detail-title').textContent = d.title;
+  document.getElementById('detail-badge').textContent = d.badge;
+  document.getElementById('detail-badge').className = 'badge ' + d.badgeClass;
+  document.getElementById('detail-author').textContent = d.author;
+  document.getElementById('detail-year').textContent = d.year;
+  document.getElementById('detail-mk').textContent = d.mk;
+  document.getElementById('detail-inst').textContent = d.inst;
+  document.getElementById('detail-jenis').textContent = d.jenis;
+  document.getElementById('detail-unduh').textContent = d.unduh + ' kali';
+  document.getElementById('detail-abstrak').textContent = d.abstrak;
+  currentFormat = 'apa';
+  document.querySelectorAll('.sit-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
+  document.getElementById('sit-display').innerHTML = d.apa||'-';
+  updateTombolDokumen(d);
+  showPage('detail');
+}
+
+async function showDetailDB(id) {
+  const { data, error } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('id', id).single();
+  if (error || !data) return;
+  currentDoc = {
+    id: data.id, title: data.judul,
+    badge: data.jenis,
+    badgeClass: data.jenis === 'Jurnal' ? 'badge-blue' : data.jenis === 'E-Book' ? 'badge-green' : data.jenis === 'Skripsi' ? 'badge-amber' : 'badge-purple',
+    author: data.penulis, year: data.tahun,
+    mk: data.matakuliah ? data.matakuliah.nama : '-',
+    inst: data.institusi || '-', jenis: data.jenis,
+    unduh: data.jumlah_unduhan || 0,
+    abstrak: data.abstrak || '-',
+    link_sumber: data.link_sumber, file_pdf: data.file_pdf,
+    apa: data.penulis + ' (' + data.tahun + '). ' + data.judul + '.',
+    chicago: data.penulis + '. "' + data.judul + '." ' + data.tahun + '.',
+    turabian: data.penulis + '. "' + data.judul + '." ' + data.tahun + '.'
+  };
+  document.getElementById('detail-breadcrumb').textContent = currentDoc.title.substring(0,40) + '...';
+  document.getElementById('detail-title').textContent = currentDoc.title;
+  document.getElementById('detail-badge').textContent = currentDoc.badge;
+  document.getElementById('detail-badge').className = 'badge ' + currentDoc.badgeClass;
+  document.getElementById('detail-author').textContent = currentDoc.author;
+  document.getElementById('detail-year').textContent = currentDoc.year;
+  document.getElementById('detail-mk').textContent = currentDoc.mk;
+  document.getElementById('detail-inst').textContent = currentDoc.inst;
+  document.getElementById('detail-jenis').textContent = currentDoc.jenis;
+  document.getElementById('detail-unduh').textContent = currentDoc.unduh + ' kali';
+  document.getElementById('detail-abstrak').textContent = currentDoc.abstrak;
+  currentFormat = 'apa';
+  document.querySelectorAll('.sit-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
+  document.getElementById('sit-display').innerHTML = currentDoc.apa;
+  updateTombolDokumen(currentDoc);
+  showPage('detail');
+}
+
+function updateTombolDokumen(doc) {
+  var btnSumber = document.getElementById('btn-sumber');
+  var btnUnduh = document.getElementById('btn-unduh');
+  var btnTidak = document.getElementById('btn-tidak-tersedia');
+  if (btnSumber) btnSumber.style.display = doc.link_sumber ? 'block' : 'none';
+  if (btnUnduh) btnUnduh.style.display = doc.file_pdf ? 'block' : 'none';
+  if (btnTidak) btnTidak.style.display = (!doc.link_sumber && !doc.file_pdf) ? 'block' : 'none';
+}
+
+function switchFormat(tab, fmt) {
+  currentFormat = fmt;
+  document.querySelectorAll('.sit-tab').forEach(function(t) { t.classList.remove('active'); });
+  tab.classList.add('active');
+  if (currentDoc) document.getElementById('sit-display').innerHTML = currentDoc[fmt] || '-';
+}
+
+function copySit() {
+  if (!currentDoc) return;
+  var text = document.getElementById('sit-display').innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    document.getElementById('copy-label').textContent = 'Tersalin!';
+    setTimeout(function() { document.getElementById('copy-label').textContent = 'Salin sitasi'; }, 1800);
+  });
+}
+
+function bukaSumber() { if (currentDoc && currentDoc.link_sumber) window.open(currentDoc.link_sumber, '_blank'); }
+function unduhPDF() { if (currentDoc && currentDoc.file_pdf) window.open(currentDoc.file_pdf, '_blank'); }
+
+async function simpanDokumen() {
+  const result = await _sb.auth.getSession();
+  const session = result.data.session;
+  if (!session) { alert('Login dulu!'); showPage('login'); return; }
+  if (!currentDoc) return;
+  const { error } = await _sb.from('dokumen_tersimpan').insert({ user_id: session.user.id, dokumen_id: currentDoc.id });
+  if (error && error.code === '23505') { alert('Dokumen sudah ada di koleksi Anda!'); return; }
+  if (error) { alert('Gagal menyimpan: ' + error.message); return; }
+  alert('Dokumen berhasil disimpan!');
+}
+
+function bagikanDokumen() {
+  if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(function() { alert('Link disalin!'); });
+}
+
+/* ── UPLOAD ── */
+async function uploadDokumen() {
+  const result = await _sb.auth.getSession();
+  const session = result.data.session;
+  if (!session) { alert('Login dulu!'); showPage('login'); return; }
+  var judul = document.getElementById('u-judul').value.trim();
+  var penulis = document.getElementById('u-penulis').value.trim();
+  var tahun = parseInt(document.getElementById('u-tahun').value) || null;
+  var jenis = document.getElementById('u-jenis').value;
+  var link = document.getElementById('u-link').value.trim();
+  var fileInput = document.getElementById('file-input');
+  var file = fileInput ? fileInput.files[0] : null;
+  if (!judul || !penulis || !jenis) { alert('Lengkapi judul, penulis, dan jenis dokumen!'); return; }
+  var file_pdf = null;
+  if (file) {
+    var namaFile = session.user.id + '/' + Date.now() + '_' + file.name.replace(/\s/g,'_');
+    const { data: upData, error: upErr } = await _sb.storage.from('dokumen-pdf').upload(namaFile, file);
+    if (upErr) { alert('Gagal upload file: ' + upErr.message); return; }
+    const { data: urlData } = _sb.storage.from('dokumen-pdf').getPublicUrl(namaFile);
+    file_pdf = urlData.publicUrl;
+  }
+  const { error } = await _sb.from('dokumen').insert({ judul: judul, penulis: penulis, tahun: tahun, jenis: jenis, link_sumber: link||null, file_pdf: file_pdf, uploaded_by: session.user.id, disetujui: false });
+  if (error) { alert('Gagal: ' + error.message); return; }
+  alert('Dokumen berhasil dikirim! Menunggu persetujuan moderator.');
+}
+
+function piliFile(input) {
+  var file = input.files[0];
+  if (file) { var el = document.getElementById('file-label'); if (el) el.textContent = '✅ ' + file.name; }
+}
+
+function updateSitasiLive() {
+  var p = document.getElementById('u-penulis') ? document.getElementById('u-penulis').value.trim() : '';
+  var j = document.getElementById('u-judul') ? document.getElementById('u-judul').value.trim() : '';
+  var t = document.getElementById('u-tahun') ? document.getElementById('u-tahun').value.trim() : '';
+  var jenis = document.getElementById('u-jenis') ? document.getElementById('u-jenis').value : '';
+  var el = document.getElementById('sitasi-live-preview');
+  if (!el) return;
+  if (!p && !j) { el.textContent = 'Isi nama penulis, judul, dan tahun untuk melihat preview sitasi...'; return; }
+  var pf = p||'Penulis'; var jf = j||'Judul'; var tf = t||'tttt';
+  var s = '';
+  if (jenis === 'E-Book / Buku') s = pf+' ('+tf+'). '+jf+'. Penerbit.';
+  else if (jenis === 'Referensi Skripsi') s = pf+' ('+tf+'). '+jf+' [Skripsi, Universitas].';
+  else if (jenis === 'Makalah Seminar') s = pf+' ('+tf+'). '+jf+'. Nama Seminar.';
+  else s = pf+' ('+tf+'). '+jf+'. Nama Jurnal, Vol(No), hal.';
+  el.textContent = s;
+}
+
+/* ── AKUN TABS ── */
+function switchAkunTab(menuEl, tabId) {
+  document.querySelectorAll('.akun-menu-item').forEach(function(i) { i.classList.remove('active'); });
+  menuEl.classList.add('active');
+  document.querySelectorAll('.akun-tab').forEach(function(t) { t.style.display = 'none'; });
+  var tab = document.getElementById(tabId);
+  if (tab) tab.style.display = 'block';
+}
+
+/* ── INIT ── */
+async function cekSesiInit() {
+  const { data: { session } } = await _sb.auth.getSession();
+  if (session) { setLoggedIn(session.user); cekAdmin(session.user); }
+}
+cekSesiInit();
+muatDokumen();
+muatKoleksi();
+muatStatistik();
+muatTeori();
+muatTopik();
+muatIstilah();
+
+/* ── ISTILAH ANTROPOLOGI ── */
+var allIstilah = [];
+var filterKategoriAktif = 'semua';
+
+async function muatIstilah() {
+  const { data, error } = await _sb.from('istilah_antropologi').select('*').order('istilah');
+  if (error) return;
+  allIstilah = data || [];
+  renderIstilah();
+}
+
+function renderIstilah() {
+  var grid = document.getElementById('istilah-grid');
+  var count = document.getElementById('istilah-count');
+  if (!grid) return;
+  var keyword = (document.getElementById('istilah-search-input') || {}).value || '';
+  keyword = keyword.toLowerCase().trim();
+  var filtered = allIstilah.filter(function(t) {
+    var matchKat = filterKategoriAktif === 'semua' || t.kategori === filterKategoriAktif;
+    var matchKw = !keyword ||
+      t.istilah.toLowerCase().includes(keyword) ||
+      t.definisi.toLowerCase().includes(keyword) ||
+      (t.kategori && t.kategori.toLowerCase().includes(keyword));
+    return matchKat && matchKw;
+  });
+  if (count) count.textContent = filtered.length + ' istilah ditemukan';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Tidak ada istilah ditemukan.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(function(t) {
+    return '<div class="istilah-card">' +
+      (t.kategori ? '<span class="istilah-kategori">' + t.kategori + '</span>' : '') +
+      '<div class="istilah-nama">' + t.istilah + '</div>' +
+      (t.asal_bahasa ? '<div class="istilah-asal">🌐 ' + t.asal_bahasa + '</div>' : '') +
+      '<div class="istilah-definisi">' + t.definisi + '</div>' +
+      (t.contoh_penggunaan ? '<div class="istilah-contoh"><strong>Contoh:</strong> ' + t.contoh_penggunaan + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function filterKategori(el, kat) {
+  document.querySelectorAll('.kategori-tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  filterKategoriAktif = kat;
+  renderIstilah();
+}
+
+function cariIstilah() { renderIstilah(); }
+
+/* ── TEORI ANTROPOLOGI ── */
+var allTeori = [];
+var filterAliranAktif = 'semua';
+
+async function muatTeori() {
+  const { data, error } = await _sb.from('teori_antropologi').select('*').order('aliran').order('tahun');
+  if (error) return;
+  allTeori = data || [];
+  renderTeori();
+}
+muatTeori();
+
+function renderTeori() {
+  var list = document.getElementById('teori-list');
+  var count = document.getElementById('teori-count');
+  if (!list) return;
+  var keyword = (document.getElementById('teori-search-input') || {}).value || '';
+  keyword = keyword.toLowerCase().trim();
+  var filtered = allTeori.filter(function(t) {
+    var matchAliran = filterAliranAktif === 'semua' || t.aliran === filterAliranAktif;
+    var matchKeyword = !keyword ||
+      t.nama_teori.toLowerCase().includes(keyword) ||
+      t.tokoh.toLowerCase().includes(keyword) ||
+      (t.penjelasan && t.penjelasan.toLowerCase().includes(keyword)) ||
+      (t.konsep_kunci && t.konsep_kunci.toLowerCase().includes(keyword));
+    return matchAliran && matchKeyword;
+  });
+  if (count) count.textContent = filtered.length + ' teori ditemukan';
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);">Tidak ada teori yang ditemukan.</div>';
+    return;
+  }
+  var aliranColors = {
+    'Fungsionalisme': '#E8F5F0',
+    'Strukturalisme': '#EAF0FB',
+    'Evolusionisme': '#FAEEDA',
+    'Partikularisme Historis': '#F0EDFB',
+    'Interpretivisme': '#E1F5EE',
+    'Post-Strukturalisme': '#FDF0EE',
+    'Postmodernisme': '#F5F0FB',
+    'Feminisme Antropologis': '#FDECEA',
+    'Neo-Evolusionisme': '#FBF2E8',
+    'Post-Humanisme': '#EEF8FB'
+  };
+  list.innerHTML = filtered.map(function(t, idx) {
+    var bg = aliranColors[t.aliran] || '#F5F5F0';
+    var konsepList = t.konsep_kunci ? t.konsep_kunci.split(',').map(function(k) {
+      return '<span class="konsep-tag">' + k.trim() + '</span>';
+    }).join('') : '';
+    return '<div class="teori-card">' +
+      '<div class="teori-card-header" onclick="toggleTeori(' + idx + ')">' +
+        '<div class="teori-card-left">' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
+            '<span style="font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;background:' + bg + ';color:var(--ink-soft);">' + t.aliran + '</span>' +
+            (t.tahun ? '<span style="font-size:11px;color:var(--ink-muted);">📅 ' + t.tahun + '</span>' : '') +
+          '</div>' +
+          '<div class="teori-nama">' + t.nama_teori + '</div>' +
+          '<div class="teori-tokoh">👤 ' + t.tokoh + '</div>' +
+        '</div>' +
+        '<span class="toggle-icon" id="toggle-icon-' + idx + '">▼</span>' +
+      '</div>' +
+      '<div class="teori-card-body" id="teori-body-' + idx + '">' +
+        '<div class="teori-section">' +
+          '<div class="teori-section-label">Penjelasan</div>' +
+          '<div class="teori-section-text">' + t.penjelasan + '</div>' +
+        '</div>' +
+        (konsepList ? '<div class="teori-section"><div class="teori-section-label">Konsep kunci</div><div class="teori-konsep">' + konsepList + '</div></div>' : '') +
+        (t.contoh_penerapan ? '<div class="teori-section"><div class="teori-section-label">Contoh penerapan di Sumatera Utara</div><div class="teori-section-text" style="background:var(--paper-warm);padding:10px 12px;border-radius:var(--radius-md);">💡 ' + t.contoh_penerapan + '</div></div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleTeori(idx) {
+  var body = document.getElementById('teori-body-' + idx);
+  var icon = document.getElementById('toggle-icon-' + idx);
+  if (!body) return;
+  var isOpen = body.classList.toggle('open');
+  if (icon) icon.classList.toggle('open', isOpen);
+}
+
+function filterAliran(el, aliran) {
+  document.querySelectorAll('.aliran-tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  filterAliranAktif = aliran;
+  renderTeori();
+}
+
+function cariTeori() { renderTeori(); }
+
+/* ── TOPIK PENELITIAN ── */
+var allTopik = [];
+var filterJenisTopik = 'semua';
+var filterSulit = 'semua';
+
+async function muatTopik() {
+  const { data, error } = await _sb.from('topik_penelitian')
+    .select('*, matakuliah(nama)')
+    .eq('disetujui', true)
+    .order('created_at', { ascending: false });
+  if (error) return;
+  allTopik = data || [];
+  renderTopik();
+}
+muatTopik();
+
+function renderTopik() {
+  var grid = document.getElementById('topik-grid');
+  var count = document.getElementById('topik-count');
+  if (!grid) return;
+  var filtered = allTopik.filter(function(t) {
+    var matchJenis = filterJenisTopik === 'semua' || t.jenis === filterJenisTopik;
+    var matchSulit = filterSulit === 'semua' || t.tingkat_kesulitan === filterSulit;
+    return matchJenis && matchSulit;
+  });
+  if (count) count.textContent = filtered.length + ' topik tersedia';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-muted);grid-column:span 2;">Tidak ada topik ditemukan.</div>';
+    return;
+  }
+  var diffClass = { 'Mudah': 'difficulty-easy', 'Menengah': 'difficulty-med', 'Sulit': 'difficulty-hard' };
+  var diffIcon = { 'Mudah': '🟢', 'Menengah': '🟡', 'Sulit': '🔴' };
+  grid.innerHTML = filtered.map(function(t) {
+    return '<div class="topik-card">' +
+      '<div class="topik-card-top">' +
+        '<div class="topik-title">' + t.judul + '</div>' +
+        '<span class="badge ' + (diffClass[t.tingkat_kesulitan]||'badge-gray') + '">' + (diffIcon[t.tingkat_kesulitan]||'') + ' ' + t.tingkat_kesulitan + '</span>' +
+      '</div>' +
+      '<div class="topik-desc">' + (t.deskripsi||'-') + '</div>' +
+      (t.contoh_judul ? '<div class="topik-contoh"><strong>Contoh judul:</strong> ' + t.contoh_judul + '</div>' : '') +
+      '<div class="topik-footer">' +
+        '<span class="badge ' + (t.jenis === 'Skripsi' ? 'badge-amber' : 'badge-purple') + '">' + (t.jenis === 'Skripsi' ? '🎓' : '📝') + ' ' + t.jenis + '</span>' +
+        (t.matakuliah ? '<span class="badge badge-gray">📚 ' + t.matakuliah.nama + '</span>' : '') +
+        (t.kata_kunci ? '<div class="topik-kata" style="width:100%;margin-top:4px;">🏷 ' + t.kata_kunci + '</div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('') +
+  '<div class="submit-topik-card" onclick="bukaModalTopik()">' +
+    '<h3>💡 Punya ide topik penelitian?</h3>' +
+    '<p>Submit topik Anda dan bantu mahasiswa lain menemukan inspirasi</p>' +
+  '</div>';
+}
+
+function filterTopik(el, jenis) {
+  document.querySelectorAll('.topik-filter .filter-pill').forEach(function(p) {
+    if (['Semua','🎓 Skripsi','📝 Miniriset'].some(function(t){ return p.textContent.includes(t.replace(/[🎓📝] /,'').trim()); })) {
+      p.classList.remove('active');
+    }
+  });
+  el.classList.add('active');
+  filterJenisTopik = jenis;
+  renderTopik();
+}
+
+function filterSulitTopik(el, sulit) {
+  document.querySelectorAll('.topik-filter .filter-pill').forEach(function(p) {
+    if (['Mudah','Menengah','Sulit'].some(function(t){ return p.textContent.includes(t); })) {
+      p.classList.remove('active');
+    }
+  });
+  if (filterSulit === sulit) {
+    filterSulit = 'semua';
+  } else {
+    el.classList.add('active');
+    filterSulit = sulit;
+  }
+  renderTopik();
+}
+
+function bukaModalTopik() {
+  const result = _sb.auth.getSession();
+  result.then(function(r) {
+    if (!r.data.session) { alert('Login dulu untuk submit topik!'); showPage('login'); return; }
+    document.getElementById('modal-topik').classList.add('open');
+  });
+}
+
+function tutupModal() {
+  document.getElementById('modal-topik').classList.remove('open');
+}
+
+async function submitTopik() {
+  const result = await _sb.auth.getSession();
+  const session = result.data.session;
+  if (!session) { alert('Login dulu!'); return; }
+  const judul = document.getElementById('topik-judul').value.trim();
+  const deskripsi = document.getElementById('topik-deskripsi').value.trim();
+  const jenis = document.getElementById('topik-jenis').value;
+  const sulit = document.getElementById('topik-sulit').value;
+  const contoh = document.getElementById('topik-contoh').value.trim();
+  const kata = document.getElementById('topik-kata').value.trim();
+  const mkId = document.getElementById('topik-mk').value;
+  if (!judul || !deskripsi) { alert('Judul dan deskripsi wajib diisi!'); return; }
+  const { error } = await _sb.from('topik_penelitian').insert({
+    judul, deskripsi, jenis,
+    tingkat_kesulitan: sulit,
+    contoh_judul: contoh || null,
+    kata_kunci: kata || null,
+    matakuliah_id: mkId ? parseInt(mkId) : null,
+    submitted_by: session.user.id,
+    disetujui: false
+  });
+  if (error) { alert('Gagal submit: ' + error.message); return; }
+  alert('Topik berhasil dikirim! Menunggu persetujuan admin.');
+  tutupModal();
+}
+
+/* ── ADMIN ── */
+async function cekAdmin(user) {
+  const { data } = await _sb.from('profiles').select('is_admin').eq('id', user.id).single();
+  if (data && data.is_admin) {
+    document.getElementById('nav-admin').style.display = '';
+    muatDataAdmin();
+  }
+}
+
+async function muatDataAdmin() {
+  const { count: totalDok } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', true);
+  const { count: pending } = await _sb.from('dokumen').select('*', {count:'exact',head:true}).eq('disetujui', false);
+  const { count: pendingTopik } = await _sb.from('topik_penelitian').select('*', {count:'exact',head:true}).eq('disetujui', false);
+  const { count: totalUser } = await _sb.from('profiles').select('*', {count:'exact',head:true});
+  document.getElementById('admin-total-dok').textContent = totalDok || 0;
+  document.getElementById('admin-pending').textContent = (pending || 0) + (pendingTopik || 0);
+  document.getElementById('admin-total-user').textContent = totalUser || 0;
+
+  const { data: pendingDocs } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', false).order('created_at', {ascending: false});
+  var pendingList = document.getElementById('admin-pending-list');
+  if (!pendingDocs || pendingDocs.length === 0) {
+    pendingList.innerHTML = '<div class="empty-state"><div class="empty-icon">✅</div>Tidak ada dokumen yang menunggu persetujuan.</div>';
+  } else {
+    pendingList.innerHTML = pendingDocs.map(function(d) {
+      return '<div class="pending-item" id="pending-'+d.id+'">' +
+        '<div class="pending-body">' +
+          '<div class="pending-title">'+d.judul+'</div>' +
+          '<div class="pending-meta">' +
+            '<span>👤 '+d.penulis+'</span>' +
+            '<span>📅 '+(d.tahun||'-')+'</span>' +
+            '<span>📂 '+d.jenis+'</span>' +
+            '<span>📚 '+(d.matakuliah?d.matakuliah.nama:'-')+'</span>' +
+          '</div>' +
+          (d.abstrak ? '<div style="font-size:12px;color:var(--ink-soft);margin-top:6px;line-height:1.5;">'+d.abstrak.substring(0,150)+'...</div>' : '') +
+          '<div class="pending-actions">' +
+            '<button class="btn-approve" onclick="setujuiDokumen(\''+d.id+'\')">✓ Setujui</button>' +
+            '<button class="btn-reject" onclick="tolakDokumen(\''+d.id+'\')">✕ Tolak</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  const { data: aktifDocs } = await _sb.from('dokumen').select('*, matakuliah(nama)').eq('disetujui', true).order('created_at', {ascending: false}).limit(10);
+  var aktifList = document.getElementById('admin-aktif-list');
+  if (!aktifDocs || aktifDocs.length === 0) {
+    aktifList.innerHTML = '<div class="empty-state"><div class="empty-icon">📚</div>Belum ada dokumen aktif.</div>';
+  } else {
+    aktifList.innerHTML = aktifDocs.map(function(d) {
+      return '<div class="pending-item">' +
+        '<div class="pending-body">' +
+          '<div class="pending-title">'+d.judul+'</div>' +
+          '<div class="pending-meta">' +
+            '<span>👤 '+d.penulis+'</span>' +
+            '<span>📂 '+d.jenis+'</span>' +
+            '<span>📚 '+(d.matakuliah?d.matakuliah.nama:'-')+'</span>' +
+            '<span>⬇️ '+d.jumlah_unduhan+' unduhan</span>' +
+          '</div>' +
+          '<div class="pending-actions">' +
+            '<button class="btn-reject" onclick="hapusDokumen(\''+d.id+'\')">🗑 Hapus</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+}
+
+async function setujuiDokumen(id) {
+  const { error } = await _sb.from('dokumen').update({disetujui: true}).eq('id', id);
+  if (error) { alert('Gagal menyetujui: ' + error.message); return; }
+  alert('Dokumen berhasil disetujui!');
+  muatDataAdmin(); muatDokumen(); muatKoleksi();
+}
+
+async function tolakDokumen(id) {
+  if (!confirm('Yakin ingin menolak dan menghapus dokumen ini?')) return;
+  const { error } = await _sb.from('dokumen').delete().eq('id', id);
+  if (error) { alert('Gagal menolak: ' + error.message); return; }
+  alert('Dokumen berhasil ditolak.'); muatDataAdmin();
+}
+
+async function hapusDokumen(id) {
+  if (!confirm('Yakin ingin menghapus dokumen ini?')) return;
+  const { error } = await _sb.from('dokumen').delete().eq('id', id);
+  if (error) { alert('Gagal menghapus: ' + error.message); return; }
+  alert('Dokumen berhasil dihapus.'); muatDataAdmin(); muatDokumen(); muatKoleksi();
+}
+
+
+</script>
+</body>
+</html>
